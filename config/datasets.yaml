@@ -1,4 +1,26 @@
 MARKET1501:
   IMAGE_EXTENSIONS: [".jpg", ".jpeg", ".png"]
-DATAPATH: "/media/jurgen/personal/personal_research/person-reid/reid/datasets/Market-1501-v15.09.15/bounding_box_test/"
+  DATAPATH: "/media/jurgen/personal/personal_research/person-reid/reid/datasets/Market-1501-v15.09.15/bounding_box_test/"
 BATCH_SIZE: 32
+
+CUHK03:
+  IMAGE_EXTENSIONS: [".jpg", ".jpeg", ".png"]
+  # DATAPATH: "/media/jurgen/personal/personal_research/person-reid/reid/datasets/Market-1501-v15.09.15/bounding_box_test/"
+MSMT17:
+  IMAGE_EXTENSIONS: [".jpg", ".jpeg", ".png"]
+  # DATAPATH: "/media/jurgen/personal/personal_research/person-reid/reid/datasets/Market-1501-v15.09.15/bounding_box_test/"
+VIPER:
+  IMAGE_EXTENSIONS: [".jpg", ".jpeg", ".png"]
+  # DATAPATH: "/media/jurgen/personal/personal_research/person-reid/reid/datasets/Market-1501-v15.09.15/bounding_box_test/"
+LTCC:
+  IMAGE_EXTENSIONS: [".jpg", ".jpeg", ".png"]
+  # DATAPATH: "/media/jurgen/personal/personal_research/person-reid/reid/datasets/Market-1501-v15.09.15/bounding_box_test/"
+PRCC:
+  IMAGE_EXTENSIONS: [".jpg", ".jpeg", ".png"]
+  # DATAPATH: "/media/jurgen/personal/personal_research/person-reid/reid/datasets/Market-1501-v15.09.15/bounding_box_test/"
+VC_CLOTHES:
+  IMAGE_EXTENSIONS: [".jpg", ".jpeg", ".png"]
+  # DATAPATH: "/media/jurgen/personal/personal_research/person-reid/reid/datasets/Market-1501-v15.09.15/bounding_box_test/"
+REAL28:
+  IMAGE_EXTENSIONS: [".jpg", ".jpeg", ".png"]
+  # DATAPATH: "/media/jurgen/personal/personal_research/person-reid/reid/datasets/Market-1501-v15.09.15/bounding_box_test/"
