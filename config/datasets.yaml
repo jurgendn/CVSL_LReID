@@ -21,7 +21,7 @@ PRCC:
   DATAPATH: 'data/prcc'
 VC_CLOTHES:
   IMAGE_EXTENSIONS: [".jpg"]
-  DATAPATH: 'data/vcclothes'
+  DATAPATH: 'data/vc-clothes'
 REAL28:
   IMAGE_EXTENSIONS: [".jpeg"]
   DATAPATH: 'data/real28'
