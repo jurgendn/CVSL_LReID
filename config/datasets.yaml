@@ -5,25 +5,25 @@ MARKET1501:
 
 CUHK03:
   IMAGE_EXTENSIONS: [".png"]
-  DATAPATH: 'data/cuhk03'
+  DATAPATH: 'data/cuhk03/jsons'
 
 MSMT17:
   IMAGE_EXTENSIONS: [".jpg", ".jpeg", ".png"]
-  DATAPATH: 'data/msmt17'
+  DATAPATH: 'data/msmt17/jsons'
 VIPER:
   IMAGE_EXTENSIONS: [".jpg", ".jpeg", ".png"]
-  DATAPATH: "data/viper"
+  DATAPATH: "data/viper/jsons"
 LTCC:
   IMAGE_EXTENSIONS: [".jpg", ".jpeg", ".png"]
-  DATAPATH: 'data/ltcc'
+  DATAPATH: 'data/ltcc/jsons'
 PRCC:
   IMAGE_EXTENSIONS: [".jpg"]
-  DATAPATH: 'data/prcc'
+  DATAPATH: 'data/prcc/jsons'
 VC_CLOTHES:
   IMAGE_EXTENSIONS: [".jpg"]
-  DATAPATH: 'data/vc-clothes'
+  DATAPATH: 'data/vc-clothes/jsons'
 REAL28:
   IMAGE_EXTENSIONS: [".jpeg"]
-  DATAPATH: 'data/real28'
+  DATAPATH: 'data/real28/jsons'
 
 BATCH_SIZE: 32

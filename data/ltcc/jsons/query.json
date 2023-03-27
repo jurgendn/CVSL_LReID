@@ -1,1 +1,2960 @@
-[["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/107_1_c8_017085.png", 107, 8, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/031_3_c9_011108.png", 31, 9, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_8_c11_007069.png", 142, 1, 8], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/072_1_c4_014701.png", 72, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_6_c6_013435.png", 141, 6, 6], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_3_c3_007435.png", 145, 3, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/110_1_c6_011799.png", 110, 6, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_1_c11_007474.png", 17, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/126_1_c9_016854.png", 126, 9, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/120_3_c4_012861.png", 120, 4, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/120_4_c9_012889.png", 120, 9, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/134_2_c9_011135.png", 134, 9, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/060_3_c11_004078.png", 60, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_1_c3_008999.png", 33, 3, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/083_3_c4_009716.png", 83, 4, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/078_2_c8_001642.png", 78, 8, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/011_2_c6_001825.png", 11, 6, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_3_c11_007767.png", 17, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_5_c6_009584.png", 74, 6, 5], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/026_1_c5_015614.png", 26, 5, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/108_1_c2_015433.png", 108, 2, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_5_c8_009216.png", 33, 8, 5], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/031_3_c11_011104.png", 31, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/137_1_c3_000842.png", 137, 3, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/052_1_c12_008885.png", 52, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_2_c4_008317.png", 25, 4, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/057_2_c3_000712.png", 57, 3, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/137_1_c8_000894.png", 137, 8, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_7_c6_008587.png", 25, 6, 7], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_9_c9_013481.png", 141, 9, 9], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_2_c6_013324.png", 141, 6, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/029_1_c7_001877.png", 29, 7, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/079_1_c2_003724.png", 79, 2, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/016_4_c8_004403.png", 16, 8, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/105_1_c2_001442.png", 105, 2, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_1_c4_008636.png", 28, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/073_1_c1_016030.png", 73, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_5_c9_008509.png", 25, 9, 5], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/121_1_c2_014859.png", 121, 2, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/134_1_c9_011122.png", 134, 9, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/049_1_c10_015200.png", 49, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/077_1_c10_015049.png", 77, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/049_1_c8_015193.png", 49, 8, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/020_4_c12_012183.png", 20, 1, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/016_3_c10_004355.png", 16, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/052_1_c7_008929.png", 52, 7, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_3_c6_007855.png", 17, 6, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/118_3_c11_014612.png", 118, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/110_2_c9_011939.png", 110, 9, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_1_c12_007268.png", 145, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/009_4_c5_005371.png", 9, 5, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/126_1_c1_016799.png", 126, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_3_c4_008370.png", 25, 4, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/083_2_c4_009706.png", 83, 4, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/139_1_c11_015927.png", 139, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_6_c12_004576.png", 143, 1, 6], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/126_1_c2_016838.png", 126, 2, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/112_1_c4_016139.png", 112, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/126_1_c10_016801.png", 126, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_2_c9_007696.png", 17, 9, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/020_5_c12_012206.png", 20, 1, 5], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/077_1_c3_015090.png", 77, 3, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_2_c1_007326.png", 145, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/016_2_c2_004349.png", 16, 2, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_2_c8_009057.png", 33, 8, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_9_c6_007086.png", 142, 6, 9], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_4_c6_013387.png", 141, 6, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/072_6_c11_014774.png", 72, 1, 6], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_3_c9_008803.png", 28, 9, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/084_1_c12_013744.png", 84, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_3_c3_009151.png", 33, 3, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_3_c9_009515.png", 74, 9, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/067_1_c3_015499.png", 67, 3, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/084_1_c1_013745.png", 84, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_11_c6_008094.png", 25, 6, 11], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/038_1_c11_016312.png", 38, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/067_1_c10_015468.png", 67, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_3_c5_007826.png", 17, 5, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_1_c9_007659.png", 17, 9, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/078_1_c8_001616.png", 78, 8, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/078_2_c10_001631.png", 78, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/110_1_c4_011764.png", 110, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/107_1_c5_017069.png", 107, 5, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_2_c4_009489.png", 74, 4, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/112_1_c11_016120.png", 112, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_1_c9_008071.png", 25, 9, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_2_c2_009036.png", 33, 2, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_5_c4_009552.png", 74, 4, 5], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/063_4_c9_013659.png", 63, 9, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_1_c12_004420.png", 143, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/006_1_c9_000151.png", 6, 9, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/011_3_c6_001846.png", 11, 6, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_2_c11_007670.png", 17, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/119_1_c10_015102.png", 119, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_1_c7_007295.png", 145, 7, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/009_1_c12_005191.png", 9, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_4_c2_009208.png", 33, 2, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/060_1_c11_004030.png", 60, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/082_2_c5_005165.png", 82, 5, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_2_c12_004453.png", 143, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/008_2_c6_013718.png", 8, 6, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/101_1_c11_010581.png", 101, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/009_4_c12_005366.png", 9, 1, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/107_1_c7_017077.png", 107, 7, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/060_1_c4_004038.png", 60, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/134_4_c9_011171.png", 134, 9, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_4_c7_004565.png", 143, 7, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/080_1_c3_015377.png", 80, 3, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/084_4_c7_013813.png", 84, 7, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/020_3_c1_012170.png", 20, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_1_c6_007585.png", 17, 6, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/009_1_c7_005235.png", 9, 7, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/067_1_c8_015508.png", 67, 8, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_12_c9_008152.png", 25, 9, 12], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/082_1_c5_005120.png", 82, 5, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_6_c5_009600.png", 74, 5, 6], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/072_2_c6_014709.png", 72, 6, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/104_4_c6_011695.png", 104, 6, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/072_2_c9_014731.png", 72, 9, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/001_1_c6_015885.png", 1, 6, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/114_1_c11_015800.png", 114, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/078_2_c2_001634.png", 78, 2, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_2_c4_006769.png", 142, 4, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_6_c11_006966.png", 142, 1, 6], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/078_1_c2_001613.png", 78, 2, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/073_1_c12_016017.png", 73, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_1_c4_007549.png", 17, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_12_c6_006741.png", 142, 6, 12], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_3_c1_004508.png", 143, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/090_3_c9_002388.png", 90, 9, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/008_1_c6_013679.png", 8, 6, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/084_2_c1_013763.png", 84, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/024_1_c6_004940.png", 24, 6, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/006_1_c4_000144.png", 6, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/062_1_c11_017095.png", 62, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_7_c9_008854.png", 28, 9, 7], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/107_1_c10_017016.png", 107, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_2_c11_009487.png", 74, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/126_1_c3_016848.png", 126, 3, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_7_c6_013448.png", 141, 6, 7], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/016_3_c3_004393.png", 16, 3, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/137_2_c8_000982.png", 137, 8, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/032_2_c9_009332.png", 32, 9, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_3_c2_009110.png", 33, 2, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/011_3_c11_001833.png", 11, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_1_c4_009460.png", 74, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_4_c1_004551.png", 143, 1, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/121_1_c10_014841.png", 121, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/110_1_c9_011813.png", 110, 9, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_5_c11_008457.png", 25, 1, 5], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/020_2_c1_012089.png", 20, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/038_1_c9_016327.png", 38, 9, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/107_1_c2_017048.png", 107, 2, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/090_2_c11_002352.png", 90, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_3_c6_009508.png", 74, 6, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/101_2_c9_010625.png", 101, 9, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/120_1_c6_012794.png", 120, 6, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/078_1_c10_001607.png", 78, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_4_c6_006853.png", 142, 6, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/126_1_c12_016826.png", 126, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/029_2_c5_001902.png", 29, 5, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_2_c4_008747.png", 28, 4, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/102_1_c12_016505.png", 102, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_3_c2_007408.png", 145, 2, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_10_c11_008659.png", 28, 1, 10], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/134_3_c9_011149.png", 134, 9, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_1_c8_009015.png", 33, 8, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/118_3_c6_014660.png", 118, 6, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_2_c4_007679.png", 17, 4, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/084_3_c1_013774.png", 84, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/011_2_c11_001818.png", 11, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/090_2_c6_002383.png", 90, 6, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/101_1_c4_010582.png", 101, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_3_c10_009078.png", 33, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/009_2_c7_005265.png", 9, 7, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/012_1_c11_016863.png", 12, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_10_c9_008687.png", 28, 9, 10], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_7_c6_007059.png", 142, 6, 7], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/057_1_c2_000632.png", 57, 2, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/046_2_c9_002436.png", 46, 9, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_6_c9_008553.png", 25, 9, 6], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/105_2_c10_001481.png", 105, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_1_c1_004410.png", 143, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/065_3_c9_008002.png", 65, 9, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/118_2_c6_014605.png", 118, 6, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/137_2_c2_000943.png", 137, 2, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/137_2_c3_000971.png", 137, 3, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_3_c6_008794.png", 28, 6, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/099_1_c2_014993.png", 99, 2, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_1_c6_009466.png", 74, 6, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/118_3_c4_014619.png", 118, 4, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_1_c5_004439.png", 143, 5, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_9_c9_008878.png", 28, 9, 9], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/037_1_c11_009410.png", 37, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/012_1_c4_016887.png", 12, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/110_2_c11_011911.png", 110, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_4_c9_009544.png", 74, 9, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/020_2_c5_012127.png", 20, 5, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/049_1_c2_015225.png", 49, 2, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/029_1_c1_001866.png", 29, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/031_1_c11_011037.png", 31, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_13_c6_006746.png", 142, 6, 13], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_2_c9_008775.png", 28, 9, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/001_1_c9_015888.png", 1, 9, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/118_4_c6_014692.png", 118, 6, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_3_c4_006834.png", 142, 4, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/016_2_c10_004333.png", 16, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_6_c1_004579.png", 143, 1, 6], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/119_1_c2_015108.png", 119, 2, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/101_1_c9_010606.png", 101, 9, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/072_3_c9_014742.png", 72, 9, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/058_2_c9_003704.png", 58, 9, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/032_2_c5_009309.png", 32, 5, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_3_c6_013338.png", 141, 6, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/079_2_c8_003762.png", 79, 8, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/112_1_c9_016163.png", 112, 9, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/055_1_c11_015999.png", 55, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_2_c6_008327.png", 25, 6, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/059_1_c5_005001.png", 59, 5, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/105_2_c2_001488.png", 105, 2, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_1_c7_004450.png", 143, 7, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_3_c11_008783.png", 28, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/083_4_c5_009724.png", 83, 5, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_2_c12_007305.png", 145, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_4_c4_009535.png", 74, 4, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/059_1_c1_004954.png", 59, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/052_2_c1_008972.png", 52, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/108_1_c10_015413.png", 108, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/082_2_c9_005184.png", 82, 9, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_5_c1_004568.png", 143, 1, 5], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/009_2_c12_005248.png", 9, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/063_2_c9_013597.png", 63, 9, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/055_1_c4_016007.png", 55, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/080_1_c2_015368.png", 80, 2, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_3_c7_004520.png", 143, 7, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_1_c9_008058.png", 25, 9, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/026_1_c11_015587.png", 26, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/042_1_c12_015553.png", 42, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_3_c9_007946.png", 17, 9, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/006_2_c9_000161.png", 6, 9, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_1_c11_013237.png", 141, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/114_1_c5_015825.png", 114, 5, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/031_1_c4_011040.png", 31, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/118_3_c9_014683.png", 118, 9, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_5_c9_006951.png", 142, 9, 5], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_2_c5_007683.png", 17, 5, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/014_1_c11_016574.png", 14, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/019_1_c6_016795.png", 19, 6, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/083_1_c4_009664.png", 83, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/001_1_c5_015874.png", 1, 5, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/118_1_c11_014545.png", 118, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/082_1_c1_005091.png", 82, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/113_1_c4_016779.png", 113, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_3_c4_007804.png", 17, 4, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/065_1_c6_007990.png", 65, 6, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/059_2_c12_005034.png", 59, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/024_2_c6_004942.png", 24, 6, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/001_1_c11_015833.png", 1, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/020_4_c1_012186.png", 20, 1, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/079_3_c10_003779.png", 79, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/077_1_c2_015066.png", 77, 2, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_3_c9_008399.png", 25, 9, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/032_2_c6_009325.png", 32, 6, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/072_5_c9_014757.png", 72, 9, 5], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/011_3_c9_001850.png", 11, 9, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/016_3_c2_004375.png", 16, 2, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/083_1_c1_009635.png", 83, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/055_1_c9_016012.png", 55, 9, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_5_c5_008480.png", 25, 5, 5], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/059_1_c7_005004.png", 59, 7, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/057_2_c10_000680.png", 57, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/037_2_c9_009456.png", 37, 9, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_1_c2_008989.png", 33, 2, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_1_c6_008047.png", 25, 6, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_2_c2_007330.png", 145, 2, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_6_c11_008834.png", 28, 1, 6], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/082_1_c9_005134.png", 82, 9, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_8_c9_008866.png", 28, 9, 8], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/009_2_c1_005260.png", 9, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_5_c6_008498.png", 25, 6, 5], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/063_3_c11_013627.png", 63, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_5_c6_006932.png", 142, 6, 5], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_4_c9_008443.png", 25, 9, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/052_2_c7_008977.png", 52, 7, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_3_c8_009176.png", 33, 8, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/012_1_c9_016921.png", 12, 9, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/114_1_c1_015817.png", 114, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_4_c12_004539.png", 143, 1, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/014_1_c9_016587.png", 14, 9, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_4_c11_008807.png", 28, 1, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/104_2_c4_011634.png", 104, 4, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/104_5_c6_011708.png", 104, 6, 5], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/125_1_c11_004583.png", 125, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/067_1_c2_015498.png", 67, 2, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_3_c11_013335.png", 141, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/078_3_c2_001669.png", 78, 2, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_4_c9_008819.png", 28, 9, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_2_c10_007300.png", 145, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/023_1_c4_014792.png", 23, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/059_1_c12_004952.png", 59, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/016_1_c3_004332.png", 16, 3, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_1_c5_007561.png", 17, 5, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_3_c4_009500.png", 74, 4, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/139_1_c4_015929.png", 139, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/062_1_c6_017116.png", 62, 6, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/023_1_c11_014787.png", 23, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_2_c6_006775.png", 142, 6, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/065_2_c6_007996.png", 65, 6, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/148_1_c2_014804.png", 148, 2, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_3_c6_008381.png", 25, 6, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_3_c7_007861.png", 17, 7, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_13_c9_008265.png", 25, 9, 13], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/083_1_c5_009674.png", 83, 5, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/057_2_c2_000701.png", 57, 2, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/026_1_c9_015625.png", 26, 9, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/125_2_c4_004604.png", 125, 4, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/099_1_c8_015018.png", 99, 8, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/038_1_c4_016306.png", 38, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/042_1_c1_015558.png", 42, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/114_1_c7_015831.png", 114, 7, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/059_2_c7_005076.png", 59, 7, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/009_3_c12_005287.png", 9, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/106_2_c9_003261.png", 106, 9, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/118_1_c6_014567.png", 118, 6, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/079_3_c8_003790.png", 79, 8, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_1_c1_007260.png", 145, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_2_c11_008294.png", 25, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/006_3_c9_000166.png", 6, 9, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_5_c9_008826.png", 28, 9, 5], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/011_1_c11_001807.png", 11, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/062_1_c4_017093.png", 62, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_2_c11_008712.png", 28, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/031_1_c9_011047.png", 31, 9, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/105_2_c3_001496.png", 105, 3, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/090_2_c5_002364.png", 90, 5, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/078_3_c10_001656.png", 78, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_9_c6_008601.png", 25, 6, 9], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/060_5_c9_004115.png", 60, 9, 5], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/016_4_c10_004400.png", 16, 1, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/134_1_c6_011115.png", 134, 6, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/120_6_c9_012916.png", 120, 9, 6], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/031_2_c6_011052.png", 31, 6, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_2_c4_013297.png", 141, 4, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/104_3_c11_011646.png", 104, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/031_2_c4_011073.png", 31, 4, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/060_3_c9_004091.png", 60, 9, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/024_1_c5_004923.png", 24, 5, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/063_5_c9_013660.png", 63, 9, 5], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_1_c5_007292.png", 145, 5, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/120_7_c9_012920.png", 120, 9, 7], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/009_1_c1_005220.png", 9, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/104_4_c11_011680.png", 104, 1, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/063_1_c4_013539.png", 63, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_13_c11_008212.png", 25, 1, 13], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/108_1_c8_015456.png", 108, 8, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/024_2_c9_004950.png", 24, 9, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/104_7_c6_011751.png", 104, 6, 7], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_6_c6_006998.png", 142, 6, 6], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/118_2_c4_014596.png", 118, 4, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_4_c6_008435.png", 25, 6, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_6_c9_008843.png", 28, 9, 6], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_3_c12_004492.png", 143, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/020_2_c12_012021.png", 20, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/120_4_c6_012884.png", 120, 6, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_2_c3_007358.png", 145, 3, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_8_c6_013471.png", 141, 6, 8], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/020_3_c12_012161.png", 20, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/020_5_c1_012210.png", 20, 1, 5], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/137_1_c2_000848.png", 137, 2, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/032_1_c5_009288.png", 32, 5, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/120_1_c4_012785.png", 120, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_10_c6_006717.png", 142, 6, 10], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/031_2_c9_011100.png", 31, 9, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/057_2_c8_000722.png", 57, 8, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/068_1_c4_014803.png", 68, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/029_1_c12_001860.png", 29, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_1_c6_006705.png", 142, 6, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/041_1_c9_016499.png", 41, 9, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/009_3_c7_005357.png", 9, 7, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/134_6_c9_011201.png", 134, 9, 6], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/079_1_c8_003734.png", 79, 8, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_3_c12_007388.png", 145, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/063_2_c6_013581.png", 63, 6, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/104_1_c4_011625.png", 104, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/068_1_c11_014800.png", 68, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_4_c4_008424.png", 25, 4, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_3_c10_009103.png", 33, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/104_5_c11_011699.png", 104, 1, 5], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/120_1_c9_012804.png", 120, 9, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_4_c10_009202.png", 33, 1, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/147_1_c12_015568.png", 147, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/104_6_c9_011732.png", 104, 9, 6], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_1_c4_008009.png", 25, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/084_3_c7_013804.png", 84, 7, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/060_2_c6_004049.png", 60, 6, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_1_c11_008630.png", 28, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_12_c10_008123.png", 25, 1, 12], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/052_2_c12_008968.png", 52, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/059_2_c1_005060.png", 59, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_11_c6_006727.png", 142, 6, 11], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_2_c1_004465.png", 143, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/120_5_c9_012907.png", 120, 9, 5], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_8_c6_007081.png", 142, 6, 8], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/080_1_c10_015357.png", 80, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_4_c9_007984.png", 17, 9, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/060_4_c9_004102.png", 60, 9, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/041_1_c4_016487.png", 41, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/139_1_c6_015945.png", 139, 6, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/014_1_c4_016578.png", 14, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/031_2_c11_011058.png", 31, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/046_1_c6_002415.png", 46, 6, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/020_1_c1_011961.png", 20, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/037_1_c5_009426.png", 37, 5, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/105_1_c3_001445.png", 105, 3, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_10_c6_008075.png", 25, 6, 10], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/148_1_c3_014811.png", 148, 3, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/041_1_c11_016484.png", 41, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/102_1_c7_016521.png", 102, 7, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/072_4_c9_014752.png", 72, 9, 4], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/078_3_c8_001694.png", 78, 8, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/083_1_c12_009632.png", 83, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/063_1_c9_013552.png", 63, 9, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/011_1_c4_001813.png", 11, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_7_c9_009629.png", 74, 9, 7], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/001_1_c4_015861.png", 1, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/134_7_c9_011218.png", 134, 9, 7], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_11_c9_008117.png", 25, 9, 11], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_1_c9_008644.png", 28, 9, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/137_2_c10_000898.png", 137, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/107_1_c1_017040.png", 107, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_13_c9_008234.png", 25, 9, 13], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/084_2_c7_013772.png", 84, 7, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/090_1_c4_002345.png", 90, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/118_2_c11_014580.png", 118, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/118_1_c4_014559.png", 118, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/084_2_c12_013754.png", 84, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/008_3_c11_013726.png", 8, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_5_c6_013419.png", 141, 6, 5], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/063_3_c9_013637.png", 63, 9, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/121_1_c3_014876.png", 121, 3, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_3_c10_007381.png", 145, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/046_2_c6_002422.png", 46, 6, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/058_1_c6_003689.png", 58, 6, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_9_c9_008620.png", 25, 9, 9], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/019_1_c11_016791.png", 19, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_6_c9_007041.png", 142, 9, 6], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/057_1_c3_000662.png", 57, 3, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_1_c4_013266.png", 141, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_2_c3_009047.png", 33, 3, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_1_c4_006685.png", 142, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/080_1_c8_015383.png", 80, 8, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/105_1_c8_001456.png", 105, 8, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/120_2_c6_012835.png", 120, 6, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/113_1_c11_016772.png", 113, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_2_c11_006760.png", 142, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/063_1_c11_013497.png", 63, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/118_5_c9_014695.png", 118, 9, 5], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/147_1_c1_015577.png", 147, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/121_1_c8_014897.png", 121, 8, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/016_1_c2_004319.png", 16, 2, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/099_1_c10_014978.png", 99, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/113_1_c9_016782.png", 113, 9, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/106_1_c4_003253.png", 106, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/083_1_c3_009642.png", 83, 3, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/107_1_c12_017032.png", 107, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/134_5_c9_011179.png", 134, 9, 5], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_2_c11_013271.png", 141, 1, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/060_6_c11_004128.png", 60, 1, 6], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/104_6_c6_011720.png", 104, 6, 6], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/105_2_c8_001505.png", 105, 8, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_1_c11_008015.png", 25, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_8_c9_008594.png", 25, 9, 8], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/084_3_c12_013776.png", 84, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/101_1_c6_010587.png", 101, 6, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/009_3_c5_005328.png", 9, 5, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/078_3_c3_001681.png", 78, 3, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_6_c5_008519.png", 25, 5, 6], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/106_3_c9_003268.png", 106, 9, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_3_c12_007728.png", 17, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/139_1_c9_015948.png", 139, 9, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_2_c9_008348.png", 25, 9, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_12_c8_008135.png", 25, 8, 12], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/009_3_c1_005302.png", 9, 1, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/079_1_c3_003731.png", 79, 3, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_2_c6_007684.png", 17, 6, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/020_1_c5_011998.png", 20, 5, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/052_1_c1_008912.png", 52, 1, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/020_2_c7_012157.png", 20, 7, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/120_2_c4_012827.png", 120, 4, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/026_1_c4_015593.png", 26, 4, 1], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/104_3_c6_011651.png", 104, 6, 3], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/125_2_c4_004609.png", 125, 4, 2], ["/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_3_c1_007403.png", 145, 1, 3]]
+[
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/107_1_c8_017085.png",
+    "p_id": 107,
+    "cam_id": 8,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/031_3_c9_011108.png",
+    "p_id": 31,
+    "cam_id": 9,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_8_c11_007069.png",
+    "p_id": 142,
+    "cam_id": 1,
+    "cloth_id": 8
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/072_1_c4_014701.png",
+    "p_id": 72,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_6_c6_013435.png",
+    "p_id": 141,
+    "cam_id": 6,
+    "cloth_id": 6
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_3_c3_007435.png",
+    "p_id": 145,
+    "cam_id": 3,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/110_1_c6_011799.png",
+    "p_id": 110,
+    "cam_id": 6,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_1_c11_007474.png",
+    "p_id": 17,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/126_1_c9_016854.png",
+    "p_id": 126,
+    "cam_id": 9,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/120_3_c4_012861.png",
+    "p_id": 120,
+    "cam_id": 4,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/120_4_c9_012889.png",
+    "p_id": 120,
+    "cam_id": 9,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/134_2_c9_011135.png",
+    "p_id": 134,
+    "cam_id": 9,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/060_3_c11_004078.png",
+    "p_id": 60,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_1_c3_008999.png",
+    "p_id": 33,
+    "cam_id": 3,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/083_3_c4_009716.png",
+    "p_id": 83,
+    "cam_id": 4,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/078_2_c8_001642.png",
+    "p_id": 78,
+    "cam_id": 8,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/011_2_c6_001825.png",
+    "p_id": 11,
+    "cam_id": 6,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_3_c11_007767.png",
+    "p_id": 17,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_5_c6_009584.png",
+    "p_id": 74,
+    "cam_id": 6,
+    "cloth_id": 5
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/026_1_c5_015614.png",
+    "p_id": 26,
+    "cam_id": 5,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/108_1_c2_015433.png",
+    "p_id": 108,
+    "cam_id": 2,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_5_c8_009216.png",
+    "p_id": 33,
+    "cam_id": 8,
+    "cloth_id": 5
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/031_3_c11_011104.png",
+    "p_id": 31,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/137_1_c3_000842.png",
+    "p_id": 137,
+    "cam_id": 3,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/052_1_c12_008885.png",
+    "p_id": 52,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_2_c4_008317.png",
+    "p_id": 25,
+    "cam_id": 4,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/057_2_c3_000712.png",
+    "p_id": 57,
+    "cam_id": 3,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/137_1_c8_000894.png",
+    "p_id": 137,
+    "cam_id": 8,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_7_c6_008587.png",
+    "p_id": 25,
+    "cam_id": 6,
+    "cloth_id": 7
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_9_c9_013481.png",
+    "p_id": 141,
+    "cam_id": 9,
+    "cloth_id": 9
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_2_c6_013324.png",
+    "p_id": 141,
+    "cam_id": 6,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/029_1_c7_001877.png",
+    "p_id": 29,
+    "cam_id": 7,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/079_1_c2_003724.png",
+    "p_id": 79,
+    "cam_id": 2,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/016_4_c8_004403.png",
+    "p_id": 16,
+    "cam_id": 8,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/105_1_c2_001442.png",
+    "p_id": 105,
+    "cam_id": 2,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_1_c4_008636.png",
+    "p_id": 28,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/073_1_c1_016030.png",
+    "p_id": 73,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_5_c9_008509.png",
+    "p_id": 25,
+    "cam_id": 9,
+    "cloth_id": 5
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/121_1_c2_014859.png",
+    "p_id": 121,
+    "cam_id": 2,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/134_1_c9_011122.png",
+    "p_id": 134,
+    "cam_id": 9,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/049_1_c10_015200.png",
+    "p_id": 49,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/077_1_c10_015049.png",
+    "p_id": 77,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/049_1_c8_015193.png",
+    "p_id": 49,
+    "cam_id": 8,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/020_4_c12_012183.png",
+    "p_id": 20,
+    "cam_id": 1,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/016_3_c10_004355.png",
+    "p_id": 16,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/052_1_c7_008929.png",
+    "p_id": 52,
+    "cam_id": 7,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_3_c6_007855.png",
+    "p_id": 17,
+    "cam_id": 6,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/118_3_c11_014612.png",
+    "p_id": 118,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/110_2_c9_011939.png",
+    "p_id": 110,
+    "cam_id": 9,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_1_c12_007268.png",
+    "p_id": 145,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/009_4_c5_005371.png",
+    "p_id": 9,
+    "cam_id": 5,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/126_1_c1_016799.png",
+    "p_id": 126,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_3_c4_008370.png",
+    "p_id": 25,
+    "cam_id": 4,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/083_2_c4_009706.png",
+    "p_id": 83,
+    "cam_id": 4,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/139_1_c11_015927.png",
+    "p_id": 139,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_6_c12_004576.png",
+    "p_id": 143,
+    "cam_id": 1,
+    "cloth_id": 6
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/126_1_c2_016838.png",
+    "p_id": 126,
+    "cam_id": 2,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/112_1_c4_016139.png",
+    "p_id": 112,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/126_1_c10_016801.png",
+    "p_id": 126,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_2_c9_007696.png",
+    "p_id": 17,
+    "cam_id": 9,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/020_5_c12_012206.png",
+    "p_id": 20,
+    "cam_id": 1,
+    "cloth_id": 5
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/077_1_c3_015090.png",
+    "p_id": 77,
+    "cam_id": 3,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_2_c1_007326.png",
+    "p_id": 145,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/016_2_c2_004349.png",
+    "p_id": 16,
+    "cam_id": 2,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_2_c8_009057.png",
+    "p_id": 33,
+    "cam_id": 8,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_9_c6_007086.png",
+    "p_id": 142,
+    "cam_id": 6,
+    "cloth_id": 9
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_4_c6_013387.png",
+    "p_id": 141,
+    "cam_id": 6,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/072_6_c11_014774.png",
+    "p_id": 72,
+    "cam_id": 1,
+    "cloth_id": 6
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_3_c9_008803.png",
+    "p_id": 28,
+    "cam_id": 9,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/084_1_c12_013744.png",
+    "p_id": 84,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_3_c3_009151.png",
+    "p_id": 33,
+    "cam_id": 3,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_3_c9_009515.png",
+    "p_id": 74,
+    "cam_id": 9,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/067_1_c3_015499.png",
+    "p_id": 67,
+    "cam_id": 3,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/084_1_c1_013745.png",
+    "p_id": 84,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_11_c6_008094.png",
+    "p_id": 25,
+    "cam_id": 6,
+    "cloth_id": 11
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/038_1_c11_016312.png",
+    "p_id": 38,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/067_1_c10_015468.png",
+    "p_id": 67,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_3_c5_007826.png",
+    "p_id": 17,
+    "cam_id": 5,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_1_c9_007659.png",
+    "p_id": 17,
+    "cam_id": 9,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/078_1_c8_001616.png",
+    "p_id": 78,
+    "cam_id": 8,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/078_2_c10_001631.png",
+    "p_id": 78,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/110_1_c4_011764.png",
+    "p_id": 110,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/107_1_c5_017069.png",
+    "p_id": 107,
+    "cam_id": 5,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_2_c4_009489.png",
+    "p_id": 74,
+    "cam_id": 4,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/112_1_c11_016120.png",
+    "p_id": 112,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_1_c9_008071.png",
+    "p_id": 25,
+    "cam_id": 9,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_2_c2_009036.png",
+    "p_id": 33,
+    "cam_id": 2,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_5_c4_009552.png",
+    "p_id": 74,
+    "cam_id": 4,
+    "cloth_id": 5
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/063_4_c9_013659.png",
+    "p_id": 63,
+    "cam_id": 9,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_1_c12_004420.png",
+    "p_id": 143,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/006_1_c9_000151.png",
+    "p_id": 6,
+    "cam_id": 9,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/011_3_c6_001846.png",
+    "p_id": 11,
+    "cam_id": 6,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_2_c11_007670.png",
+    "p_id": 17,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/119_1_c10_015102.png",
+    "p_id": 119,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_1_c7_007295.png",
+    "p_id": 145,
+    "cam_id": 7,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/009_1_c12_005191.png",
+    "p_id": 9,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_4_c2_009208.png",
+    "p_id": 33,
+    "cam_id": 2,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/060_1_c11_004030.png",
+    "p_id": 60,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/082_2_c5_005165.png",
+    "p_id": 82,
+    "cam_id": 5,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_2_c12_004453.png",
+    "p_id": 143,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/008_2_c6_013718.png",
+    "p_id": 8,
+    "cam_id": 6,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/101_1_c11_010581.png",
+    "p_id": 101,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/009_4_c12_005366.png",
+    "p_id": 9,
+    "cam_id": 1,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/107_1_c7_017077.png",
+    "p_id": 107,
+    "cam_id": 7,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/060_1_c4_004038.png",
+    "p_id": 60,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/134_4_c9_011171.png",
+    "p_id": 134,
+    "cam_id": 9,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_4_c7_004565.png",
+    "p_id": 143,
+    "cam_id": 7,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/080_1_c3_015377.png",
+    "p_id": 80,
+    "cam_id": 3,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/084_4_c7_013813.png",
+    "p_id": 84,
+    "cam_id": 7,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/020_3_c1_012170.png",
+    "p_id": 20,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_1_c6_007585.png",
+    "p_id": 17,
+    "cam_id": 6,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/009_1_c7_005235.png",
+    "p_id": 9,
+    "cam_id": 7,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/067_1_c8_015508.png",
+    "p_id": 67,
+    "cam_id": 8,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_12_c9_008152.png",
+    "p_id": 25,
+    "cam_id": 9,
+    "cloth_id": 12
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/082_1_c5_005120.png",
+    "p_id": 82,
+    "cam_id": 5,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_6_c5_009600.png",
+    "p_id": 74,
+    "cam_id": 5,
+    "cloth_id": 6
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/072_2_c6_014709.png",
+    "p_id": 72,
+    "cam_id": 6,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/104_4_c6_011695.png",
+    "p_id": 104,
+    "cam_id": 6,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/072_2_c9_014731.png",
+    "p_id": 72,
+    "cam_id": 9,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/001_1_c6_015885.png",
+    "p_id": 1,
+    "cam_id": 6,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/114_1_c11_015800.png",
+    "p_id": 114,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/078_2_c2_001634.png",
+    "p_id": 78,
+    "cam_id": 2,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_2_c4_006769.png",
+    "p_id": 142,
+    "cam_id": 4,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_6_c11_006966.png",
+    "p_id": 142,
+    "cam_id": 1,
+    "cloth_id": 6
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/078_1_c2_001613.png",
+    "p_id": 78,
+    "cam_id": 2,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/073_1_c12_016017.png",
+    "p_id": 73,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_1_c4_007549.png",
+    "p_id": 17,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_12_c6_006741.png",
+    "p_id": 142,
+    "cam_id": 6,
+    "cloth_id": 12
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_3_c1_004508.png",
+    "p_id": 143,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/090_3_c9_002388.png",
+    "p_id": 90,
+    "cam_id": 9,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/008_1_c6_013679.png",
+    "p_id": 8,
+    "cam_id": 6,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/084_2_c1_013763.png",
+    "p_id": 84,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/024_1_c6_004940.png",
+    "p_id": 24,
+    "cam_id": 6,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/006_1_c4_000144.png",
+    "p_id": 6,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/062_1_c11_017095.png",
+    "p_id": 62,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_7_c9_008854.png",
+    "p_id": 28,
+    "cam_id": 9,
+    "cloth_id": 7
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/107_1_c10_017016.png",
+    "p_id": 107,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_2_c11_009487.png",
+    "p_id": 74,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/126_1_c3_016848.png",
+    "p_id": 126,
+    "cam_id": 3,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_7_c6_013448.png",
+    "p_id": 141,
+    "cam_id": 6,
+    "cloth_id": 7
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/016_3_c3_004393.png",
+    "p_id": 16,
+    "cam_id": 3,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/137_2_c8_000982.png",
+    "p_id": 137,
+    "cam_id": 8,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/032_2_c9_009332.png",
+    "p_id": 32,
+    "cam_id": 9,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_3_c2_009110.png",
+    "p_id": 33,
+    "cam_id": 2,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/011_3_c11_001833.png",
+    "p_id": 11,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_1_c4_009460.png",
+    "p_id": 74,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_4_c1_004551.png",
+    "p_id": 143,
+    "cam_id": 1,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/121_1_c10_014841.png",
+    "p_id": 121,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/110_1_c9_011813.png",
+    "p_id": 110,
+    "cam_id": 9,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_5_c11_008457.png",
+    "p_id": 25,
+    "cam_id": 1,
+    "cloth_id": 5
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/020_2_c1_012089.png",
+    "p_id": 20,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/038_1_c9_016327.png",
+    "p_id": 38,
+    "cam_id": 9,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/107_1_c2_017048.png",
+    "p_id": 107,
+    "cam_id": 2,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/090_2_c11_002352.png",
+    "p_id": 90,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_3_c6_009508.png",
+    "p_id": 74,
+    "cam_id": 6,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/101_2_c9_010625.png",
+    "p_id": 101,
+    "cam_id": 9,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/120_1_c6_012794.png",
+    "p_id": 120,
+    "cam_id": 6,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/078_1_c10_001607.png",
+    "p_id": 78,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_4_c6_006853.png",
+    "p_id": 142,
+    "cam_id": 6,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/126_1_c12_016826.png",
+    "p_id": 126,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/029_2_c5_001902.png",
+    "p_id": 29,
+    "cam_id": 5,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_2_c4_008747.png",
+    "p_id": 28,
+    "cam_id": 4,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/102_1_c12_016505.png",
+    "p_id": 102,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_3_c2_007408.png",
+    "p_id": 145,
+    "cam_id": 2,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_10_c11_008659.png",
+    "p_id": 28,
+    "cam_id": 1,
+    "cloth_id": 10
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/134_3_c9_011149.png",
+    "p_id": 134,
+    "cam_id": 9,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_1_c8_009015.png",
+    "p_id": 33,
+    "cam_id": 8,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/118_3_c6_014660.png",
+    "p_id": 118,
+    "cam_id": 6,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_2_c4_007679.png",
+    "p_id": 17,
+    "cam_id": 4,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/084_3_c1_013774.png",
+    "p_id": 84,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/011_2_c11_001818.png",
+    "p_id": 11,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/090_2_c6_002383.png",
+    "p_id": 90,
+    "cam_id": 6,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/101_1_c4_010582.png",
+    "p_id": 101,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_3_c10_009078.png",
+    "p_id": 33,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/009_2_c7_005265.png",
+    "p_id": 9,
+    "cam_id": 7,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/012_1_c11_016863.png",
+    "p_id": 12,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_10_c9_008687.png",
+    "p_id": 28,
+    "cam_id": 9,
+    "cloth_id": 10
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_7_c6_007059.png",
+    "p_id": 142,
+    "cam_id": 6,
+    "cloth_id": 7
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/057_1_c2_000632.png",
+    "p_id": 57,
+    "cam_id": 2,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/046_2_c9_002436.png",
+    "p_id": 46,
+    "cam_id": 9,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_6_c9_008553.png",
+    "p_id": 25,
+    "cam_id": 9,
+    "cloth_id": 6
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/105_2_c10_001481.png",
+    "p_id": 105,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_1_c1_004410.png",
+    "p_id": 143,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/065_3_c9_008002.png",
+    "p_id": 65,
+    "cam_id": 9,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/118_2_c6_014605.png",
+    "p_id": 118,
+    "cam_id": 6,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/137_2_c2_000943.png",
+    "p_id": 137,
+    "cam_id": 2,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/137_2_c3_000971.png",
+    "p_id": 137,
+    "cam_id": 3,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_3_c6_008794.png",
+    "p_id": 28,
+    "cam_id": 6,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/099_1_c2_014993.png",
+    "p_id": 99,
+    "cam_id": 2,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_1_c6_009466.png",
+    "p_id": 74,
+    "cam_id": 6,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/118_3_c4_014619.png",
+    "p_id": 118,
+    "cam_id": 4,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_1_c5_004439.png",
+    "p_id": 143,
+    "cam_id": 5,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_9_c9_008878.png",
+    "p_id": 28,
+    "cam_id": 9,
+    "cloth_id": 9
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/037_1_c11_009410.png",
+    "p_id": 37,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/012_1_c4_016887.png",
+    "p_id": 12,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/110_2_c11_011911.png",
+    "p_id": 110,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_4_c9_009544.png",
+    "p_id": 74,
+    "cam_id": 9,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/020_2_c5_012127.png",
+    "p_id": 20,
+    "cam_id": 5,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/049_1_c2_015225.png",
+    "p_id": 49,
+    "cam_id": 2,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/029_1_c1_001866.png",
+    "p_id": 29,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/031_1_c11_011037.png",
+    "p_id": 31,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_13_c6_006746.png",
+    "p_id": 142,
+    "cam_id": 6,
+    "cloth_id": 13
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_2_c9_008775.png",
+    "p_id": 28,
+    "cam_id": 9,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/001_1_c9_015888.png",
+    "p_id": 1,
+    "cam_id": 9,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/118_4_c6_014692.png",
+    "p_id": 118,
+    "cam_id": 6,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_3_c4_006834.png",
+    "p_id": 142,
+    "cam_id": 4,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/016_2_c10_004333.png",
+    "p_id": 16,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_6_c1_004579.png",
+    "p_id": 143,
+    "cam_id": 1,
+    "cloth_id": 6
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/119_1_c2_015108.png",
+    "p_id": 119,
+    "cam_id": 2,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/101_1_c9_010606.png",
+    "p_id": 101,
+    "cam_id": 9,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/072_3_c9_014742.png",
+    "p_id": 72,
+    "cam_id": 9,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/058_2_c9_003704.png",
+    "p_id": 58,
+    "cam_id": 9,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/032_2_c5_009309.png",
+    "p_id": 32,
+    "cam_id": 5,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_3_c6_013338.png",
+    "p_id": 141,
+    "cam_id": 6,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/079_2_c8_003762.png",
+    "p_id": 79,
+    "cam_id": 8,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/112_1_c9_016163.png",
+    "p_id": 112,
+    "cam_id": 9,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/055_1_c11_015999.png",
+    "p_id": 55,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_2_c6_008327.png",
+    "p_id": 25,
+    "cam_id": 6,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/059_1_c5_005001.png",
+    "p_id": 59,
+    "cam_id": 5,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/105_2_c2_001488.png",
+    "p_id": 105,
+    "cam_id": 2,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_1_c7_004450.png",
+    "p_id": 143,
+    "cam_id": 7,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_3_c11_008783.png",
+    "p_id": 28,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/083_4_c5_009724.png",
+    "p_id": 83,
+    "cam_id": 5,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_2_c12_007305.png",
+    "p_id": 145,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_4_c4_009535.png",
+    "p_id": 74,
+    "cam_id": 4,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/059_1_c1_004954.png",
+    "p_id": 59,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/052_2_c1_008972.png",
+    "p_id": 52,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/108_1_c10_015413.png",
+    "p_id": 108,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/082_2_c9_005184.png",
+    "p_id": 82,
+    "cam_id": 9,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_5_c1_004568.png",
+    "p_id": 143,
+    "cam_id": 1,
+    "cloth_id": 5
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/009_2_c12_005248.png",
+    "p_id": 9,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/063_2_c9_013597.png",
+    "p_id": 63,
+    "cam_id": 9,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/055_1_c4_016007.png",
+    "p_id": 55,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/080_1_c2_015368.png",
+    "p_id": 80,
+    "cam_id": 2,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_3_c7_004520.png",
+    "p_id": 143,
+    "cam_id": 7,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_1_c9_008058.png",
+    "p_id": 25,
+    "cam_id": 9,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/026_1_c11_015587.png",
+    "p_id": 26,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/042_1_c12_015553.png",
+    "p_id": 42,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_3_c9_007946.png",
+    "p_id": 17,
+    "cam_id": 9,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/006_2_c9_000161.png",
+    "p_id": 6,
+    "cam_id": 9,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_1_c11_013237.png",
+    "p_id": 141,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/114_1_c5_015825.png",
+    "p_id": 114,
+    "cam_id": 5,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/031_1_c4_011040.png",
+    "p_id": 31,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/118_3_c9_014683.png",
+    "p_id": 118,
+    "cam_id": 9,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_5_c9_006951.png",
+    "p_id": 142,
+    "cam_id": 9,
+    "cloth_id": 5
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_2_c5_007683.png",
+    "p_id": 17,
+    "cam_id": 5,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/014_1_c11_016574.png",
+    "p_id": 14,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/019_1_c6_016795.png",
+    "p_id": 19,
+    "cam_id": 6,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/083_1_c4_009664.png",
+    "p_id": 83,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/001_1_c5_015874.png",
+    "p_id": 1,
+    "cam_id": 5,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/118_1_c11_014545.png",
+    "p_id": 118,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/082_1_c1_005091.png",
+    "p_id": 82,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/113_1_c4_016779.png",
+    "p_id": 113,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_3_c4_007804.png",
+    "p_id": 17,
+    "cam_id": 4,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/065_1_c6_007990.png",
+    "p_id": 65,
+    "cam_id": 6,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/059_2_c12_005034.png",
+    "p_id": 59,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/024_2_c6_004942.png",
+    "p_id": 24,
+    "cam_id": 6,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/001_1_c11_015833.png",
+    "p_id": 1,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/020_4_c1_012186.png",
+    "p_id": 20,
+    "cam_id": 1,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/079_3_c10_003779.png",
+    "p_id": 79,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/077_1_c2_015066.png",
+    "p_id": 77,
+    "cam_id": 2,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_3_c9_008399.png",
+    "p_id": 25,
+    "cam_id": 9,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/032_2_c6_009325.png",
+    "p_id": 32,
+    "cam_id": 6,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/072_5_c9_014757.png",
+    "p_id": 72,
+    "cam_id": 9,
+    "cloth_id": 5
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/011_3_c9_001850.png",
+    "p_id": 11,
+    "cam_id": 9,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/016_3_c2_004375.png",
+    "p_id": 16,
+    "cam_id": 2,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/083_1_c1_009635.png",
+    "p_id": 83,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/055_1_c9_016012.png",
+    "p_id": 55,
+    "cam_id": 9,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_5_c5_008480.png",
+    "p_id": 25,
+    "cam_id": 5,
+    "cloth_id": 5
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/059_1_c7_005004.png",
+    "p_id": 59,
+    "cam_id": 7,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/057_2_c10_000680.png",
+    "p_id": 57,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/037_2_c9_009456.png",
+    "p_id": 37,
+    "cam_id": 9,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_1_c2_008989.png",
+    "p_id": 33,
+    "cam_id": 2,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_1_c6_008047.png",
+    "p_id": 25,
+    "cam_id": 6,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_2_c2_007330.png",
+    "p_id": 145,
+    "cam_id": 2,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_6_c11_008834.png",
+    "p_id": 28,
+    "cam_id": 1,
+    "cloth_id": 6
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/082_1_c9_005134.png",
+    "p_id": 82,
+    "cam_id": 9,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_8_c9_008866.png",
+    "p_id": 28,
+    "cam_id": 9,
+    "cloth_id": 8
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/009_2_c1_005260.png",
+    "p_id": 9,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_5_c6_008498.png",
+    "p_id": 25,
+    "cam_id": 6,
+    "cloth_id": 5
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/063_3_c11_013627.png",
+    "p_id": 63,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_5_c6_006932.png",
+    "p_id": 142,
+    "cam_id": 6,
+    "cloth_id": 5
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_4_c9_008443.png",
+    "p_id": 25,
+    "cam_id": 9,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/052_2_c7_008977.png",
+    "p_id": 52,
+    "cam_id": 7,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_3_c8_009176.png",
+    "p_id": 33,
+    "cam_id": 8,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/012_1_c9_016921.png",
+    "p_id": 12,
+    "cam_id": 9,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/114_1_c1_015817.png",
+    "p_id": 114,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_4_c12_004539.png",
+    "p_id": 143,
+    "cam_id": 1,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/014_1_c9_016587.png",
+    "p_id": 14,
+    "cam_id": 9,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_4_c11_008807.png",
+    "p_id": 28,
+    "cam_id": 1,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/104_2_c4_011634.png",
+    "p_id": 104,
+    "cam_id": 4,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/104_5_c6_011708.png",
+    "p_id": 104,
+    "cam_id": 6,
+    "cloth_id": 5
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/125_1_c11_004583.png",
+    "p_id": 125,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/067_1_c2_015498.png",
+    "p_id": 67,
+    "cam_id": 2,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_3_c11_013335.png",
+    "p_id": 141,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/078_3_c2_001669.png",
+    "p_id": 78,
+    "cam_id": 2,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_4_c9_008819.png",
+    "p_id": 28,
+    "cam_id": 9,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_2_c10_007300.png",
+    "p_id": 145,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/023_1_c4_014792.png",
+    "p_id": 23,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/059_1_c12_004952.png",
+    "p_id": 59,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/016_1_c3_004332.png",
+    "p_id": 16,
+    "cam_id": 3,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_1_c5_007561.png",
+    "p_id": 17,
+    "cam_id": 5,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_3_c4_009500.png",
+    "p_id": 74,
+    "cam_id": 4,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/139_1_c4_015929.png",
+    "p_id": 139,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/062_1_c6_017116.png",
+    "p_id": 62,
+    "cam_id": 6,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/023_1_c11_014787.png",
+    "p_id": 23,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_2_c6_006775.png",
+    "p_id": 142,
+    "cam_id": 6,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/065_2_c6_007996.png",
+    "p_id": 65,
+    "cam_id": 6,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/148_1_c2_014804.png",
+    "p_id": 148,
+    "cam_id": 2,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_3_c6_008381.png",
+    "p_id": 25,
+    "cam_id": 6,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_3_c7_007861.png",
+    "p_id": 17,
+    "cam_id": 7,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_13_c9_008265.png",
+    "p_id": 25,
+    "cam_id": 9,
+    "cloth_id": 13
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/083_1_c5_009674.png",
+    "p_id": 83,
+    "cam_id": 5,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/057_2_c2_000701.png",
+    "p_id": 57,
+    "cam_id": 2,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/026_1_c9_015625.png",
+    "p_id": 26,
+    "cam_id": 9,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/125_2_c4_004604.png",
+    "p_id": 125,
+    "cam_id": 4,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/099_1_c8_015018.png",
+    "p_id": 99,
+    "cam_id": 8,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/038_1_c4_016306.png",
+    "p_id": 38,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/042_1_c1_015558.png",
+    "p_id": 42,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/114_1_c7_015831.png",
+    "p_id": 114,
+    "cam_id": 7,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/059_2_c7_005076.png",
+    "p_id": 59,
+    "cam_id": 7,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/009_3_c12_005287.png",
+    "p_id": 9,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/106_2_c9_003261.png",
+    "p_id": 106,
+    "cam_id": 9,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/118_1_c6_014567.png",
+    "p_id": 118,
+    "cam_id": 6,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/079_3_c8_003790.png",
+    "p_id": 79,
+    "cam_id": 8,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_1_c1_007260.png",
+    "p_id": 145,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_2_c11_008294.png",
+    "p_id": 25,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/006_3_c9_000166.png",
+    "p_id": 6,
+    "cam_id": 9,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_5_c9_008826.png",
+    "p_id": 28,
+    "cam_id": 9,
+    "cloth_id": 5
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/011_1_c11_001807.png",
+    "p_id": 11,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/062_1_c4_017093.png",
+    "p_id": 62,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_2_c11_008712.png",
+    "p_id": 28,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/031_1_c9_011047.png",
+    "p_id": 31,
+    "cam_id": 9,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/105_2_c3_001496.png",
+    "p_id": 105,
+    "cam_id": 3,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/090_2_c5_002364.png",
+    "p_id": 90,
+    "cam_id": 5,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/078_3_c10_001656.png",
+    "p_id": 78,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_9_c6_008601.png",
+    "p_id": 25,
+    "cam_id": 6,
+    "cloth_id": 9
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/060_5_c9_004115.png",
+    "p_id": 60,
+    "cam_id": 9,
+    "cloth_id": 5
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/016_4_c10_004400.png",
+    "p_id": 16,
+    "cam_id": 1,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/134_1_c6_011115.png",
+    "p_id": 134,
+    "cam_id": 6,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/120_6_c9_012916.png",
+    "p_id": 120,
+    "cam_id": 9,
+    "cloth_id": 6
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/031_2_c6_011052.png",
+    "p_id": 31,
+    "cam_id": 6,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_2_c4_013297.png",
+    "p_id": 141,
+    "cam_id": 4,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/104_3_c11_011646.png",
+    "p_id": 104,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/031_2_c4_011073.png",
+    "p_id": 31,
+    "cam_id": 4,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/060_3_c9_004091.png",
+    "p_id": 60,
+    "cam_id": 9,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/024_1_c5_004923.png",
+    "p_id": 24,
+    "cam_id": 5,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/063_5_c9_013660.png",
+    "p_id": 63,
+    "cam_id": 9,
+    "cloth_id": 5
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_1_c5_007292.png",
+    "p_id": 145,
+    "cam_id": 5,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/120_7_c9_012920.png",
+    "p_id": 120,
+    "cam_id": 9,
+    "cloth_id": 7
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/009_1_c1_005220.png",
+    "p_id": 9,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/104_4_c11_011680.png",
+    "p_id": 104,
+    "cam_id": 1,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/063_1_c4_013539.png",
+    "p_id": 63,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_13_c11_008212.png",
+    "p_id": 25,
+    "cam_id": 1,
+    "cloth_id": 13
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/108_1_c8_015456.png",
+    "p_id": 108,
+    "cam_id": 8,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/024_2_c9_004950.png",
+    "p_id": 24,
+    "cam_id": 9,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/104_7_c6_011751.png",
+    "p_id": 104,
+    "cam_id": 6,
+    "cloth_id": 7
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_6_c6_006998.png",
+    "p_id": 142,
+    "cam_id": 6,
+    "cloth_id": 6
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/118_2_c4_014596.png",
+    "p_id": 118,
+    "cam_id": 4,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_4_c6_008435.png",
+    "p_id": 25,
+    "cam_id": 6,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_6_c9_008843.png",
+    "p_id": 28,
+    "cam_id": 9,
+    "cloth_id": 6
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_3_c12_004492.png",
+    "p_id": 143,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/020_2_c12_012021.png",
+    "p_id": 20,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/120_4_c6_012884.png",
+    "p_id": 120,
+    "cam_id": 6,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_2_c3_007358.png",
+    "p_id": 145,
+    "cam_id": 3,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_8_c6_013471.png",
+    "p_id": 141,
+    "cam_id": 6,
+    "cloth_id": 8
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/020_3_c12_012161.png",
+    "p_id": 20,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/020_5_c1_012210.png",
+    "p_id": 20,
+    "cam_id": 1,
+    "cloth_id": 5
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/137_1_c2_000848.png",
+    "p_id": 137,
+    "cam_id": 2,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/032_1_c5_009288.png",
+    "p_id": 32,
+    "cam_id": 5,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/120_1_c4_012785.png",
+    "p_id": 120,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_10_c6_006717.png",
+    "p_id": 142,
+    "cam_id": 6,
+    "cloth_id": 10
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/031_2_c9_011100.png",
+    "p_id": 31,
+    "cam_id": 9,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/057_2_c8_000722.png",
+    "p_id": 57,
+    "cam_id": 8,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/068_1_c4_014803.png",
+    "p_id": 68,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/029_1_c12_001860.png",
+    "p_id": 29,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_1_c6_006705.png",
+    "p_id": 142,
+    "cam_id": 6,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/041_1_c9_016499.png",
+    "p_id": 41,
+    "cam_id": 9,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/009_3_c7_005357.png",
+    "p_id": 9,
+    "cam_id": 7,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/134_6_c9_011201.png",
+    "p_id": 134,
+    "cam_id": 9,
+    "cloth_id": 6
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/079_1_c8_003734.png",
+    "p_id": 79,
+    "cam_id": 8,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_3_c12_007388.png",
+    "p_id": 145,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/063_2_c6_013581.png",
+    "p_id": 63,
+    "cam_id": 6,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/104_1_c4_011625.png",
+    "p_id": 104,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/068_1_c11_014800.png",
+    "p_id": 68,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_4_c4_008424.png",
+    "p_id": 25,
+    "cam_id": 4,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_3_c10_009103.png",
+    "p_id": 33,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/104_5_c11_011699.png",
+    "p_id": 104,
+    "cam_id": 1,
+    "cloth_id": 5
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/120_1_c9_012804.png",
+    "p_id": 120,
+    "cam_id": 9,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_4_c10_009202.png",
+    "p_id": 33,
+    "cam_id": 1,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/147_1_c12_015568.png",
+    "p_id": 147,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/104_6_c9_011732.png",
+    "p_id": 104,
+    "cam_id": 9,
+    "cloth_id": 6
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_1_c4_008009.png",
+    "p_id": 25,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/084_3_c7_013804.png",
+    "p_id": 84,
+    "cam_id": 7,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/060_2_c6_004049.png",
+    "p_id": 60,
+    "cam_id": 6,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_1_c11_008630.png",
+    "p_id": 28,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_12_c10_008123.png",
+    "p_id": 25,
+    "cam_id": 1,
+    "cloth_id": 12
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/052_2_c12_008968.png",
+    "p_id": 52,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/059_2_c1_005060.png",
+    "p_id": 59,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_11_c6_006727.png",
+    "p_id": 142,
+    "cam_id": 6,
+    "cloth_id": 11
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/143_2_c1_004465.png",
+    "p_id": 143,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/120_5_c9_012907.png",
+    "p_id": 120,
+    "cam_id": 9,
+    "cloth_id": 5
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_8_c6_007081.png",
+    "p_id": 142,
+    "cam_id": 6,
+    "cloth_id": 8
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/080_1_c10_015357.png",
+    "p_id": 80,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_4_c9_007984.png",
+    "p_id": 17,
+    "cam_id": 9,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/060_4_c9_004102.png",
+    "p_id": 60,
+    "cam_id": 9,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/041_1_c4_016487.png",
+    "p_id": 41,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/139_1_c6_015945.png",
+    "p_id": 139,
+    "cam_id": 6,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/014_1_c4_016578.png",
+    "p_id": 14,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/031_2_c11_011058.png",
+    "p_id": 31,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/046_1_c6_002415.png",
+    "p_id": 46,
+    "cam_id": 6,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/020_1_c1_011961.png",
+    "p_id": 20,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/037_1_c5_009426.png",
+    "p_id": 37,
+    "cam_id": 5,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/105_1_c3_001445.png",
+    "p_id": 105,
+    "cam_id": 3,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_10_c6_008075.png",
+    "p_id": 25,
+    "cam_id": 6,
+    "cloth_id": 10
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/148_1_c3_014811.png",
+    "p_id": 148,
+    "cam_id": 3,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/041_1_c11_016484.png",
+    "p_id": 41,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/102_1_c7_016521.png",
+    "p_id": 102,
+    "cam_id": 7,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/072_4_c9_014752.png",
+    "p_id": 72,
+    "cam_id": 9,
+    "cloth_id": 4
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/078_3_c8_001694.png",
+    "p_id": 78,
+    "cam_id": 8,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/083_1_c12_009632.png",
+    "p_id": 83,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/063_1_c9_013552.png",
+    "p_id": 63,
+    "cam_id": 9,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/011_1_c4_001813.png",
+    "p_id": 11,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/074_7_c9_009629.png",
+    "p_id": 74,
+    "cam_id": 9,
+    "cloth_id": 7
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/001_1_c4_015861.png",
+    "p_id": 1,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/134_7_c9_011218.png",
+    "p_id": 134,
+    "cam_id": 9,
+    "cloth_id": 7
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_11_c9_008117.png",
+    "p_id": 25,
+    "cam_id": 9,
+    "cloth_id": 11
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/028_1_c9_008644.png",
+    "p_id": 28,
+    "cam_id": 9,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/137_2_c10_000898.png",
+    "p_id": 137,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/107_1_c1_017040.png",
+    "p_id": 107,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_13_c9_008234.png",
+    "p_id": 25,
+    "cam_id": 9,
+    "cloth_id": 13
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/084_2_c7_013772.png",
+    "p_id": 84,
+    "cam_id": 7,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/090_1_c4_002345.png",
+    "p_id": 90,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/118_2_c11_014580.png",
+    "p_id": 118,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/118_1_c4_014559.png",
+    "p_id": 118,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/084_2_c12_013754.png",
+    "p_id": 84,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/008_3_c11_013726.png",
+    "p_id": 8,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_5_c6_013419.png",
+    "p_id": 141,
+    "cam_id": 6,
+    "cloth_id": 5
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/063_3_c9_013637.png",
+    "p_id": 63,
+    "cam_id": 9,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/121_1_c3_014876.png",
+    "p_id": 121,
+    "cam_id": 3,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_3_c10_007381.png",
+    "p_id": 145,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/046_2_c6_002422.png",
+    "p_id": 46,
+    "cam_id": 6,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/058_1_c6_003689.png",
+    "p_id": 58,
+    "cam_id": 6,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_9_c9_008620.png",
+    "p_id": 25,
+    "cam_id": 9,
+    "cloth_id": 9
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/019_1_c11_016791.png",
+    "p_id": 19,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_6_c9_007041.png",
+    "p_id": 142,
+    "cam_id": 9,
+    "cloth_id": 6
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/057_1_c3_000662.png",
+    "p_id": 57,
+    "cam_id": 3,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_1_c4_013266.png",
+    "p_id": 141,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/033_2_c3_009047.png",
+    "p_id": 33,
+    "cam_id": 3,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_1_c4_006685.png",
+    "p_id": 142,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/080_1_c8_015383.png",
+    "p_id": 80,
+    "cam_id": 8,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/105_1_c8_001456.png",
+    "p_id": 105,
+    "cam_id": 8,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/120_2_c6_012835.png",
+    "p_id": 120,
+    "cam_id": 6,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/113_1_c11_016772.png",
+    "p_id": 113,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/142_2_c11_006760.png",
+    "p_id": 142,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/063_1_c11_013497.png",
+    "p_id": 63,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/118_5_c9_014695.png",
+    "p_id": 118,
+    "cam_id": 9,
+    "cloth_id": 5
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/147_1_c1_015577.png",
+    "p_id": 147,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/121_1_c8_014897.png",
+    "p_id": 121,
+    "cam_id": 8,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/016_1_c2_004319.png",
+    "p_id": 16,
+    "cam_id": 2,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/099_1_c10_014978.png",
+    "p_id": 99,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/113_1_c9_016782.png",
+    "p_id": 113,
+    "cam_id": 9,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/106_1_c4_003253.png",
+    "p_id": 106,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/083_1_c3_009642.png",
+    "p_id": 83,
+    "cam_id": 3,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/107_1_c12_017032.png",
+    "p_id": 107,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/134_5_c9_011179.png",
+    "p_id": 134,
+    "cam_id": 9,
+    "cloth_id": 5
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/141_2_c11_013271.png",
+    "p_id": 141,
+    "cam_id": 1,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/060_6_c11_004128.png",
+    "p_id": 60,
+    "cam_id": 1,
+    "cloth_id": 6
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/104_6_c6_011720.png",
+    "p_id": 104,
+    "cam_id": 6,
+    "cloth_id": 6
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/105_2_c8_001505.png",
+    "p_id": 105,
+    "cam_id": 8,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_1_c11_008015.png",
+    "p_id": 25,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_8_c9_008594.png",
+    "p_id": 25,
+    "cam_id": 9,
+    "cloth_id": 8
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/084_3_c12_013776.png",
+    "p_id": 84,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/101_1_c6_010587.png",
+    "p_id": 101,
+    "cam_id": 6,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/009_3_c5_005328.png",
+    "p_id": 9,
+    "cam_id": 5,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/078_3_c3_001681.png",
+    "p_id": 78,
+    "cam_id": 3,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_6_c5_008519.png",
+    "p_id": 25,
+    "cam_id": 5,
+    "cloth_id": 6
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/106_3_c9_003268.png",
+    "p_id": 106,
+    "cam_id": 9,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_3_c12_007728.png",
+    "p_id": 17,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/139_1_c9_015948.png",
+    "p_id": 139,
+    "cam_id": 9,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_2_c9_008348.png",
+    "p_id": 25,
+    "cam_id": 9,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/025_12_c8_008135.png",
+    "p_id": 25,
+    "cam_id": 8,
+    "cloth_id": 12
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/009_3_c1_005302.png",
+    "p_id": 9,
+    "cam_id": 1,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/079_1_c3_003731.png",
+    "p_id": 79,
+    "cam_id": 3,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/017_2_c6_007684.png",
+    "p_id": 17,
+    "cam_id": 6,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/020_1_c5_011998.png",
+    "p_id": 20,
+    "cam_id": 5,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/052_1_c1_008912.png",
+    "p_id": 52,
+    "cam_id": 1,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/020_2_c7_012157.png",
+    "p_id": 20,
+    "cam_id": 7,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/120_2_c4_012827.png",
+    "p_id": 120,
+    "cam_id": 4,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/026_1_c4_015593.png",
+    "p_id": 26,
+    "cam_id": 4,
+    "cloth_id": 1
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/104_3_c6_011651.png",
+    "p_id": 104,
+    "cam_id": 6,
+    "cloth_id": 3
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/125_2_c4_004609.png",
+    "p_id": 125,
+    "cam_id": 4,
+    "cloth_id": 2
+  },
+  {
+    "img_path": "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query/145_3_c1_007403.png",
+    "p_id": 145,
+    "cam_id": 1,
+    "cloth_id": 3
+  }
+]

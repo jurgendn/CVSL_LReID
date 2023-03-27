@@ -1,6 +1,6 @@
 import json
 from itertools import chain
-
+import os.path as osp
 
 import torch
 from torch.utils.data import DataLoader
@@ -25,27 +25,29 @@ model.load_state_dict(weights)
 model.eval()
 model.cuda()
 
-dataset_names = ['market1501', 'cuhk03', 'msmt17', 'viper', 'ltcc', 'prcc', 'vc_clothes', 'real28']
-for dataset_name in dataset_names:
-    dataset = DatasetReID(dataset_name ,image_folder=cfg.DATAPATH, transforms=transform)
-    loader = DataLoader(dataset=dataset, batch_size=cfg.BATCH_SIZE)
+mode = 0 #training
+# dataset_names = ['market1501', 'cuhk03', 'msmt17', 'viper', 'ltcc', 'prcc', 'vc_clothes', 'real28']
+# for dataset_name in dataset_names:
+dataset_name = 'cuhk03'
+dataset = DatasetReID(dataset_name, transforms=transform, mode=mode)
+loader = DataLoader(dataset=dataset, batch_size=cfg.BATCH_SIZE)
 
-    out = []
+out = []
 
-    with torch.no_grad():
-        for x, _ in tqdm(loader):
-            x = x.cuda()
-            _, hoe = model(x)
-            orient = torch.argmax(hoe, dim=1)
-            out.append(orient.cpu().view(1, -1)[0])
+with torch.inference_mode():
+    for x, _ in tqdm(loader):
+        x = x.cuda()
+        _, hoe = model(x)
+        orient = torch.argmax(hoe, dim=1)
+        out.append(orient.cpu().view(1, -1)[0])
 
-    out = list(map(lambda s: s.numpy(), out))
-    out = list(chain.from_iterable(out))
-    label = list(map(lambda s: int(s), out))
+out = list(map(lambda s: s.numpy(), out))
+out = list(chain.from_iterable(out))
+label = list(map(lambda s: int(s), out))
 
-    file_name = list(map(get_filename, dataset.image))
+file_name = list(map(get_filename, dataset.image))
 
-    data = list(map(lambda s: make_objects(s[0], s[1]), zip(file_name, label)))
-
-    with open("bbox_train_orientation.json", "w") as f:
+data = list(map(lambda s: make_objects(s[0], s[1]), zip(file_name, label)))
+if mode == 0:
+    with open(osp.join('data', dataset_name, 'jsons', 'train.json'), "w") as f:
         json.dump(data, f, ensure_ascii=False)
