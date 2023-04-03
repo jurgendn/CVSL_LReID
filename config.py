@@ -1,12 +1,11 @@
-
 from dynaconf import Dynaconf
 
-cfg = Dynaconf(envvar_prefix="DYNACONF",
-               settings_files=["config/main_cfg.yaml"])
+GENERAL_CFG = Dynaconf(envvar_prefix="DYNACONF",
+                       settings_files=["config/main_cfg.yaml"])
 
-hrnet_cfg = Dynaconf(envvar_prefix="DYNACONF",
+HRNET_CFG = Dynaconf(envvar_prefix="DYNACONF",
                      settings_files=["config/pose_hrnet_w32_256_192.yaml"])
-market1501_cfg = Dynaconf(envar_prefix="DYNACONF",
+MARKET1501_CFG = Dynaconf(envar_prefix="DYNACONF",
                           settings_file=["config/datasets.yaml"])
-# `envvar_prefix` = export envvars with `export DYNACONF_FOO=bar`.
-# `settings_files` = Load these files in the order.
+BODY_POSE = Dynaconf(envar_prefix="DYNACONF",
+                     settings_file=["config/open_pose_body_pose.yaml"])
