@@ -5,6 +5,7 @@ from pytorch_lightning import LightningModule
 from torch import nn, optim
 from torch.nn import functional as F
 
+from src.models.modules.fusion_net import FusionNet
 from src.models.modules.r50 import FTNet
 from src.models.modules.shape_embedding import ShapeEmbedding
 
@@ -42,8 +43,7 @@ class LitModule(LightningModule):
             n_hidden=shape_n_hidden,
             out_features=shape_out_features,
             relation_layers=shape_relation_layers)
-        self.fusion = nn.Linear(in_features=1,
-                                out_features=1)  # Định nghĩa sau
+        self.fusion = FusionNet(out_features=1024)
         self.id_classification = nn.Linear(in_features=1024, out_features=751)
 
     def forward(self, x_image: torch.Tensor,
@@ -55,8 +55,8 @@ class LitModule(LightningModule):
                                             semantic=x_semantic_features,
                                             edge_index=edge_index)
 
-        fusion_feature = self.fusion(appreance=appearance_feature,
-                                     pose=pose_feature)
+        fusion_feature = self.fusion(appearance_features=appearance_feature,
+                                     shape_features=pose_feature)
         return fusion_feature
 
     def configure_optimizers(self, lr: float):

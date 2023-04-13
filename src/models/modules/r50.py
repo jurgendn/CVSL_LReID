@@ -86,7 +86,6 @@ class ClassBlock(nn.Module):
 class FTNet(nn.Module):
 
     def __init__(self,
-                 class_num=751,
                  droprate=0.5,
                  stride=2,
                  circle=False,
@@ -105,11 +104,6 @@ class FTNet(nn.Module):
         model_ft.avgpool = nn.AdaptiveAvgPool2d((1, 1))
         self.model = model_ft
         self.circle = circle
-        self.classifier = ClassBlock(2048,
-                                     class_num,
-                                     droprate,
-                                     linear=linear_num,
-                                     return_f=circle)
 
     def forward(self, x):
         x = self.model.conv1(x)
@@ -122,7 +116,6 @@ class FTNet(nn.Module):
         x = self.model.layer4(x)
         x = self.model.avgpool(x)
         x = x.view(x.size(0), x.size(1))
-        x = self.classifier(x)
         return x
 
 
