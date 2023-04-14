@@ -16,7 +16,7 @@ class LitModule(LightningModule):
         self,
         shape_semantic: torch.FloatTensor,
         shape_edge_index: torch.LongTensor,
-        r50_class_num: int = 751,
+        class_num: int = 751,
         r50_droprate: float = 0.5,
         r50_stride: int = 2,
         r50_circle: bool = False,
@@ -31,8 +31,7 @@ class LitModule(LightningModule):
         super(LitModule, self).__init__()
         self.shape_semantic = shape_semantic
         self.shape_edge_index = shape_edge_index
-        self.ft_net = FTNet(class_num=r50_class_num,
-                            droprate=r50_droprate,
+        self.ft_net = FTNet(droprate=r50_droprate,
                             stride=r50_stride,
                             circle=r50_circle,
                             ibn=r50_ibn,
@@ -44,7 +43,7 @@ class LitModule(LightningModule):
             out_features=shape_out_features,
             relation_layers=shape_relation_layers)
         self.fusion = FusionNet(out_features=1024)
-        self.id_classification = nn.Linear(in_features=1024, out_features=751)
+        self.id_classification = nn.Linear(in_features=1024, out_features=class_num)
 
     def forward(self, x_image: torch.Tensor,
                 x_pose_features: torch.FloatTensor,
