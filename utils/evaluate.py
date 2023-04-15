@@ -1,36 +1,43 @@
-def evaluate(self, gallery, query):
-        query_feature = query['feature']
-        query_cam = np.array(query['camera'])
-        query_label = np.array(query['label'])
-        gallery_feature = gallery['feature']
-        gallery_cam = np.array(gallery['camera'])
-        gallery_label = np.array(gallery['label'])
+import scipy.io
+import torch
+import numpy as np
+import os
 
-        # query_feature = query_feature.to(self.device)
-        # gallery_feature = gallery_feature.to(self.device)
+device = torch.device('cuda')
 
-        # print(query_feature.shape)
-        CMC = torch.IntTensor(len(gallery_label)).zero_()
-        ap = 0.0
-        for i in range(len(query_label)):
-            ap_tmp, CMC_tmp = self._evaluate(query_feature[i],query_label[i],query_cam[i],gallery_feature,gallery_label,gallery_cam)
-            if CMC_tmp[0]==-1:
-                continue
-            CMC = CMC + CMC_tmp
-            ap += ap_tmp
-            #print(i, CMC_tmp[0])
+def evaluate(gallery, query):
+    query_feature = query['feature']
+    query_cam = np.array(query['camera'])
+    query_label = np.array(query['label'])
+    gallery_feature = gallery['feature']
+    gallery_cam = np.array(gallery['camera'])
+    gallery_label = np.array(gallery['label'])
 
-        CMC = CMC.float()
-        CMC = CMC/len(query_label) #average CMC
-        # print(len(CMC))
-        # print('-- Rank@1: %f, Rank@5: %f, Rank@10: %f, mAP: %f'%(CMC[0], CMC[4], CMC[9], ap/len(query_label)))
-        return CMC, ap/len(query_label)
+    query_feature = query_feature.to(device)
+    gallery_feature = gallery_feature.to(device)
 
-def _evaluate(self,qf,ql,qc,gf,gl,gc):
+    # print(query_feature.shape)
+    CMC = torch.IntTensor(len(gallery_label)).zero_()
+    ap = 0.0
+    for i in range(len(query_label)):
+        ap_tmp, CMC_tmp = _evaluate(query_feature[i],query_label[i],query_cam[i],gallery_feature,gallery_label,gallery_cam)
+        if CMC_tmp[0]==-1:
+            continue
+        CMC = CMC + CMC_tmp
+        ap += ap_tmp
+        #print(i, CMC_tmp[0])
+
+    CMC = CMC.float()
+    CMC = CMC/len(query_label) #average CMC
+    # print(len(CMC))
+    # print('-- Rank@1: %f, Rank@5: %f, Rank@10: %f, mAP: %f'%(CMC[0], CMC[4], CMC[9], ap/len(query_label)))
+    return CMC, ap/len(query_label)
+
+def _evaluate(qf,ql,qc,gf,gl,gc):
     query = qf.view(-1,1)
     # print(query.shape)
     score = torch.mm(gf,query)
-    score = score.squeeze(1).to(self.cpu_device)
+    score = score.squeeze(1).cpu()
     score = score.numpy()
     # predict index
     index = np.argsort(score)  #from small to large
@@ -45,11 +52,11 @@ def _evaluate(self,qf,ql,qc,gf,gl,gc):
     junk_index2 = np.intersect1d(query_index, camera_index)
     junk_index = np.append(junk_index2, junk_index1) #.flatten())
 
-    CMC_tmp = self.compute_mAP(index, good_index, junk_index)
+    CMC_tmp = compute_mAP(index, good_index, junk_index)
     return CMC_tmp
 
 # cloth-changing
-def evaluate2(self, gallery, query):
+def evaluate2( gallery, query):
     query_feature = query['feature']
     query_cam = np.array(query['camera'])
     query_label = np.array(query['label'])
@@ -59,14 +66,14 @@ def evaluate2(self, gallery, query):
     gallery_label = np.array(gallery['label'])
     gallery_cloth = np.array(gallery['cloth'])
 
-    # query_feature = query_feature.to(self.device)
-    # gallery_feature = gallery_feature.to(self.device)
+    # query_feature = query_feature.to(device)
+    # gallery_feature = gallery_feature.to(device)
 
     # print(query_feature.shape)
     CMC = torch.IntTensor(len(gallery_label)).zero_()
     ap = 0.0
     for i in range(len(query_label)):
-        ap_tmp, CMC_tmp = self._evaluate2(query_feature[i],query_label[i],query_cam[i],query_cloth[i],
+        ap_tmp, CMC_tmp = _evaluate2(query_feature[i],query_label[i],query_cam[i],query_cloth[i],
                                             gallery_feature,gallery_label,gallery_cam,gallery_cloth)
         if CMC_tmp[0]==-1:
             continue
@@ -80,11 +87,11 @@ def evaluate2(self, gallery, query):
     # print('-- Rank@1: %f, Rank@5: %f, Rank@10: %f, mAP: %f'%(CMC[0], CMC[4], CMC[9], ap/len(query_label)))
     return CMC, ap/len(query_label)
 
-def _evaluate2(self,qf,ql,qc,qcl,gf,gl,gc,gcl):
+def _evaluate2(qf,ql,qc,qcl,gf,gl,gc,gcl):
     query = qf.view(-1,1)
     # print(query.shape)
     score = torch.mm(gf,query)
-    score = score.squeeze(1).to(self.cpu_device)
+    score = score.squeeze(1).cpu()
     score = score.numpy()
     # predict index
     index = np.argsort(score)  #from small to large
@@ -102,5 +109,34 @@ def _evaluate2(self,qf,ql,qc,qcl,gf,gl,gc,gcl):
     junk_index2 = np.union1d(junk_index2, cloth_index)
     junk_index = np.append(junk_index2, junk_index1) #.flatten())
 
-    CMC_tmp = self.compute_mAP(index, good_index, junk_index)
+    CMC_tmp = compute_mAP(index, good_index, junk_index)
     return CMC_tmp
+
+def compute_mAP(index, good_index, junk_index):
+        ap = 0
+        cmc = torch.IntTensor(len(index)).zero_()
+        if good_index.size==0:   # if empty
+            cmc[0] = -1
+            return ap,cmc
+
+        # remove junk_index
+        mask = np.in1d(index, junk_index, invert=True)
+        index = index[mask]
+
+        # find good_index index
+        ngood = len(good_index)
+        mask = np.in1d(index, good_index)
+        rows_good = np.argwhere(mask==True)
+        rows_good = rows_good.flatten()
+
+        cmc[rows_good[0]:] = 1
+        for i in range(ngood):
+            d_recall = 1.0/ngood
+            precision = (i+1)*1.0/(rows_good[i]+1)
+            if rows_good[i]!=0:
+                old_precision = i*1.0/rows_good[i]
+            else:
+                old_precision=1.0
+            ap = ap + d_recall*(old_precision + precision)/2
+
+        return ap, cmc

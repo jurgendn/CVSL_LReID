@@ -118,10 +118,15 @@ class TestDataset(Dataset):
         img_path =  sample['img_path']
         p_id =  sample['p_id']
         cam_id = sample['cam_id']
-        cloth_id = sample['cloth_id']
-        
+        pose = sample['pose_landmarks']
         img_tensor = self.get_img_tensor(img_path)
-        return img_tensor, p_id, cam_id, cloth_id        
+        pose_tensor = tensor(pose)
+
+        if 'cloth_id' in sample.keys():
+            cloth_id = sample['cloth_id']
+            return img_tensor, pose_tensor, p_id, cam_id, cloth_id        
+        else:
+            return img_tensor, pose_tensor, p_id, cam_id, img_path
         
     def get_img_tensor(self, img_path):
         img = Image.open(img_path)
