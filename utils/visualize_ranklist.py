@@ -9,6 +9,8 @@ from torchvision.utils import make_grid, save_image
 from PIL import Image
 from config import get_config
 from src.datasets.get_loader import get_query_gallery_loader
+
+
 conf = get_config(training=False)
 
 
@@ -16,7 +18,7 @@ def visualize_ranklist(model,  model_path, query_json_path, gallery_json_path, t
     model.eval()
     query_loader, gallery_loader = get_query_gallery_loader() 
     with torch.inference_mode():
-        model.load_state_dict(torch.load(model_path, map_location=device)['state_dict'])
+        model.load_state_dict(torch.load(model_path, map_location=conf.device)['state_dict'])
 
         gallery_info = extract_feature(gallery_loader, 'gallery')
         query_info = extract_feature(query_loader, 'query')
