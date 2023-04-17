@@ -1,7 +1,8 @@
-import torch 
+import torch
 from tqdm.auto import tqdm
 
 device = torch.device('cuda')
+
 
 def extract_feature(model, dataloader, type):
     features = torch.FloatTensor()
@@ -10,16 +11,17 @@ def extract_feature(model, dataloader, type):
     clothes = []
     paths = []
 
-    for data in tqdm.tqdm(dataloader, desc='-- Extract %s features: ' % (type)):
+    for data in tqdm.tqdm(dataloader,
+                          desc='-- Extract %s features: ' % (type)):
         imgs, poses, p_ids, cam_ids, cloth_ids, img_paths = data
-        
+
         labels += p_ids
         cameras += cam_ids
         clothes += cloth_ids
-        paths += img_paths 
+        paths += img_paths
 
         n, c, h, w = imgs.size()
-        input_imgs = imgs.to(device)        
+        input_imgs = imgs.to(device)
         input_poses = poses.to(device)
 
         # output1, output2s = model(input_img, input_kp, feat=True)
@@ -31,12 +33,14 @@ def extract_feature(model, dataloader, type):
         output = model(input_imgs, input_poses)
 
         feature = output.data.cpu()
-        feature_norm= torch.norm(feature, p=2, dim=1, keepdim=True)
+        feature_norm = torch.norm(feature, p=2, dim=1, keepdim=True)
         feature = feature.div(feature_norm.expand_as(feature))
 
         features = torch.cat((features, feature), 0)
-    return {'feature': features,
-            'camera': cameras,
-            'label': labels,
-            'cloth': clothes,
-            'path': paths}
+    return {
+        'feature': features,
+        'camera': cameras,
+        'label': labels,
+        'cloth': clothes,
+        'path': paths
+    }

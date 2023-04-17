@@ -54,7 +54,7 @@ class LitModule(LightningModule):
         optimizer = optim.Adam(params=self.parameters(), lr=lr)
         return optimizer
 
-    def training_step(self, batch, batch_idx):
+    def training_step(self, batch, batch_idx) -> Dict:
         (a_img, p_img, n_img), (a_pose, p_pose, n_pose), a_id = batch
         a_features = self.forward(x_image=a_img,
                                   x_pose_features=a_pose,
@@ -74,10 +74,12 @@ class LitModule(LightningModule):
                                              negative=n_features)
         logits = self.id_classification(a_features)
         id_loss = F.cross_entropy(logits, a_id)
-        return {'loss': id_loss + triplet_loss, 'extras': []}
+        loss = (id_loss + triplet_loss) / 2
+        return dict(loss=loss, logits=logits, targets=a_id)
 
-    # def on_train_batch_end(self, outputs: Dict):
-    #     return outputs
+    def on_train_batch_end(self, outputs: Dict):
+        with torch.inference_mode():
+            loss = outputs['loss']
 
     # def on_train_epoch_end(self) -> None:
     #     self.log(name="train/f1", value=1)

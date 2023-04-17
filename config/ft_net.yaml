@@ -1,0 +1,2 @@
+R50_STRIDE: 2
+PRETRAINED: "./pretrained/net_last.pth"
