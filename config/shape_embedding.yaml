@@ -1,8 +1,10 @@
 POSE_N_FEATURES: 4
-SEM_N_FEATURES: 18
 N_HIDDEN: 1024
 OUT_FEATURES: 128
 RELATION_LAYERS: [[128, 256], [256, 512]]
 
-SKELETON_INDEX:
-  0: [11, 12]
+EDGE_INDEX:
+  [
+    [1, 1, 2, 3, 5, 6, 1, 8, 9, 1, 11, 12, 1, 0, 14, 0, 15, 2, 5],
+    [2, 5, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 0, 14, 16, 15, 17, 16, 17],
+  ]

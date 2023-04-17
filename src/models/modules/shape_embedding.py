@@ -39,19 +39,15 @@ class SemanticEmbedding(nn.Module):
 
 class RefineNetwork(nn.Module):
 
-    def __init__(self, pose_n_features: int, sem_n_features: int,
-                 n_hidden: int, out_features: int) -> None:
+    def __init__(self, pose_n_features: int, n_hidden: int,
+                 out_features: int) -> None:
         super(RefineNetwork, self).__init__()
         self.position_embedding = PositionEmbedding(
             in_features=pose_n_features, out_features=n_hidden)
-        self.semantic_embedding = SemanticEmbedding(in_features=sem_n_features,
-                                                    out_features=n_hidden)
         self.fc = nn.Linear(in_features=n_hidden, out_features=out_features)
 
-    def forward(self, p: Tensor, s: Tensor):
-        x_pos = self.position_embedding(p)
-        x_sem = self.semantic_embedding(s)
-        x = x_pos + x_sem
+    def forward(self, p: Tensor):
+        x = self.position_embedding(p)
         x = F.leaky_relu(x)
         y = self.fc(x)
         return y
@@ -93,21 +89,18 @@ class RelationNetwork(nn.Module):
 
 class ShapeEmbedding(nn.Module):
 
-    def __init__(self, pose_n_features: int, sem_n_features: int,
-                 n_hidden: int, out_features: int,
+    def __init__(self, pose_n_features: int, n_hidden: int, out_features: int,
                  relation_layers: List[Tuple[int]]) -> None:
         super(ShapeEmbedding, self).__init__()
         assert out_features == relation_layers[0][0]
         self.refine_net = RefineNetwork(pose_n_features=pose_n_features,
-                                        sem_n_features=sem_n_features,
                                         n_hidden=n_hidden,
                                         out_features=out_features)
         self.relation_net = RelationNetwork(layers=relation_layers)
         self.graph_pooling = gnn.MeanAggregation()
 
-    def forward(self, pose: Tensor, semantic: Tensor,
-                edge_index: Tensor) -> Tensor:
-        pose_features = self.refine_net(p=pose, s=semantic)
+    def forward(self, pose: Tensor, edge_index: Tensor) -> Tensor:
+        pose_features = self.refine_net(p=pose)
         relation_features = self.relation_net(x=pose_features, a=edge_index)
         graph_representation = self.graph_pooling(x=relation_features)
         return graph_representation
