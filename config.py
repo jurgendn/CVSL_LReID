@@ -41,7 +41,7 @@ class BASIC_CONFIG:
     TRAIN_JSON_PATH = "./data/market1501/jsons/train.json"
     QUERY_JSON_PATH = None
     GALLERY_JSON_PATH = None
-
+    NUM_CLASSES = 751
     LR = 0.0001
     BATCH_SIZE = 32
     PIN_MEMORY = True

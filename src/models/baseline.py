@@ -20,7 +20,7 @@ class LitModule(LightningModule):
                  shape_out_features: int = 512,
                  shape_relation_layers: List[Tuple[int]] = [(512, 256),
                                                             (256, 128)],
-                 class_num: int = 751,
+                 class_num: int = BASIC_CONFIG.NUM_CLASSES,
                  r50_stride: int = 2,
                  r50_pretrained_weight: str = None) -> None:
         super(LitModule, self).__init__()
@@ -36,6 +36,8 @@ class LitModule(LightningModule):
                                            out_features=class_num).to(device)
 
         self.load_pretrained_r50(r50_weight_path=r50_pretrained_weight)
+        for param in self.ft_net.parameters():
+            param.requires_grad = False
 
     def load_pretrained_r50(self, r50_weight_path: str):
         self.ft_net.load_state_dict(torch.load(f=r50_weight_path), strict=False)
@@ -57,11 +59,12 @@ class LitModule(LightningModule):
             {'params' : self.shape_embedding.parameters(),
              'params': self.fusion.parameters()} 
         ], lr=BASIC_CONFIG.LR)
+        # optimizer = optim.Adam(self.parameters(), lr=BASIC_CONFIG.LR)
         return optimizer
 
     def training_step(self, batch, batch_idx) -> Dict:
-        (a_img, p_img, n_img), (a_pose, p_pose, n_pose), a_id = batch
-        a_img, p_img, n_img, a_pose, p_pose, n_pose, a_id = a_img.to(device), p_img.to(device), n_img.to(device), a_pose.to(device), p_pose.to(device), n_pose.to(device), a_id.to(device)  
+        (a_img, p_img, n_img), (a_pose, p_pose, n_pose), a_target = batch
+        a_img, p_img, n_img, a_pose, p_pose, n_pose, a_target = a_img.to(device), p_img.to(device), n_img.to(device), a_pose.to(device), p_pose.to(device), n_pose.to(device), a_target.to(device)  
         
         a_features = self.forward(x_image=a_img,
                                   x_pose_features=a_pose,
@@ -77,13 +80,14 @@ class LitModule(LightningModule):
                                              positive=p_features,
                                              negative=n_features)
         logits = self.id_classification(a_features)
-        id_loss = F.cross_entropy(logits, a_id)
+        # id_loss = F.cross_entropy(logits, torch.LongTensor([a_target]))
+        id_loss = F.cross_entropy(logits, a_target.long())
         loss = (id_loss + triplet_loss) / 2
-        return dict(loss=loss, logits=logits, targets=a_id)
+        return dict(loss=loss, logits=logits, targets=a_target)
 
-    def on_train_batch_end(self, outputs: Dict):
-        with torch.inference_mode():
-            loss = outputs['loss']
+    # def on_train_batch_end(self, outputs: Dict):
+    #     with torch.inference_mode():
+    #         loss = outputs['loss']
 
     # def on_train_epoch_end(self) -> None:
     #     self.log(name="train/f1", value=1)

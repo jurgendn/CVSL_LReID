@@ -1,7 +1,7 @@
 import json
 import random
 from typing import List
-
+import torch 
 from PIL import Image
 from torch import Tensor, nn
 from torch.utils.data import Dataset
@@ -9,16 +9,28 @@ from torch.utils.data import Dataset
 
 class TrainDataset(Dataset):
 
-    def __init__(self, json_path: str, transforms: nn.Module = None) -> None:
+    def __init__(self, json_path: str, transforms: nn.Module, num_classes: int) -> None:
         super(TrainDataset, self).__init__()
         self.json_path = json_path
         self.img_list = self.get_img_list()
         self.transforms = transforms
+        self.num_classes = num_classes
+        self.id_to_idx = self.classes_to_idx()
 
     def get_img_list(self):
         with open(self.json_path, 'rb') as f:
             img_list = json.load(f)
         return img_list
+    
+    def classes_to_idx(self):
+        id_to_index = {}
+        index = 0
+        for item in self.img_list:
+            a_id = item['p_id']
+            if a_id not in id_to_index:
+                id_to_index[a_id] = index
+                index += 1
+        return id_to_index
 
     def __len__(self):
         return len(self.img_list)
@@ -80,7 +92,10 @@ class TrainDataset(Dataset):
         p_pose_tensor = self.get_pose_tensor(p_pose)
         n_pose_tensor = self.get_pose_tensor(n_pose)
 
-        return (a_img_tensor, p_img_tensor, n_img_tensor), (a_pose_tensor, p_pose_tensor, n_pose_tensor), a_id
+        a_id_index = self.id_to_idx[a_id]
+        a_target = torch.zeros(self.num_classes)
+        a_target[a_id_index] = 1
+        return (a_img_tensor, p_img_tensor, n_img_tensor), (a_pose_tensor, p_pose_tensor, n_pose_tensor), a_target
 
     def get_img_tensor(self, img_path):
         img = Image.open(img_path)
