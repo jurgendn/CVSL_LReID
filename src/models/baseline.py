@@ -4,7 +4,7 @@ import torch
 from pytorch_lightning import LightningModule
 from torch import nn, optim
 from torch.nn import functional as F
-
+import numpy as np
 from src.models.modules.fusion_net import FusionNet
 from src.models.modules.r50 import FTNet
 from src.models.modules.shape_embedding import ShapeEmbedding
@@ -38,11 +38,15 @@ class LitModule(LightningModule):
 
         self.load_pretrained_r50(r50_weight_path=r50_pretrained_weight)
 
+        # for param in self.ft_net.parameters
+        self.ft_net.requires_grad_(False)
+
         self.train_batch_outputs: List = []
         self.validation_batch_outputs: List = []
+        self.save_hyperparameters()
 
     def load_pretrained_r50(self, r50_weight_path: str):
-        self.ft_net.load_state_dict(torch.load(f=r50_weight_path))
+        self.ft_net.load_state_dict(torch.load(f=r50_weight_path), strict=False)
 
     def forward(self, x_image: torch.Tensor,
                 x_pose_features: torch.FloatTensor,
@@ -60,34 +64,31 @@ class LitModule(LightningModule):
         lr_scheduler = optim.lr_scheduler.StepLR(optimizer=optimizer,
                                                  step_size=30,
                                                  gamma=0.1)
-        return optimizer, lr_scheduler
+        return {"optimizer": optimizer, "lr_scheduler": lr_scheduler}
 
     def training_step(self, batch, batch_idx) -> Dict:
         (a_img, p_img, n_img), (a_pose, p_pose, n_pose), a_id = batch
         a_features = self.forward(x_image=a_img,
                                   x_pose_features=a_pose,
-                                  x_semantic_features=self.shape_semantic,
                                   edge_index=self.shape_edge_index)
         p_features = self.forward(x_image=p_img,
                                   x_pose_features=p_pose,
-                                  x_semantic_features=self.shape_semantic,
                                   edge_index=self.shape_edge_index)
         n_features = self.forward(x_image=n_img,
                                   x_pose_features=n_pose,
-                                  x_semantic_features=self.shape_semantic,
                                   edge_index=self.shape_edge_index)
 
         triplet_loss = F.triplet_margin_loss(anchor=a_features,
                                              positive=p_features,
                                              negative=n_features)
         logits = self.id_classification(a_features)
-        id_loss = F.cross_entropy(logits, a_id)
+        id_loss = F.cross_entropy(logits, a_id.long())
         loss = (id_loss + triplet_loss) / 2
-        self.train_batch_outputs.append(loss)
+        self.train_batch_outputs.append(loss.cpu())
         return dict(loss=loss, logits=logits, targets=a_id)
 
-    @torch.no_grad()
-    def on_train_epoch_end(self) -> None:
-        outputs = self.train_batch_outputs
-        self.log(name="some metrics", value=outputs.mean())
-        self.train_batch_outputs = []
+    # @torch.no_grad()
+    # def on_train_epoch_end(self) -> None:
+    #     outputs = self.train_batch_outputs
+    #     self.log(name="some metrics", value=np.array(outputs)).mean()
+    #     self.train_batch_outputs = []

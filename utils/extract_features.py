@@ -1,18 +1,54 @@
 import torch
 from tqdm.auto import tqdm
+from config import SHAPE_EMBEDDING_CFG
+from config import BASIC_CONFIG
 
-device = torch.device('cuda')
 
+def extract_feature_standard(model, dataloader, type):
+    features = torch.FloatTensor()
+    cameras = []
+    labels = []
+    paths = []
 
-def extract_feature(model, dataloader, type):
+    for data in tqdm(dataloader, desc='-- Extract %s features: ' % (type)):
+        imgs, poses, p_ids, cam_ids, img_paths = data
+
+        labels += p_ids
+        cameras += cam_ids
+        paths += img_paths
+
+        n, c, h, w = imgs.size()
+        input_imgs = imgs.to(BASIC_CONFIG.DEVICE)
+        input_poses = poses.to(BASIC_CONFIG.DEVICE)
+
+        # output1, output2s = model(input_img, input_kp, feat=True)
+        # ff1, ff2 = output1.data.to(cpu_device), output2.data.to(cpu_device)
+        # ff = torch.cat((ff1, ff2), -1)
+        # fnorm = torch.norm(ff, p=2, dim=-1, keepdim=True)
+        # ff = ff.div(fnorm.expand_as(ff))
+
+        output = model(input_imgs, input_poses, torch.LongTensor(SHAPE_EMBEDDING_CFG.EDGE_INDEX).to(BASIC_CONFIG.DEVICE))
+
+        feature = output.data.cpu()
+        feature_norm = torch.norm(feature, p=2, dim=1, keepdim=True)
+        feature = feature.div(feature_norm.expand_as(feature))
+
+        features = torch.cat((features, feature), -1)
+    return {
+        'feature': features,
+        'camera': cameras,
+        'label': labels,
+        'path': paths
+    }
+
+def extract_feature_cc(model, dataloader, type):
     features = torch.FloatTensor()
     cameras = []
     labels = []
     clothes = []
     paths = []
 
-    for data in tqdm.tqdm(dataloader,
-                          desc='-- Extract %s features: ' % (type)):
+    for data in tqdm(dataloader, desc='-- Extract %s features: ' % (type)):
         imgs, poses, p_ids, cam_ids, cloth_ids, img_paths = data
 
         labels += p_ids
@@ -21,8 +57,8 @@ def extract_feature(model, dataloader, type):
         paths += img_paths
 
         n, c, h, w = imgs.size()
-        input_imgs = imgs.to(device)
-        input_poses = poses.to(device)
+        input_imgs = imgs.to(BASIC_CONFIG.DEVICE)
+        input_poses = poses.to(BASIC_CONFIG.DEVICE)
 
         # output1, output2s = model(input_img, input_kp, feat=True)
         # ff1, ff2 = output1.data.to(cpu_device), output2.data.to(cpu_device)
@@ -30,13 +66,13 @@ def extract_feature(model, dataloader, type):
         # fnorm = torch.norm(ff, p=2, dim=-1, keepdim=True)
         # ff = ff.div(fnorm.expand_as(ff))
 
-        output = model(input_imgs, input_poses)
+        output = model(input_imgs, input_poses, torch.LongTensor(SHAPE_EMBEDDING_CFG.EDGE_INDEX).to(BASIC_CONFIG.DEVICE))
 
         feature = output.data.cpu()
         feature_norm = torch.norm(feature, p=2, dim=1, keepdim=True)
         feature = feature.div(feature_norm.expand_as(feature))
 
-        features = torch.cat((features, feature), 0)
+        features = torch.cat((features, feature), -1)
     return {
         'feature': features,
         'camera': cameras,

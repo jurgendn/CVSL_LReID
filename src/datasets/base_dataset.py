@@ -108,11 +108,12 @@ class TrainDataset(Dataset):
 
 class TestDataset(Dataset):
 
-    def __init__(self, json_path: str, transforms: nn.Module = None) -> None:
-        super(TrainDataset, self).__init__()
+    def __init__(self, json_path: str, transforms: nn.Module = None, cloth_changing: bool = False) -> None:
+        super(TestDataset, self).__init__()
         self.json_path = json_path
         self.img_list = self.get_img_list()
         self.transforms = transforms
+        self.cloth_changing_mode = cloth_changing
 
     def get_img_list(self):
         with open(self.json_path, 'rb') as f:
@@ -131,9 +132,9 @@ class TestDataset(Dataset):
         img_tensor = self.get_img_tensor(img_path)
         pose_tensor = Tensor(pose)
 
-        if 'cloth_id' in sample.keys():
+        if self.cloth_changing_mode:
             cloth_id = sample['cloth_id']
-            return img_tensor, pose_tensor, p_id, cam_id, cloth_id
+            return img_tensor, pose_tensor, p_id, cam_id, cloth_id, img_path
         else:
             return img_tensor, pose_tensor, p_id, cam_id, img_path
 

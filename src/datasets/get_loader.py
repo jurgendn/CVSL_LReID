@@ -5,8 +5,8 @@ from config import BASIC_CONFIG
 conf = BASIC_CONFIG
 
 def get_query_gallery_loader():
-    query_data = TestDataset(conf.QUERY_JSON_PATH, conf.TEST_TRANSFORM)
-    gallery_data = TestDataset(conf.GALLERY_JSON_PATH, conf.TEST_TRANSFORM)
+    query_data = TestDataset(conf.QUERY_JSON_PATH, conf.TEST_TRANSFORM, conf.CLOTH_CHANGING_MODE)
+    gallery_data = TestDataset(conf.GALLERY_JSON_PATH, conf.TEST_TRANSFORM, conf.CLOTH_CHANGING_MODE)
     query_loader = DataLoader(query_data, batch_size=conf.BATCH_SIZE, shuffle=False, num_workers=conf.NUM_WORKER, pin_memory=conf.PIN_MEMORY)
     gallery_loader = DataLoader(gallery_data, batch_size=conf.BATCH_SIZE, shuffle=False, num_workers=conf.NUM_WORKER, pin_memory=conf.PIN_MEMORY)
     return query_loader, gallery_loader
