@@ -42,9 +42,8 @@ class BASIC_CONFIG:
     QUERY_JSON_PATH = None
     GALLERY_JSON_PATH = None
     NUM_CLASSES = 751
-    LR = 0.0001
+    LR = 1e-4
     BATCH_SIZE = 32
     PIN_MEMORY = True
     NUM_WORKER = 16
     SAVE_PATH = None
-

@@ -21,7 +21,8 @@ class LitModule(LightningModule):
                                                             (256, 128)],
                  class_num: int = 751,
                  r50_stride: int = 2,
-                 r50_pretrained_weight: str = None) -> None:
+                 r50_pretrained_weight: str = None,
+                 lr: float = 1e-4) -> None:
         super(LitModule, self).__init__()
         shape_edge_index = torch.LongTensor(shape_edge_index)
         self.register_buffer("shape_edge_index", shape_edge_index)
@@ -37,6 +38,9 @@ class LitModule(LightningModule):
 
         self.load_pretrained_r50(r50_weight_path=r50_pretrained_weight)
 
+        self.train_batch_outputs: List = []
+        self.validation_batch_outputs: List = []
+
     def load_pretrained_r50(self, r50_weight_path: str):
         self.ft_net.load_state_dict(torch.load(f=r50_weight_path))
 
@@ -51,9 +55,12 @@ class LitModule(LightningModule):
                                      shape_features=pose_feature)
         return fusion_feature
 
-    def configure_optimizers(self, lr: float):
-        optimizer = optim.Adam(params=self.parameters(), lr=lr)
-        return optimizer
+    def configure_optimizers(self):
+        optimizer = optim.Adam(params=self.parameters(), lr=self.hparams.lr)
+        lr_scheduler = optim.lr_scheduler.StepLR(optimizer=optimizer,
+                                                 step_size=30,
+                                                 gamma=0.1)
+        return optimizer, lr_scheduler
 
     def training_step(self, batch, batch_idx) -> Dict:
         (a_img, p_img, n_img), (a_pose, p_pose, n_pose), a_id = batch
@@ -76,12 +83,11 @@ class LitModule(LightningModule):
         logits = self.id_classification(a_features)
         id_loss = F.cross_entropy(logits, a_id)
         loss = (id_loss + triplet_loss) / 2
+        self.train_batch_outputs.append(loss)
         return dict(loss=loss, logits=logits, targets=a_id)
 
-    def on_train_batch_end(self, outputs: Dict):
-        with torch.inference_mode():
-            loss = outputs['loss']
-        return loss
-
-    # def on_train_epoch_end(self) -> None:
-    #     self.log(name="train/f1", value=1)
+    @torch.no_grad()
+    def on_train_epoch_end(self) -> None:
+        outputs = self.train_batch_outputs
+        self.log(name="some metrics", value=outputs.mean())
+        self.train_batch_outputs = []
