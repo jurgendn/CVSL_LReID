@@ -1,7 +1,7 @@
 import torch
 from tqdm.auto import tqdm
-from config import SHAPE_EMBEDDING_CFG
-from config import BASIC_CONFIG
+
+from config import BASIC_CONFIG, SHAPE_EMBEDDING_CFG
 
 
 def extract_feature_standard(model, dataloader, type):
@@ -27,7 +27,10 @@ def extract_feature_standard(model, dataloader, type):
         # fnorm = torch.norm(ff, p=2, dim=-1, keepdim=True)
         # ff = ff.div(fnorm.expand_as(ff))
 
-        output = model(input_imgs, input_poses, torch.LongTensor(SHAPE_EMBEDDING_CFG.EDGE_INDEX).to(BASIC_CONFIG.DEVICE))
+        output = model(
+            input_imgs, input_poses,
+            torch.LongTensor(SHAPE_EMBEDDING_CFG.EDGE_INDEX).to(
+                BASIC_CONFIG.DEVICE))
 
         feature = output.data.cpu()
         feature_norm = torch.norm(feature, p=2, dim=1, keepdim=True)
@@ -40,6 +43,7 @@ def extract_feature_standard(model, dataloader, type):
         'label': labels,
         'path': paths
     }
+
 
 def extract_feature_cc(model, dataloader, type):
     features = torch.FloatTensor()
@@ -66,7 +70,10 @@ def extract_feature_cc(model, dataloader, type):
         # fnorm = torch.norm(ff, p=2, dim=-1, keepdim=True)
         # ff = ff.div(fnorm.expand_as(ff))
 
-        output = model(input_imgs, input_poses, torch.LongTensor(SHAPE_EMBEDDING_CFG.EDGE_INDEX).to(BASIC_CONFIG.DEVICE))
+        output = model(
+            input_imgs, input_poses,
+            torch.LongTensor(SHAPE_EMBEDDING_CFG.EDGE_INDEX).to(
+                BASIC_CONFIG.DEVICE))
 
         feature = output.data.cpu()
         feature_norm = torch.norm(feature, p=2, dim=1, keepdim=True)
