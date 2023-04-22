@@ -17,8 +17,14 @@ class PositionEmbedding(nn.Module):
 
     def __init__(self, in_features: int, out_features: int) -> None:
         super(PositionEmbedding, self).__init__()
-        self.position_embedding = nn.Linear(in_features=in_features,
-                                            out_features=out_features)
+        self.position_embedding = nn.Sequential(
+            nn.Linear(in_features=in_features, out_features=512),
+            # nn.Linear(in_features=256, out_features=512),
+            nn.Linear(in_features=512, out_features=1024),
+            nn.Linear(in_features=1024, out_features=out_features)
+        )
+        
+        
 
     def forward(self, pose: Tensor) -> Tensor:
         x = self.position_embedding(pose)
@@ -61,7 +67,8 @@ class RelationNetwork(nn.Module):
         for i, (in_channel, out_channel) in enumerate(layers):
             setattr(
                 self, f"gcn_{i+1}",
-                gnn.GCNConv(in_channels=in_channel, out_channels=out_channel))
+                gnn.GCNConv(in_channels=in_channel, out_channels=out_channel)
+            )
 
     def forward(self, x: Tensor, a: Tensor):
         """
@@ -85,6 +92,64 @@ class RelationNetwork(nn.Module):
             x = module(x, a)
             x = F.leaky_relu(x)
         return x
+    
+# class RelationNetwork(nn.Module):
+
+#     def __init__(self, layers: List[Tuple[int, int]]) -> None:
+#         super(RelationNetwork, self).__init__()
+#         self.__num_modules = len(layers)
+#         for i, (in_channel, out_channel) in enumerate(layers):
+#             setattr(
+#                 self, f"gcn_{i+1}",
+#                 gnn.GatedGraphConv(in_channels=in_channel, out_channels=out_channel),
+#             )
+#         # Add a third layer with 128 output channels
+#         setattr(
+#             self, "gcn_3",
+#             gnn.GatedGraphConv(in_channels=layers[-1][1], out_channels=128),
+#         )
+#         # Add a fourth layer with 128 output channels
+#         setattr(
+#             self, "gcn_4",
+#             gnn.GatedGraphConv(in_channels=128, out_channels=128),
+#         )
+#         # Add a fifth layer with 128 output channels
+#         setattr(
+#             self, "gcn_5",
+#             gnn.GatedGraphConv(in_channels=128, out_channels=128),
+#         )
+
+#     def forward(self, x: Tensor, a: Tensor):
+#         """
+#         forward
+
+#         Parameters
+#         ----------
+#         x : Tensor
+#             Node features, 2D Tensor
+#         a : Tensor
+#             Edge index, in format
+#             [[0, 1, 1, 2, 1, 9], [1, 0, 2, 1, 8, 1]]
+
+#         Returns
+#         -------
+#         Tensor
+#             Node embedding, (n, out_channels)
+#         """
+#         for i in range(self.__num_modules):
+#             module = getattr(self, f"gcn_{i+1}")
+#             x = module(x, a)
+#             x = F.leaky_relu(x)
+#         # Pass through the third layer with 128 output channels
+#         x = getattr(self, "gcn_3")(x, a)
+#         x = F.leaky_relu(x)
+#         # Pass through the fourth layer with 128 output channels
+#         x = getattr(self, "gcn_4")(x, a)
+#         x = F.leaky_relu(x)
+#         # Pass through the fifth layer with 128 output channels
+#         x = getattr(self, "gcn_5")(x, a)
+#         x = F.leaky_relu(x)
+#         return x
 
 
 class ShapeEmbedding(nn.Module):

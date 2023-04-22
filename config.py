@@ -3,6 +3,7 @@ import os.path as osp
 import torch
 from dynaconf import Dynaconf
 from torchvision import transforms as T
+from utils.random_erasing import RandomErasing
 
 CFG = Dynaconf(envvar_prefix="DYNACONF",
                settings_files=["config/main_cfg.yaml"])
@@ -33,7 +34,9 @@ class BASIC_CONFIG:
         T.RandomCrop(INPUT_SIZE),
         T.RandomHorizontalFlip(),
         T.ToTensor(),
-        T.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        T.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+        RandomErasing(probability = 0.5, mean=[0.0, 0.0, 0.0]),
+        T.ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1, hue=0)
         ])
 
     TEST_TRANSFORM = T.Compose([
@@ -48,10 +51,16 @@ class BASIC_CONFIG:
     TRAIN_JSON_PATH = osp.join(DATA_PATH, DATASET_NAME, "jsons/train.json")
     QUERY_JSON_PATH = osp.join(DATA_PATH, DATASET_NAME, "jsons/query.json")
     GALLERY_JSON_PATH = osp.join(DATA_PATH, DATASET_NAME, "jsons/gallery.json")
-    LR = 1e-4
+
+    LR = 1e-3
+
+    WARM_EPOCH = 5
+    WARM_UP = 0.1
+
     EPOCHS = 60
-    BATCH_SIZE = 32
+    BATCH_SIZE = 16
     PIN_MEMORY = True
     NUM_WORKER = 4
+    
     SAVE_PATH = "./work_space/save"
     MODEL_NAME = f"net_last_shape_{DATASET_NAME}_numepochs_{EPOCHS}.pth"

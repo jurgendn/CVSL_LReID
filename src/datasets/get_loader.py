@@ -15,4 +15,4 @@ def get_train_loader():
     train_data = TrainDataset(conf.TRAIN_JSON_PATH, conf.TRAIN_TRANSFORM)
     num_classes = train_data.num_classes
     train_loader = DataLoader(train_data, batch_size=conf.BATCH_SIZE, shuffle=True, num_workers=conf.NUM_WORKER, pin_memory=conf.PIN_MEMORY)
-    return train_loader, num_classes
+    return train_loader, num_classes, len(train_data)

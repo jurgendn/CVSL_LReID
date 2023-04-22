@@ -92,9 +92,9 @@ class TrainDataset(Dataset):
         n_pose_tensor = self.get_pose_tensor(n_pose)
 
         a_id_index = self.id_to_idx[a_id]
-        a_target = torch.zeros(self.num_classes)
-        a_target[a_id_index] = 1
-        return (a_img_tensor, p_img_tensor, n_img_tensor), (a_pose_tensor, p_pose_tensor, n_pose_tensor), a_target
+        # a_target = torch.zeros(self.num_classes)
+        # a_target[a_id_index] = 1
+        return (a_img_tensor, p_img_tensor, n_img_tensor), (a_pose_tensor, p_pose_tensor, n_pose_tensor), a_id_index
 
     def get_img_tensor(self, img_path):
         img = Image.open(img_path)
