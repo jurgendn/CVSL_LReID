@@ -48,7 +48,8 @@ class Baseline(LightningModule):
         self.save_hyperparameters()
 
     def load_pretrained_r50(self, r50_weight_path: str):
-        self.ft_net.load_state_dict(torch.load(f=r50_weight_path), strict=False)
+        self.ft_net.load_state_dict(torch.load(f=r50_weight_path),
+                                    strict=False)
 
     def forward(self, x_image: torch.Tensor,
                 x_pose_features: torch.FloatTensor,
