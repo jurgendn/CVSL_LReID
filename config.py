@@ -43,16 +43,15 @@ class BASIC_CONFIG:
     ])
 
     DATA_PATH = "./data"
-
-    DATASET_NAME = "market1501"
-    CLOTH_CHANGING_MODE = False
+    DATASET_NAME = "ltcc"
+    CLOTH_CHANGING_MODE = True
     TRAIN_JSON_PATH = osp.join(DATA_PATH, DATASET_NAME, "jsons/train.json")
     QUERY_JSON_PATH = osp.join(DATA_PATH, DATASET_NAME, "jsons/query.json")
     GALLERY_JSON_PATH = osp.join(DATA_PATH, DATASET_NAME, "jsons/gallery.json")
-    
-    NUM_CLASSES = 751
     LR = 1e-4
+    EPOCHS = 60
     BATCH_SIZE = 32
     PIN_MEMORY = True
     NUM_WORKER = 4
     SAVE_PATH = "./work_space/save"
+    MODEL_NAME = f"net_last_shape_{DATASET_NAME}_numepochs_{EPOCHS}.pth"

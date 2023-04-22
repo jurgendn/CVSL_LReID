@@ -5,17 +5,16 @@ import torch
 from PIL import Image
 from torch import Tensor, nn
 from torch.utils.data import Dataset
-
+import numpy as np
 
 class TrainDataset(Dataset):
 
-    def __init__(self, json_path: str, transforms: nn.Module, num_classes: int) -> None:
+    def __init__(self, json_path: str, transforms: nn.Module) -> None:
         super(TrainDataset, self).__init__()
         self.json_path = json_path
         self.img_list = self.get_img_list()
         self.transforms = transforms
-        self.num_classes = num_classes
-        self.id_to_idx = self.classes_to_idx()
+        self.id_to_idx, self.num_classes = self.classes_to_idx()
 
     def get_img_list(self):
         with open(self.json_path, 'rb') as f:
@@ -30,7 +29,7 @@ class TrainDataset(Dataset):
             if a_id not in id_to_index:
                 id_to_index[a_id] = index
                 index += 1
-        return id_to_index
+        return id_to_index, len(id_to_index)
 
     def __len__(self):
         return len(self.img_list)
@@ -114,6 +113,7 @@ class TestDataset(Dataset):
         self.img_list = self.get_img_list()
         self.transforms = transforms
         self.cloth_changing_mode = cloth_changing
+        self.num_classes = self.get_num_classes()
 
     def get_img_list(self):
         with open(self.json_path, 'rb') as f:
@@ -122,6 +122,14 @@ class TestDataset(Dataset):
 
     def __len__(self):
         return len(self.img_list)
+
+    def get_num_classes(self):
+        classes = []
+        for item in self.img_list:
+            p_id = item['p_id']
+            classes.append(p_id)
+
+        return len(np.unique(classes))
 
     def __getitem__(self, index):
         sample = self.img_list[index]

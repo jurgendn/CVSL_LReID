@@ -30,7 +30,7 @@ class FusionNet(nn.Module):
 
     def forward(self, appearance_features: torch.Tensor,
                 shape_features: torch.Tensor) -> torch.Tensor:
-        appearance_features = self.appearance_net(appearance_features)
-        shape_features = self.shape_net(shape_features)
-        agg_features = self.theta(x=appearance_features, y=shape_features)
+        appearance = self.appearance_net(appearance_features)
+        shape = self.shape_net(shape_features)
+        agg_features = self.theta(x=appearance, y=shape)
         return agg_features

@@ -93,6 +93,7 @@ class ShapeEmbedding(nn.Module):
                  relation_layers: List[Tuple[int]]) -> None:
         super(ShapeEmbedding, self).__init__()
         assert out_features == relation_layers[0][0]
+        self.n_dim = relation_layers[-1][-1]
         self.refine_net = RefineNetwork(pose_n_features=pose_n_features,
                                         n_hidden=n_hidden,
                                         out_features=out_features)
@@ -103,7 +104,7 @@ class ShapeEmbedding(nn.Module):
         pose_features = self.refine_net(p=pose)
         relation_features = self.relation_net(x=pose_features, a=edge_index)
         graph_representation = self.graph_pooling(x=relation_features)
-        return graph_representation
+        return graph_representation.reshape(-1, self.n_dim)
 
 
 if __name__ == "__main__":

@@ -8,22 +8,24 @@ import numpy as np
 from src.models.modules.fusion_net import FusionNet
 from src.models.modules.r50 import FTNet
 from src.models.modules.shape_embedding import ShapeEmbedding
+from config import BASIC_CONFIG
 
-
-class LitModule(LightningModule):
+class Baseline(LightningModule):
 
     def __init__(self,
+                 class_num: int,
+                 r50_stride: int,
+                 r50_pretrained_weight: str,
+                 lr: float,
                  shape_edge_index: torch.LongTensor,
                  shape_pose_n_features: int = 4,
                  shape_n_hidden: int = 1024,
                  shape_out_features: int = 512,
                  shape_relation_layers: List[Tuple[int]] = [(512, 256),
-                                                            (256, 128)],
-                 class_num: int = 751,
-                 r50_stride: int = 2,
-                 r50_pretrained_weight: str = None,
-                 lr: float = 1e-4) -> None:
-        super(LitModule, self).__init__()
+                                                            (256, 128)]) -> None:
+        
+        super(Baseline, self).__init__()
+
         shape_edge_index = torch.LongTensor(shape_edge_index)
         self.register_buffer("shape_edge_index", shape_edge_index)
         self.ft_net = FTNet(stride=r50_stride)
@@ -39,7 +41,7 @@ class LitModule(LightningModule):
         self.load_pretrained_r50(r50_weight_path=r50_pretrained_weight)
 
         # for param in self.ft_net.parameters
-        self.ft_net.requires_grad_(False)
+        # self.ft_net.requires_grad_(False)
 
         self.train_batch_outputs: List = []
         self.validation_batch_outputs: List = []
@@ -82,7 +84,7 @@ class LitModule(LightningModule):
                                              positive=p_features,
                                              negative=n_features)
         logits = self.id_classification(a_features)
-        id_loss = F.cross_entropy(logits, a_id.long())
+        id_loss = F.cross_entropy(logits, a_id.float())
         loss = (id_loss + triplet_loss) / 2
         self.train_batch_outputs.append(loss.cpu())
         return dict(loss=loss, logits=logits, targets=a_id)
@@ -92,3 +94,39 @@ class LitModule(LightningModule):
     #     outputs = self.train_batch_outputs
     #     self.log(name="some metrics", value=np.array(outputs)).mean()
     #     self.train_batch_outputs = []
+
+class InferenceBaseline(LightningModule):
+
+    def __init__(self,
+                 shape_edge_index: torch.LongTensor,
+                 shape_pose_n_features: int = 4,
+                 shape_n_hidden: int = 1024,
+                 shape_out_features: int = 512,
+                 shape_relation_layers: List[Tuple[int]] = [(512, 256),
+                                                            (256, 128)],
+                 r50_stride: int = 2) -> None:
+        super(InferenceBaseline, self).__init__()
+        shape_edge_index = torch.LongTensor(shape_edge_index)
+        self.register_buffer("shape_edge_index", shape_edge_index)
+        self.ft_net = FTNet(stride=r50_stride)
+        self.shape_embedding = ShapeEmbedding(
+            pose_n_features=shape_pose_n_features,
+            n_hidden=shape_n_hidden,
+            out_features=shape_out_features,
+            relation_layers=shape_relation_layers)
+        self.fusion = FusionNet(out_features=1024)
+
+    def forward(self, x_image: torch.Tensor,
+                x_pose_features: torch.FloatTensor,
+                edge_index: torch.LongTensor) -> torch.Tensor:
+        appearance_feature = self.ft_net(x=x_image)
+        pose_feature = self.shape_embedding(pose=x_pose_features,
+                                            edge_index=edge_index)
+
+        fusion_feature = self.fusion(appearance_features=appearance_feature,
+                                     shape_features=pose_feature)
+        return fusion_feature
+
+
+# def contrastive_orientation_guided_loss(anchor, positive, negative):
+    

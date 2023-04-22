@@ -12,26 +12,29 @@ from tqdm.auto import tqdm
 import os.path as osp
 from config import BASIC_CONFIG, FT_NET_CFG, SHAPE_EMBEDDING_CFG
 from src.datasets.get_loader import get_train_loader
-from src.models.baseline import LitModule
+from src.models.baseline import Baseline
 
 
 
-train_loader = get_train_loader()
-net = LitModule(shape_edge_index=SHAPE_EMBEDDING_CFG.EDGE_INDEX,
+train_loader, num_classes = get_train_loader()
+
+print(num_classes)
+
+net = Baseline(shape_edge_index=SHAPE_EMBEDDING_CFG.EDGE_INDEX,
                 shape_pose_n_features=SHAPE_EMBEDDING_CFG.POSE_N_FEATURES,
                 shape_n_hidden=SHAPE_EMBEDDING_CFG.N_HIDDEN,
                 shape_out_features=SHAPE_EMBEDDING_CFG.OUT_FEATURES,
                 shape_relation_layers=SHAPE_EMBEDDING_CFG.RELATION_LAYERS,
-                class_num=BASIC_CONFIG.NUM_CLASSES,
+                class_num=num_classes,
                 r50_stride=FT_NET_CFG.R50_STRIDE,
                 r50_pretrained_weight=FT_NET_CFG.PRETRAINED, lr=BASIC_CONFIG.LR)
 
 
-# model_checkpoint = ModelCheckpoint(every_n_epochs=1)
+model_checkpoint = ModelCheckpoint(every_n_epochs=10)
 # early_stopping = EarlyStopping(mode='min', patience=20, monitor=)
-epochs = 60
+epochs = BASIC_CONFIG.EPOCHS
 
-trainer = Trainer(accelerator='gpu', max_epochs=epochs)# ,callbacks=[model_checkpoint, early_stopping])
+trainer = Trainer(accelerator='gpu', max_epochs=epochs, callbacks=model_checkpoint)# ,callbacks=[model_checkpoint, early_stopping])
 
 trainer.fit(model=net, train_dataloaders=train_loader)
 
