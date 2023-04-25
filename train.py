@@ -34,7 +34,7 @@ early_stopping = EarlyStopping(monitor='avg_train_loss', patience=20, mode='min'
 # early_stopping = EarlyStopping(mode='min', patience=20, monitor=)
 epochs = BASIC_CONFIG.EPOCHS
 
-trainer = Trainer(accelerator='gpu', max_epochs=epochs, callbacks=[model_checkpoint, early_stopping])
+trainer = Trainer(accelerator='gpu', max_epochs=epochs, callbacks=[model_checkpoint, early_stopping], precision=16)
 
 trainer.fit(model=net, train_dataloaders=train_loader)
 
@@ -42,17 +42,17 @@ name = f"net_last_shape_{BASIC_CONFIG.DATASET_NAME}_{epochs}epochs_{BASIC_CONFIG
 
 torch.save(net.state_dict(), osp.join(BASIC_CONFIG.SAVE_PATH, name))
 
-# extract logged loss values
-train_loss = trainer.callback_metrics['train_loss']
-avg_train_loss = trainer.callback_metrics['avg_train_loss']
+# # extract logged loss values
+# train_loss = trainer.callback_metrics['train_loss']
+# avg_train_loss = trainer.callback_metrics['avg_train_loss']
 
-# plot loss curve
-epochs = range(1, len(avg_train_loss) + 1)
-plt.plot(epochs, train_loss, 'b', label='Training loss')
-plt.plot(epochs, avg_train_loss, 'r', label='Average training loss')
-plt.title('Training loss')
-plt.xlabel('Epoch')
-plt.ylabel('Loss')
-plt.legend()
-loss_name = f"loss_curve_{BASIC_CONFIG.DATASET_NAME}"
-plt.savefig(osp.join("output", loss_name))
+# # plot loss curve
+# epochs = range(1, len(avg_train_loss) + 1)
+# plt.plot(epochs, train_loss, 'b', label='Training loss')
+# plt.plot(epochs, avg_train_loss, 'r', label='Average training loss')
+# plt.title('Training loss')
+# plt.xlabel('Epoch')
+# plt.ylabel('Loss')
+# plt.legend()
+# loss_name = f"loss_curve_{BASIC_CONFIG.DATASET_NAME}"
+# plt.savefig(osp.join("output", loss_name))

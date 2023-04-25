@@ -58,9 +58,11 @@ class BASIC_CONFIG:
     WARM_UP = 0.1
 
     EPOCHS = 60
-    BATCH_SIZE = 16
+    BATCH_SIZE = 8
     PIN_MEMORY = True
     NUM_WORKER = 4
+
+    FP16 = True
     
     SAVE_PATH = "./work_space/save"
-    MODEL_NAME = f"net_last_shape_{DATASET_NAME}_numepochs_{EPOCHS}.pth"
+    MODEL_NAME = f"net_last_shape_{DATASET_NAME}_{EPOCHS}epochs_{WARM_EPOCH}warmepoch_{LR}.pth"
