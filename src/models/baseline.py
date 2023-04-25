@@ -132,14 +132,15 @@ class Baseline(LightningModule):
             loss = loss * warm_up
 
         self.training_step_outputs.append(loss)
-        self.log('train_loss', loss)
+        self.log('train_loss', loss, on_step=True, on_epoch=True, prog_bar=True, logger=True)
         # return loss 
         return dict(loss=loss, logits=logits, targets=a_id)
 
     def on_train_epoch_end(self):
         # compute and log average training loss
-        avg_loss = torch.stack(self.training_step_outputs).mean()
-        self.log('avg_train_loss', avg_loss)
+        # avg_loss = torch.stack(self.training_step_outputs).mean()
+        # self.log('avg_train_loss', avg_loss)
+        self.training_step_outputs.clear()
 
 class InferenceBaseline(LightningModule):
 
@@ -149,11 +150,15 @@ class InferenceBaseline(LightningModule):
                  shape_n_hidden: int,
                  shape_out_features: int ,
                  shape_relation_layers: List,
-                 r50_stride: int) -> None:
+                 r50_stride: int, 
+                 with_pose: bool) -> None:
+        
         super(InferenceBaseline, self).__init__()
         shape_edge_index = torch.LongTensor(shape_edge_index)
         self.register_buffer("shape_edge_index", shape_edge_index)
         self.ft_net = FTNet(stride=r50_stride)
+        self.test_with_pose = with_pose
+
         self.shape_embedding = ShapeEmbedding(
             pose_n_features=shape_pose_n_features,
             n_hidden=shape_n_hidden,
@@ -164,13 +169,18 @@ class InferenceBaseline(LightningModule):
     def forward(self, x_image: torch.Tensor,
                 x_pose_features: torch.FloatTensor,
                 edge_index: torch.LongTensor) -> torch.Tensor:
+        
         appearance_feature = self.ft_net(x=x_image)
-        pose_feature = self.shape_embedding(pose=x_pose_features,
-                                            edge_index=edge_index)
+        if self.test_with_pose:
+            pose_feature = self.shape_embedding(pose=x_pose_features,
+                                                edge_index=edge_index)
 
-        fusion_feature = self.fusion(appearance_features=appearance_feature,
-                                     shape_features=pose_feature)
-        return fusion_feature
+            fusion_feature = self.fusion(appearance_features=appearance_feature,
+                                        shape_features=pose_feature)
+        
+            return fusion_feature
+        else:
+            return appearance_feature
 
 
 # def contrastive_orientation_guided_loss(anchor, positive, negative):

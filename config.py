@@ -52,7 +52,7 @@ class BASIC_CONFIG:
     QUERY_JSON_PATH = osp.join(DATA_PATH, DATASET_NAME, "jsons/query.json")
     GALLERY_JSON_PATH = osp.join(DATA_PATH, DATASET_NAME, "jsons/gallery.json")
 
-    LR = 1e-3
+    LR = 0.02
 
     WARM_EPOCH = 5
     WARM_UP = 0.1
@@ -61,8 +61,8 @@ class BASIC_CONFIG:
     BATCH_SIZE = 8
     PIN_MEMORY = True
     NUM_WORKER = 4
-
-    FP16 = True
+    
+    TEST_WITH_POSE = False
     
     SAVE_PATH = "./work_space/save"
     MODEL_NAME = f"net_last_shape_{DATASET_NAME}_{EPOCHS}epochs_{WARM_EPOCH}warmepoch_{LR}.pth"

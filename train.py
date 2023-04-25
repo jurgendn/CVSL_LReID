@@ -30,11 +30,10 @@ net = Baseline(shape_edge_index=SHAPE_EMBEDDING_CFG.EDGE_INDEX,
 
 
 model_checkpoint = ModelCheckpoint(every_n_epochs=10)
-early_stopping = EarlyStopping(monitor='avg_train_loss', patience=20, mode='min')
-# early_stopping = EarlyStopping(mode='min', patience=20, monitor=)
+# early_stopping = EarlyStopping(monitor='avg_train_loss', patience=20, mode='min')
 epochs = BASIC_CONFIG.EPOCHS
 
-trainer = Trainer(accelerator='gpu', max_epochs=epochs, callbacks=[model_checkpoint, early_stopping], precision=16)
+trainer = Trainer(accelerator='gpu', max_epochs=epochs, callbacks=[model_checkpoint])
 
 trainer.fit(model=net, train_dataloaders=train_loader)
 
@@ -45,6 +44,7 @@ torch.save(net.state_dict(), osp.join(BASIC_CONFIG.SAVE_PATH, name))
 # # extract logged loss values
 # train_loss = trainer.callback_metrics['train_loss']
 # avg_train_loss = trainer.callback_metrics['avg_train_loss']
+# print(avg_train_loss)
 
 # # plot loss curve
 # epochs = range(1, len(avg_train_loss) + 1)

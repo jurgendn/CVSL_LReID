@@ -53,7 +53,8 @@ model = InferenceBaseline(shape_edge_index=SHAPE_EMBEDDING_CFG.EDGE_INDEX,
                 shape_n_hidden=SHAPE_EMBEDDING_CFG.N_HIDDEN,
                 shape_out_features=SHAPE_EMBEDDING_CFG.OUT_FEATURES,
                 shape_relation_layers=SHAPE_EMBEDDING_CFG.RELATION_LAYERS,
-                r50_stride=FT_NET_CFG.R50_STRIDE).to(BASIC_CONFIG.DEVICE)
+                r50_stride=FT_NET_CFG.R50_STRIDE,
+                with_pose=BASIC_CONFIG.TEST_WITH_POSE).to(BASIC_CONFIG.DEVICE)
 
 model_name = f"net_last_shape_{BASIC_CONFIG.DATASET_NAME}_{BASIC_CONFIG.EPOCHS}epochs_{BASIC_CONFIG.WARM_EPOCH}warmepoch_{BASIC_CONFIG.LR}.pth"
 

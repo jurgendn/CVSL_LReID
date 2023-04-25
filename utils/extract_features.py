@@ -11,7 +11,9 @@ def extract_feature_standard(model, dataloader, type):
     paths = []
 
     for data in tqdm(dataloader, desc='-- Extract %s features: ' % (type)):
+        
         imgs, poses, p_ids, cam_ids, _, img_paths = data
+        
 
         labels += p_ids
         cameras += cam_ids
