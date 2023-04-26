@@ -24,6 +24,7 @@ net = Baseline(shape_edge_index=SHAPE_EMBEDDING_CFG.EDGE_INDEX,
                 shape_out_features=SHAPE_EMBEDDING_CFG.OUT_FEATURES,
                 shape_relation_layers=SHAPE_EMBEDDING_CFG.RELATION_LAYERS,
                 class_num=num_classes,
+                train_shape=BASIC_CONFIG.TRAIN_SHAPE,
                 dataset_size=dataset_size,
                 r50_stride=FT_NET_CFG.R50_STRIDE,
                 r50_pretrained_weight=FT_NET_CFG.PRETRAINED, lr=BASIC_CONFIG.LR)
@@ -37,22 +38,9 @@ trainer = Trainer(accelerator='gpu', max_epochs=epochs, callbacks=[model_checkpo
 
 trainer.fit(model=net, train_dataloaders=train_loader)
 
-name = f"net_last_shape_{BASIC_CONFIG.DATASET_NAME}_{epochs}epochs_{BASIC_CONFIG.WARM_EPOCH}warmepoch_{BASIC_CONFIG.LR}.pth"
+if BASIC_CONFIG.TRAIN_SHAPE:
 
+    name = f"net_last_shape_{BASIC_CONFIG.DATASET_NAME}_{epochs}epochs_{BASIC_CONFIG.WARM_EPOCH}warmepoch_{BASIC_CONFIG.LR}_trainshape.pth"
+else:
+    name = f"net_last_shape_{BASIC_CONFIG.DATASET_NAME}_{epochs}epochs_{BASIC_CONFIG.WARM_EPOCH}warmepoch_{BASIC_CONFIG.LR}.pth"
 torch.save(net.state_dict(), osp.join(BASIC_CONFIG.SAVE_PATH, name))
-
-# # extract logged loss values
-# train_loss = trainer.callback_metrics['train_loss']
-# avg_train_loss = trainer.callback_metrics['avg_train_loss']
-# print(avg_train_loss)
-
-# # plot loss curve
-# epochs = range(1, len(avg_train_loss) + 1)
-# plt.plot(epochs, train_loss, 'b', label='Training loss')
-# plt.plot(epochs, avg_train_loss, 'r', label='Average training loss')
-# plt.title('Training loss')
-# plt.xlabel('Epoch')
-# plt.ylabel('Loss')
-# plt.legend()
-# loss_name = f"loss_curve_{BASIC_CONFIG.DATASET_NAME}"
-# plt.savefig(osp.join("output", loss_name))

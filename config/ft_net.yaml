@@ -1,2 +1,2 @@
-R50_STRIDE: 1
-PRETRAINED: "./pretrained/net_last.pth"
+R50_STRIDE: 2
+PRETRAINED: "pretrained/net_last1.pth"

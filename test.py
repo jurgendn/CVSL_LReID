@@ -60,7 +60,11 @@ model_name = f"net_last_shape_{BASIC_CONFIG.DATASET_NAME}_{BASIC_CONFIG.EPOCHS}e
 
 save_path = os.path.join(BASIC_CONFIG.SAVE_PATH, model_name)
 
-model.load_state_dict(torch.load(save_path), strict=False)
+# model.load_state_dict(torch.load(save_path), strict=False)
+model.load_state_dict(torch.load("work_space/save/net_last_shape_ltcc_60epochs_5warmepoch_0.01.pth"), strict=False)
+
+
+
 
 model.eval()
 
@@ -68,19 +72,21 @@ with torch.inference_mode():
     query_standard = extract_feature_standard(model, query_loader, type='query')
     gallery_standard = extract_feature_standard(model, gallery_loader, type='gallery')
 
-    query_cc = extract_feature_cc(model, query_loader, type='query')
-    gallery_cc = extract_feature_cc(model, gallery_loader, type='gallery')
+    # query_cc = extract_feature_cc(model, query_loader, type='query')
+    # gallery_cc = extract_feature_cc(model, gallery_loader, type='gallery')
     
 
 standard_CMC, standard_mAP = evaluate(gallery_standard, query_standard)
 standard_CMC = standard_CMC.numpy()
 print("==============================")
-print()
+
+print(f"Results on {BASIC_CONFIG.DATASET_NAME} train with shape: {BASIC_CONFIG.TRAIN_SHAPE}")
+
 print(f"Standard Protocols | Rank-1 Accuracy: {standard_CMC[0]:.2f} | mAP: {standard_mAP:.2f}")
 
-cc_CMC, cc_mAP = evaluate2(gallery_cc, query_cc)
-cc_CMC = cc_CMC.numpy()
-print(f"Cloth-Changing Protocols | Rank-1 Accuracy: {cc_CMC[0]:.2f} | mAP: {cc_mAP:.2f}")\
+# cc_CMC, cc_mAP = evaluate2(gallery_cc, query_cc)
+# cc_CMC = cc_CMC.numpy()
+# print(f"Cloth-Changing Protocols | Rank-1 Accuracy: {cc_CMC[0]:.2f} | mAP: {cc_mAP:.2f}")\
 
 print()
 print("==============================")
@@ -89,9 +95,9 @@ print("==============================")
 # ranks = np.arange(1, len(standard_CMC)+1)
 ranks = np.arange(1, 21)
 
-# Plot the CMC curve 
-plt.plot(ranks, standard_CMC[:20], '-o', label='Standard Evaluation')
-plt.plot(ranks, cc_CMC[:20], '-x', label='Cloth-Changing Evaluation')
+# # Plot the CMC curve 
+# plt.plot(ranks, standard_CMC[:20], '-o', label='Standard Evaluation')
+# plt.plot(ranks, cc_CMC[:20], '-x', label='Cloth-Changing Evaluation')
 
 plt.xlabel('Rank')
 plt.ylabel('Identification Rate')

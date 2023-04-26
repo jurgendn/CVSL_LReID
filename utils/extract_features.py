@@ -3,6 +3,7 @@ from tqdm.auto import tqdm
 
 from config import BASIC_CONFIG, SHAPE_EMBEDDING_CFG
 
+cloth_changing_mode = BASIC_CONFIG.CLOTH_CHANGING_MODE
 
 def extract_feature_standard(model, dataloader, type):
     features = []
@@ -12,8 +13,10 @@ def extract_feature_standard(model, dataloader, type):
 
     for data in tqdm(dataloader, desc='-- Extract %s features: ' % (type)):
         
-        imgs, poses, p_ids, cam_ids, _, img_paths = data
-        
+        if cloth_changing_mode:
+            imgs, poses, p_ids, cam_ids, _, img_paths = data
+        else: 
+            imgs, poses, p_ids, cam_ids, img_paths = data
 
         labels += p_ids
         cameras += cam_ids

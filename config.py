@@ -29,6 +29,7 @@ class BASIC_CONFIG:
 
     TRAIN_TRANSFORM = T.Compose([
         #T.RandomResizedCrop(size=128, scale=(0.75,1.0), ratio=(0.75,1.3333), interpolation=3), #Image.BICUBIC)
+        T.ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1, hue=0),
         T.Resize(INPUT_SIZE, interpolation=3),
         T.Pad(10),
         T.RandomCrop(INPUT_SIZE),
@@ -36,7 +37,6 @@ class BASIC_CONFIG:
         T.ToTensor(),
         T.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
         RandomErasing(probability = 0.5, mean=[0.0, 0.0, 0.0]),
-        T.ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1, hue=0)
         ])
 
     TEST_TRANSFORM = T.Compose([
@@ -47,22 +47,24 @@ class BASIC_CONFIG:
 
     DATA_PATH = "./data"
     DATASET_NAME = "ltcc"
-    CLOTH_CHANGING_MODE = True
+    CLOTH_CHANGING_MODE = False
     TRAIN_JSON_PATH = osp.join(DATA_PATH, DATASET_NAME, "jsons/train.json")
     QUERY_JSON_PATH = osp.join(DATA_PATH, DATASET_NAME, "jsons/query.json")
     GALLERY_JSON_PATH = osp.join(DATA_PATH, DATASET_NAME, "jsons/gallery.json")
 
-    LR = 0.02
+    LR = 0.01
 
     WARM_EPOCH = 5
     WARM_UP = 0.1
 
     EPOCHS = 60
-    BATCH_SIZE = 8
+    BATCH_SIZE = 16
     PIN_MEMORY = True
-    NUM_WORKER = 4
+    NUM_WORKER = 8
     
     TEST_WITH_POSE = False
+
+    TRAIN_SHAPE = True
     
     SAVE_PATH = "./work_space/save"
     MODEL_NAME = f"net_last_shape_{DATASET_NAME}_{EPOCHS}epochs_{WARM_EPOCH}warmepoch_{LR}.pth"

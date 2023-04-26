@@ -21,7 +21,7 @@ class PositionEmbedding(nn.Module):
             nn.Linear(in_features=in_features, out_features=512),
             # nn.Linear(in_features=256, out_features=512),
             nn.Linear(in_features=512, out_features=1024),
-            nn.Linear(in_features=1024, out_features=out_features)
+            # nn.Linear(in_features=1024, out_features=out_features)
         )
         
         

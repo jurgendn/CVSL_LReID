@@ -24,6 +24,7 @@ class Baseline(LightningModule):
                  r50_stride: int,
                  r50_pretrained_weight: str,
                  lr: float,
+                 train_shape: bool, 
                  dataset_size: int,
                  shape_edge_index: torch.LongTensor,
                  shape_pose_n_features: int = 4,
@@ -39,7 +40,7 @@ class Baseline(LightningModule):
 
         self.class_num = class_num
         self.dataset_size = dataset_size
-        self.fp16 = BASIC_CONFIG.FP16
+        self.train_shape = train_shape
 
         self.ft_net = FTNet(stride=r50_stride)
         self.shape_embedding = ShapeEmbedding(
@@ -48,12 +49,17 @@ class Baseline(LightningModule):
             out_features=shape_out_features,
             relation_layers=shape_relation_layers)
         self.fusion = FusionNet(out_features=1024)
-        self.id_classification = nn.Linear(in_features=1024,
-                                           out_features=self.class_num)
 
-        self.load_pretrained_r50(r50_weight_path=r50_pretrained_weight)
+        if not self.train_shape:
+            self.shape_embedding.requires_grad_(False)
+            self.id_classification = nn.Sequential(
+                nn.Linear(in_features=2048, out_features=1024), 
+                nn.Linear(in_features=1024, out_features=self.class_num)
+            )
+        else:
+            self.id_classification = nn.Linear(in_features=1024, out_features=self.class_num)
+        # self.load_pretrained_r50(r50_weight_path=r50_pretrained_weight)
 
-        # for param in self.ft_net.parameters
         # self.ft_net.requires_grad_(False)
         self.warm_epoch = BASIC_CONFIG.WARM_EPOCH
         self.warm_up = BASIC_CONFIG.WARM_UP
@@ -69,14 +75,18 @@ class Baseline(LightningModule):
     def forward(self, x_image: torch.Tensor,
                 x_pose_features: torch.FloatTensor,
                 edge_index: torch.LongTensor) -> torch.Tensor:
+        
         appearance_feature = self.ft_net(x=x_image)
-        pose_feature = self.shape_embedding(pose=x_pose_features,
-                                            edge_index=edge_index)
 
-        fusion_feature = self.fusion(appearance_features=appearance_feature,
-                                     shape_features=pose_feature)
-        return fusion_feature
+        if self.train_shape:
+            pose_feature = self.shape_embedding(pose=x_pose_features,
+                                                edge_index=edge_index)
 
+            fusion_feature = self.fusion(appearance_features=appearance_feature,
+                                        shape_features=pose_feature)
+            return fusion_feature
+        else:            
+            return appearance_feature
     def configure_optimizers(self):
         optimizer = optim.Adam(params=self.parameters(), lr=self.hparams.lr)
         # optimizer = FusedSGD(self.parameters(), lr=self.hparams.lr)
@@ -88,7 +98,6 @@ class Baseline(LightningModule):
     def training_step(self, batch, batch_idx) -> Dict:
         (a_img, p_img, n_img), (a_pose, p_pose, n_pose), a_id = batch
         now_batch_size, _, _, _ = a_img.shape
-        # self = self.half()
 
         a_features = self.forward(x_image=a_img,
                                   x_pose_features=a_pose,
@@ -108,16 +117,17 @@ class Baseline(LightningModule):
 
 
         logits = self.id_classification(a_features)
-        loss = F.cross_entropy(logits, a_id)
+        id_loss = F.cross_entropy(logits, a_id)
 
-        loss += triplet_loss
-        # normalize feature
-        a_fnorm = torch.norm(a_features, p=2, dim=1, keepdim=True)
-        a_features = a_features.div(a_fnorm.expand_as(a_features))
+        loss = (triplet_loss + id_loss) / 2
+
+        # # normalize feature
+        # a_fnorm = torch.norm(a_features, p=2, dim=1, keepdim=True)
+        # a_features = a_features.div(a_fnorm.expand_as(a_features))
 
         # Circle Loss
-        circle_loss = CircleLoss(m=0.25, gamma=64)
-        loss += circle_loss(*convert_label_to_similarity(a_features, a_id))/now_batch_size
+        # circle_loss = CircleLoss(m=0.25, gamma=64)
+        # loss += circle_loss(*convert_label_to_similarity(a_features, a_id))/now_batch_size
 
         # ArcFace Loss 
         # arcface = losses.ArcFaceLoss(num_classes=self.class_num, embedding_size=1024)
@@ -125,11 +135,11 @@ class Baseline(LightningModule):
         # loss += arcface_loss
         
 
-        # Warm Up
-        warm_iteration = round(self.dataset_size/BASIC_CONFIG.BATCH_SIZE)*self.warm_epoch # first 5 epoch
-        if self.current_epoch < self.warm_epoch:
-            warm_up = min(1.0, self.warm_up + 0.9 / warm_iteration)
-            loss = loss * warm_up
+        #Warm Up
+        # warm_iteration = round(self.dataset_size/BASIC_CONFIG.BATCH_SIZE)*self.warm_epoch # first 5 epoch
+        # if self.current_epoch < self.warm_epoch:
+        #     warm_up = min(1.0, self.warm_up + 0.9 / warm_iteration)
+        #     loss = loss * warm_up
 
         self.training_step_outputs.append(loss)
         self.log('train_loss', loss, on_step=True, on_epoch=True, prog_bar=True, logger=True)
