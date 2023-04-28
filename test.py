@@ -48,62 +48,64 @@ need to fix
 """
 need to fix
 """
-model = InferenceBaseline(shape_edge_index=SHAPE_EMBEDDING_CFG.EDGE_INDEX,
-                shape_pose_n_features=SHAPE_EMBEDDING_CFG.POSE_N_FEATURES,
-                shape_n_hidden=SHAPE_EMBEDDING_CFG.N_HIDDEN,
-                shape_out_features=SHAPE_EMBEDDING_CFG.OUT_FEATURES,
-                shape_relation_layers=SHAPE_EMBEDDING_CFG.RELATION_LAYERS,
-                r50_stride=FT_NET_CFG.R50_STRIDE,
-                with_pose=BASIC_CONFIG.TEST_WITH_POSE).to(BASIC_CONFIG.DEVICE)
+# model = InferenceBaseline(shape_edge_index=SHAPE_EMBEDDING_CFG.EDGE_INDEX,
+#                 shape_pose_n_features=SHAPE_EMBEDDING_CFG.POSE_N_FEATURES,
+#                 shape_n_hidden=SHAPE_EMBEDDING_CFG.N_HIDDEN,
+#                 shape_out_features=SHAPE_EMBEDDING_CFG.OUT_FEATURES,
+#                 shape_relation_layers=SHAPE_EMBEDDING_CFG.RELATION_LAYERS,
+#                 r50_stride=FT_NET_CFG.R50_STRIDE,
+#                 with_pose=BASIC_CONFIG.TEST_WITH_POSE).to(BASIC_CONFIG.DEVICE)
 
-model_name = f"net_last_shape_{BASIC_CONFIG.DATASET_NAME}_{BASIC_CONFIG.EPOCHS}epochs_{BASIC_CONFIG.WARM_EPOCH}warmepoch_{BASIC_CONFIG.LR}.pth"
-
-save_path = os.path.join(BASIC_CONFIG.SAVE_PATH, model_name)
+model = FTNet().to(device=BASIC_CONFIG.DEVICE)
+save_path = os.path.join(BASIC_CONFIG.SAVE_PATH, BASIC_CONFIG.MODEL_NAME)
 
 # model.load_state_dict(torch.load(save_path), strict=False)
-model.load_state_dict(torch.load("work_space/save/net_last_shape_ltcc_60epochs_5warmepoch_0.01.pth"), strict=False)
+model.load_state_dict(torch.load("pretrained/net_last.pth"), strict=True)
 
 
-
+cloth_changing = BASIC_CONFIG.CLOTH_CHANGING_MODE
 
 model.eval()
 
 with torch.inference_mode():
     query_standard = extract_feature_standard(model, query_loader, type='query')
     gallery_standard = extract_feature_standard(model, gallery_loader, type='gallery')
-
-    # query_cc = extract_feature_cc(model, query_loader, type='query')
-    # gallery_cc = extract_feature_cc(model, gallery_loader, type='gallery')
+    if cloth_changing:
+        query_cc = extract_feature_cc(model, query_loader, type='query')
+        gallery_cc = extract_feature_cc(model, gallery_loader, type='gallery')
     
 
 standard_CMC, standard_mAP = evaluate(gallery_standard, query_standard)
 standard_CMC = standard_CMC.numpy()
 print("==============================")
-
-print(f"Results on {BASIC_CONFIG.DATASET_NAME} train with shape: {BASIC_CONFIG.TRAIN_SHAPE}")
+print()
+print(f"Results on {BASIC_CONFIG.DATASET_NAME}")
 
 print(f"Standard Protocols | Rank-1 Accuracy: {standard_CMC[0]:.2f} | mAP: {standard_mAP:.2f}")
 
-# cc_CMC, cc_mAP = evaluate2(gallery_cc, query_cc)
-# cc_CMC = cc_CMC.numpy()
-# print(f"Cloth-Changing Protocols | Rank-1 Accuracy: {cc_CMC[0]:.2f} | mAP: {cc_mAP:.2f}")\
+if cloth_changing:
+    cc_CMC, cc_mAP = evaluate2(gallery_cc, query_cc)
+    cc_CMC = cc_CMC.numpy()
+    print(f"Cloth-Changing Protocols | Rank-1 Accuracy: {cc_CMC[0]:.2f} | mAP: {cc_mAP:.2f}")\
 
 print()
 print("==============================")
 
 # Calculate the rank values for the x-axis
-# ranks = np.arange(1, len(standard_CMC)+1)
-ranks = np.arange(1, 21)
+ranks = np.arange(1, len(standard_CMC)+1)
+ranks = np.arange(1, 41)
 
 # # Plot the CMC curve 
-# plt.plot(ranks, standard_CMC[:20], '-o', label='Standard Evaluation')
-# plt.plot(ranks, cc_CMC[:20], '-x', label='Cloth-Changing Evaluation')
+plt.plot(ranks, standard_CMC[:40], '-o', label='Standard Protocol')
+plt.plot(ranks, cc_CMC[:40], '-x', label='Cloth-Changing Protocol')
 
 plt.xlabel('Rank')
 plt.ylabel('Identification Rate')
-plt.title('CMC Curve on LTCC Dataset')
+# plt.title(BASIC_CONFIG.MODEL_NAME)
+plt.title("Results on using FT_Net trained on Market1501 without retraining")
 plt.grid(False)
 # Save the plot to an output folder
-path = f"output/cmc_curve_{BASIC_CONFIG.DATASET_NAME}"
+# path = f"output/{BASIC_CONFIG.MODEL_NAME[:-4]}.png"
+path = f"output/Results on using FT_Net trained on Market1501 without retraining.png"
 plt.legend()
 plt.savefig(path)

@@ -69,9 +69,6 @@ def evaluate2(gallery, query):
     gallery_label = np.array(gallery['label'])
     gallery_cloth = np.array(gallery['cloth'])
 
-    # query_feature = query_feature.to(device)
-    # gallery_feature = gallery_feature.to(device)
-
     # print(query_feature.shape)
     CMC = torch.IntTensor(len(gallery_label)).zero_()
     ap = 0.0

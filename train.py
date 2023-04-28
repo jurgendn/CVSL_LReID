@@ -1,13 +1,9 @@
-import json
 from typing import List
 
 import torch
-from PIL import Image
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint
-from pytorch_lightning.loggers import NeptuneLogger
-from torch import nn
-from torchvision import transforms as T
+# from pytorch_lightning.loggers import NeptuneLogger
 from tqdm.auto import tqdm
 import os.path as osp
 from config import BASIC_CONFIG, FT_NET_CFG, SHAPE_EMBEDDING_CFG
@@ -29,6 +25,8 @@ net = Baseline(shape_edge_index=SHAPE_EMBEDDING_CFG.EDGE_INDEX,
                 r50_stride=FT_NET_CFG.R50_STRIDE,
                 r50_pretrained_weight=FT_NET_CFG.PRETRAINED, lr=BASIC_CONFIG.LR)
 
+model_name = BASIC_CONFIG.MODEL_NAME
+print(model_name)
 
 model_checkpoint = ModelCheckpoint(every_n_epochs=10)
 # early_stopping = EarlyStopping(monitor='avg_train_loss', patience=20, mode='min')
@@ -38,9 +36,4 @@ trainer = Trainer(accelerator='gpu', max_epochs=epochs, callbacks=[model_checkpo
 
 trainer.fit(model=net, train_dataloaders=train_loader)
 
-if BASIC_CONFIG.TRAIN_SHAPE:
-
-    name = f"net_last_shape_{BASIC_CONFIG.DATASET_NAME}_{epochs}epochs_{BASIC_CONFIG.WARM_EPOCH}warmepoch_{BASIC_CONFIG.LR}_trainshape.pth"
-else:
-    name = f"net_last_shape_{BASIC_CONFIG.DATASET_NAME}_{epochs}epochs_{BASIC_CONFIG.WARM_EPOCH}warmepoch_{BASIC_CONFIG.LR}.pth"
-torch.save(net.state_dict(), osp.join(BASIC_CONFIG.SAVE_PATH, name))
+torch.save(net.state_dict(), osp.join(BASIC_CONFIG.SAVE_PATH, model_name))

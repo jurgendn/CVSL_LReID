@@ -75,8 +75,7 @@ class ClassBlock(nn.Module):
         x = self.add_block(x)
         if self.return_f:
             f = x
-            x = self.classifier(x)
-            return [x, f]
+            return f
         else:
             x = self.classifier(x)
             return x
@@ -85,15 +84,17 @@ class ClassBlock(nn.Module):
 # Define the ResNet50-based Model
 class FTNet(nn.Module):
 
-    def __init__(self, stride=2):
+    def __init__(self, class_num = 751, stride=2, droprate = 0.5, linear_num=512, return_f=True):
         super(FTNet, self).__init__()
-        model_ft = models.resnet50()
+        resnet_weights = models.ResNet50_Weights.DEFAULT
+        model_ft = models.resnet50(resnet_weights)
         # avg pooling to global pooling
         if stride == 1:
             model_ft.layer4[0].downsample[0].stride = (1, 1)
             model_ft.layer4[0].conv2.stride = (1, 1)
         model_ft.avgpool = nn.AdaptiveAvgPool2d((1, 1))
         self.model = model_ft
+        self.classifier = ClassBlock(2048, class_num, droprate, linear=linear_num, return_f=return_f)
 
     def forward(self, x):
         x = self.model.conv1(x)
@@ -106,6 +107,7 @@ class FTNet(nn.Module):
         x = self.model.layer4(x)
         x = self.model.avgpool(x)
         x = x.view(x.size(0), x.size(1))
+        x = self.classifier(x)
         return x
 
 
@@ -115,7 +117,8 @@ class PCB(nn.Module):
         super(PCB, self).__init__()
 
         self.part = 6  # We cut the pool5 to 6 parts
-        model_ft = models.resnet50(pretrained=True)
+        resnet_weights = models.ResNet50_Weights.DEFAULT
+        model_ft = models.resnet50(resnet_weights)
         self.model = model_ft
         self.avgpool = nn.AdaptiveAvgPool2d((self.part, 1))
         self.dropout = nn.Dropout(p=0.5)

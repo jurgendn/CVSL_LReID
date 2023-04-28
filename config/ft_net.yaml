@@ -1,2 +1,4 @@
 R50_STRIDE: 2
+DROP_RATE: 0.5
+LINEAR_NUM: 512
 PRETRAINED: "pretrained/net_last1.pth"

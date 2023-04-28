@@ -21,9 +21,9 @@ class FusionNet(nn.Module):
         super(FusionNet, self).__init__()
         self.out_features = out_features
 
-        self.appearance_net = nn.Sequential(nn.LazyLinear(out_features=1024),
+        self.appearance_net = nn.Sequential(nn.Linear(in_features=512, out_features=1024),
                                             nn.LeakyReLU())
-        self.shape_net = nn.Sequential(nn.LazyLinear(out_features=1024),
+        self.shape_net = nn.Sequential(nn.Linear(in_features=512, out_features=1024),
                                        nn.LeakyReLU())
 
         self.theta = AggregationNet()

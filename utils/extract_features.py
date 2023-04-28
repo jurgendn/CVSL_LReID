@@ -4,6 +4,8 @@ from tqdm.auto import tqdm
 from config import BASIC_CONFIG, SHAPE_EMBEDDING_CFG
 
 cloth_changing_mode = BASIC_CONFIG.CLOTH_CHANGING_MODE
+dataset_name = BASIC_CONFIG.DATASET_NAME
+edge_index = torch.LongTensor(SHAPE_EMBEDDING_CFG.EDGE_INDEX).to(BASIC_CONFIG.DEVICE)
 
 def extract_feature_standard(model, dataloader, type):
     features = []
@@ -25,11 +27,11 @@ def extract_feature_standard(model, dataloader, type):
         n, c, h, w = imgs.size()
         input_imgs = imgs.to(BASIC_CONFIG.DEVICE)
         input_poses = poses.to(BASIC_CONFIG.DEVICE)
-
-        output = model(
-            input_imgs, input_poses,
-            torch.LongTensor(SHAPE_EMBEDDING_CFG.EDGE_INDEX).to(
-                BASIC_CONFIG.DEVICE))
+            
+        # if dataset_name == 'market1501' or dataset_name == 'cuhk03':
+        output = model(input_imgs)
+        # else:
+        #     output = model(input_imgs, input_poses, edge_index)
 
         feature = output.data.cpu()
         feature_norm = torch.norm(feature, p=2, dim=1, keepdim=True)
@@ -37,7 +39,7 @@ def extract_feature_standard(model, dataloader, type):
         features.append(feature)
 
     features = torch.cat(features, dim=0)
-    # print(features.shape)
+
     return {
             'feature': features,
             'camera': cameras,
@@ -53,7 +55,7 @@ def extract_feature_cc(model, dataloader, type):
     clothes = []
     paths = []
 
-    for data in tqdm(dataloader, desc='-- Extract %s features: ' % (type)):
+    for data in tqdm(dataloader, desc='-- Extract %s features | Cloth-changing: ' % (type)):
         imgs, poses, p_ids, cam_ids, cloth_ids, img_paths = data
 
         labels += p_ids
@@ -65,10 +67,8 @@ def extract_feature_cc(model, dataloader, type):
         input_imgs = imgs.to(BASIC_CONFIG.DEVICE)
         input_poses = poses.to(BASIC_CONFIG.DEVICE)
 
-        output = model(
-            input_imgs, input_poses,
-            torch.LongTensor(SHAPE_EMBEDDING_CFG.EDGE_INDEX).to(
-                BASIC_CONFIG.DEVICE))
+        output = model(input_imgs) 
+        # output = model(input_imgs, input_poses, edge_index) 
 
         feature = output.data.cpu()
         feature_norm = torch.norm(feature, p=2, dim=1, keepdim=True)
