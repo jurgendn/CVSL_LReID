@@ -39,28 +39,20 @@ query_loader, gallery_loader = get_query_gallery_loader()
 
 """
 need to fix
-# """
-# def load_model(model):
-    
-#     model.load_state_dict(torch.load(save_path))
-#     return model 
-
 """
-need to fix
-"""
-# model = InferenceBaseline(shape_edge_index=SHAPE_EMBEDDING_CFG.EDGE_INDEX,
-#                 shape_pose_n_features=SHAPE_EMBEDDING_CFG.POSE_N_FEATURES,
-#                 shape_n_hidden=SHAPE_EMBEDDING_CFG.N_HIDDEN,
-#                 shape_out_features=SHAPE_EMBEDDING_CFG.OUT_FEATURES,
-#                 shape_relation_layers=SHAPE_EMBEDDING_CFG.RELATION_LAYERS,
-#                 r50_stride=FT_NET_CFG.R50_STRIDE,
-#                 with_pose=BASIC_CONFIG.TEST_WITH_POSE).to(BASIC_CONFIG.DEVICE)
+model = InferenceBaseline(shape_edge_index=SHAPE_EMBEDDING_CFG.EDGE_INDEX,
+                shape_pose_n_features=SHAPE_EMBEDDING_CFG.POSE_N_FEATURES,
+                shape_n_hidden=SHAPE_EMBEDDING_CFG.N_HIDDEN,
+                shape_out_features=SHAPE_EMBEDDING_CFG.OUT_FEATURES,
+                shape_relation_layers=SHAPE_EMBEDDING_CFG.RELATION_LAYERS,
+                r50_stride=FT_NET_CFG.R50_STRIDE,
+                with_pose=BASIC_CONFIG.TEST_WITH_POSE).to(BASIC_CONFIG.DEVICE)
 
-model = FTNet().to(device=BASIC_CONFIG.DEVICE)
+# model = FTNet().to(device=BASIC_CONFIG.DEVICE)
 save_path = os.path.join(BASIC_CONFIG.SAVE_PATH, BASIC_CONFIG.MODEL_NAME)
 
-# model.load_state_dict(torch.load(save_path), strict=False)
-model.load_state_dict(torch.load("pretrained/net_last.pth"), strict=True)
+model.load_state_dict(torch.load(save_path), strict=False)
+# model.load_state_dict(torch.load("work_space/save/net_last_shape_ltcc_numepochs_60.pth"), strict=True)
 
 
 cloth_changing = BASIC_CONFIG.CLOTH_CHANGING_MODE
@@ -81,12 +73,14 @@ print("==============================")
 print()
 print(f"Results on {BASIC_CONFIG.DATASET_NAME}")
 
-print(f"Standard Protocols | Rank-1 Accuracy: {standard_CMC[0]:.2f} | mAP: {standard_mAP:.2f}")
+standard_results = f"Standard | R-1 Acc: {standard_CMC[0]:.2f} | mAP: {standard_mAP:.2f}"
+print(standard_results)
 
 if cloth_changing:
     cc_CMC, cc_mAP = evaluate2(gallery_cc, query_cc)
     cc_CMC = cc_CMC.numpy()
-    print(f"Cloth-Changing Protocols | Rank-1 Accuracy: {cc_CMC[0]:.2f} | mAP: {cc_mAP:.2f}")\
+    cc_results = f"Cloth-Changing | R-1 Acc: {cc_CMC[0]:.2f} | mAP: {cc_mAP:.2f}"
+    print(cc_results)
 
 print()
 print("==============================")
@@ -96,16 +90,14 @@ ranks = np.arange(1, len(standard_CMC)+1)
 ranks = np.arange(1, 41)
 
 # # Plot the CMC curve 
-plt.plot(ranks, standard_CMC[:40], '-o', label='Standard Protocol')
-plt.plot(ranks, cc_CMC[:40], '-x', label='Cloth-Changing Protocol')
+plt.plot(ranks, standard_CMC[:40], '-o', label=standard_results)
+plt.plot(ranks, cc_CMC[:40], '-x', label=cc_results)
 
 plt.xlabel('Rank')
 plt.ylabel('Identification Rate')
-# plt.title(BASIC_CONFIG.MODEL_NAME)
-plt.title("Results on using FT_Net trained on Market1501 without retraining")
+plt.title(BASIC_CONFIG.MODEL_NAME)
 plt.grid(False)
 # Save the plot to an output folder
-# path = f"output/{BASIC_CONFIG.MODEL_NAME[:-4]}.png"
-path = f"output/Results on using FT_Net trained on Market1501 without retraining.png"
+path = f"output/{BASIC_CONFIG.MODEL_NAME[:-4]}.png"
 plt.legend()
 plt.savefig(path)

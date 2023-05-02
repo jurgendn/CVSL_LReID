@@ -6,11 +6,12 @@ from torch import nn, optim
 from torch.nn import functional as F
 import numpy as np
 from src.models.modules.fusion_net import FusionNet
-from src.models.modules.r50 import FTNet, weights_init_classifier
+from src.models.modules.r50 import FTNet, FTNet_HR, FTNet_Swin, weights_init_classifier
 from src.models.modules.shape_embedding import ShapeEmbedding
 from config import BASIC_CONFIG
-from src.losses.circle_loss import CircleLoss, convert_label_to_similarity
+from src.losses.circle_loss import CircleLoss, CircleLossTriplet, convert_label_to_similarity
 from pytorch_metric_learning import losses
+from utils.misc import normalize_feature
 
 class Baseline(LightningModule):
 
@@ -37,11 +38,16 @@ class Baseline(LightningModule):
         self.dataset_size = dataset_size
         self.train_shape = train_shape
 
-        if self.train_shape:
-            self.ft_net = FTNet(stride=r50_stride, class_num=self.class_num, return_f=True)
-        else:
-            self.ft_net = FTNet(stride=r50_stride, class_num=self.class_num, return_f=False)
-        
+        if self.train_shape: 
+            self.return_f = True 
+        else: self.return_f = False 
+
+        if BASIC_CONFIG.USE_RESTNET:
+            self.ft_net = FTNet(stride=r50_stride, class_num=self.class_num, return_f=self.return_f)
+        elif BASIC_CONFIG.USE_HRNET:
+            self.ft_net = FTNet_HR(class_num=self.class_num, return_f=self.return_f)
+        elif BASIC_CONFIG.USE_SWIN:
+            self.ft_net = FTNet_Swin(class_num=self.class_num, return_f=self.return_f)
 
         # can try ClassBlock for id_classification
         if self.train_shape:
@@ -55,9 +61,9 @@ class Baseline(LightningModule):
             need to change the input shape of appearance net and shape net 
             if change the relation layers
             """
-            self.fusion = FusionNet(out_features=1024)
+            self.fusion = FusionNet(out_features=512)
 
-            self.id_classification = nn.Linear(in_features=1024, out_features=self.class_num)
+            self.id_classification = nn.Linear(in_features=512, out_features=self.class_num)
             self.id_classification.apply(weights_init_classifier)
         
         if not BASIC_CONFIG.TRAIN_FROM_SCRATCH:
@@ -68,8 +74,8 @@ class Baseline(LightningModule):
         self.warm_epoch = BASIC_CONFIG.WARM_EPOCH
         self.warm_up = BASIC_CONFIG.WARM_UP
 
-        self.use_arcface = BASIC_CONFIG.USE_ARCFACE_LOSS
         self.use_circle = BASIC_CONFIG.USE_CIRCLE_LOSS
+        self.use_circle_appearance = BASIC_CONFIG.USE_CIRCLE_LOSS_APP
 
         self.training_step_outputs = []
         # self.validation_batch_outputs: List = []
@@ -117,56 +123,68 @@ class Baseline(LightningModule):
                         {'params': classifier_ft_net_params, 'lr': self.hparams.lr},
                     ], weight_decay=BASIC_CONFIG.WEIGHT_DECAY, momentum=0.9, nesterov=True)
         # optimizer = FusedSGD(self.parameters(), lr=self.hparams.lr)
-        lr_scheduler = optim.lr_scheduler.StepLR(optimizer=optimizer,
-                                                 step_size=BASIC_CONFIG.EPOCHS * 2 // 3,
-                                                 gamma=0.1)
-        return {"optimizer": optimizer, "lr_scheduler": lr_scheduler}
+        if BASIC_CONFIG.USE_REDUCE_LR:
+            lr_scheduler = optim.lr_scheduler.ReduceLROnPlateau(
+                optimizer=optimizer, mode='min', patience=10,  
+            )
+            return {"optimizer": optimizer, 
+                "lr_scheduler": {"scheduler": lr_scheduler, "monitor": "epoch_loss"}}
+        else:
+            lr_scheduler = optim.lr_scheduler.StepLR(optimizer=optimizer,
+                                                 #step_size=BASIC_CONFIG.EPOCHS * 2 // 3,
+                                                 step_size=23,
+                                                 gamma=0.1,)
+            return {"optimizer": optimizer, "lr_scheduler": lr_scheduler}
+        
 
     def training_step(self, batch, batch_idx) -> Dict:
         (a_img, p_img, n_img), (a_pose, p_pose, n_pose), a_id = batch
         now_batch_size, _, _, _ = a_img.shape
 
-        a_features = self.forward(x_image=a_img,
+        a_feature = self.forward(x_image=a_img,
                                   x_pose_features=a_pose,
                                   edge_index=self.shape_edge_index)
-        p_features = self.forward(x_image=p_img,
+        p_feature = self.forward(x_image=p_img,
                                   x_pose_features=p_pose,
                                   edge_index=self.shape_edge_index)
-        n_features = self.forward(x_image=n_img,
+        n_feature = self.forward(x_image=n_img,
                                   x_pose_features=n_pose,
                                   edge_index=self.shape_edge_index)
-
-        triplet_loss = F.triplet_margin_loss(anchor=a_features,
-                                             positive=p_features,
-                                             negative=n_features, margin=0.3)
-
         
-
         if self.train_shape:
-            logits = self.id_classification(a_features)
+            logits = self.id_classification(a_feature)
             id_loss = F.cross_entropy(logits, a_id)
         else:
-            id_loss = F.cross_entropy(a_features, a_id)        
+            id_loss = F.cross_entropy(a_feature, a_id)  
+
+        # Normalize features
+        a_features = normalize_feature(a_feature)
+        p_features = normalize_feature(p_feature)
+        n_features = normalize_feature(n_feature)
+        
+        if BASIC_CONFIG.USE_TRIPLET_LOSS:
+            triplet_margin_loss = nn.TripletMarginLoss(margin=0.5)
+            triplet_loss = triplet_margin_loss(a_features, p_features, n_features)
+
+        if BASIC_CONFIG.USE_CIRCLE_TRIPLET_LOSS:
+            circle_loss_triplet = CircleLossTriplet(scale=64, margin=0.25)
+            triplet_loss = circle_loss_triplet(p_features, n_features, a_features)
 
         loss = id_loss + triplet_loss
-        
-        if self.use_arcface or self.use_circle:
-            # normalize feature
-            a_fnorm = torch.norm(a_features, p=2, dim=1, keepdim=True)
-            a_features = a_features.div(a_fnorm.expand_as(a_features))
 
         if self.use_circle:
-        # Circle Loss
+            # normalize feature
+            if self.use_circle_appearance: 
+                feature = self.ft_net(a_img)
+            else:
+                feature = a_feature
             circle_loss = CircleLoss(m=0.25, gamma=64)
-            loss += circle_loss(*convert_label_to_similarity(a_features, a_id))/now_batch_size
-        if self.use_arcface:
-        # ArcFace Loss 
-            arcface = losses.ArcFaceLoss(num_classes=self.class_num, embedding_size=1024)
-            arcface_loss = arcface(a_features, a_id)/now_batch_size
-            loss += arcface_loss
+            a_fnorm = torch.norm(feature, p=2, dim=1, keepdim=True)
+            feature = feature.div(a_fnorm.expand_as(feature))
+            loss += circle_loss(*convert_label_to_similarity(feature, a_id))/now_batch_size
         
         if self.use_warm_epoch:
-        #Warm Up
+            #Warm Up
             warm_iteration = round(self.dataset_size/BASIC_CONFIG.BATCH_SIZE)*self.warm_epoch # first 5 epoch
             if self.current_epoch < self.warm_epoch:
                 warm_up = min(1.0, self.warm_up + 0.9 / warm_iteration)
@@ -177,10 +195,12 @@ class Baseline(LightningModule):
         # return loss 
         return loss 
 
+    # def on_fit_start(self) -> None:
+    #     self.has_warmed_up = False
+    
     def on_train_epoch_end(self):
-        # compute and log average training loss
-        # avg_loss = torch.stack(self.training_step_outputs).mean()
-        # self.log('avg_train_loss', avg_loss)
+        epoch_loss = sum(self.training_step_outputs) / len(self.training_step_outputs)
+        self.log('epoch_loss', epoch_loss)
         self.training_step_outputs.clear()
 
 class InferenceBaseline(LightningModule):
@@ -197,7 +217,13 @@ class InferenceBaseline(LightningModule):
         super(InferenceBaseline, self).__init__()
         shape_edge_index = torch.LongTensor(shape_edge_index)
         self.register_buffer("shape_edge_index", shape_edge_index)
-        self.ft_net = FTNet(stride=r50_stride, return_f=True)
+        if BASIC_CONFIG.USE_RESTNET:
+            self.ft_net = FTNet(stride=r50_stride, return_f=True)
+        elif BASIC_CONFIG.USE_HRNET:
+            self.ft_net = FTNet_HR(return_f=True)
+        elif BASIC_CONFIG.USE_SWIN:
+            self.ft_net = FTNet_Swin(return_f=True)
+
         self.test_with_pose = with_pose
 
         self.shape_embedding = ShapeEmbedding(
@@ -205,7 +231,7 @@ class InferenceBaseline(LightningModule):
             n_hidden=shape_n_hidden,
             out_features=shape_out_features,
             relation_layers=shape_relation_layers)
-        self.fusion = FusionNet(out_features=1024)
+        self.fusion = FusionNet(out_features=512)
 
     def forward(self, x_image: torch.Tensor,
                 x_pose_features: torch.FloatTensor,

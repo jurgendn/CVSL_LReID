@@ -28,10 +28,10 @@ def extract_feature_standard(model, dataloader, type):
         input_imgs = imgs.to(BASIC_CONFIG.DEVICE)
         input_poses = poses.to(BASIC_CONFIG.DEVICE)
             
-        # if dataset_name == 'market1501' or dataset_name == 'cuhk03':
-        output = model(input_imgs)
-        # else:
-        #     output = model(input_imgs, input_poses, edge_index)
+        if dataset_name == 'market1501' or dataset_name == 'cuhk03':
+            output = model(input_imgs)
+        else:
+            output = model(input_imgs, input_poses, edge_index)
 
         feature = output.data.cpu()
         feature_norm = torch.norm(feature, p=2, dim=1, keepdim=True)
@@ -67,8 +67,8 @@ def extract_feature_cc(model, dataloader, type):
         input_imgs = imgs.to(BASIC_CONFIG.DEVICE)
         input_poses = poses.to(BASIC_CONFIG.DEVICE)
 
-        output = model(input_imgs) 
-        # output = model(input_imgs, input_poses, edge_index) 
+        # output = model(input_imgs) 
+        output = model(input_imgs, input_poses, edge_index) 
 
         feature = output.data.cpu()
         feature_norm = torch.norm(feature, p=2, dim=1, keepdim=True)

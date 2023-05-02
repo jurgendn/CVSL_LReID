@@ -11,21 +11,34 @@ from typing import List, Tuple
 import torch_geometric.nn as gnn
 from torch import Tensor, nn
 from torch.nn import functional as F
-
+from config import BASIC_CONFIG
 
 class PositionEmbedding(nn.Module):
 
-    def __init__(self, in_features: int, out_features: int) -> None:
+    def __init__(self, in_features: int, n_hidden: int) -> None:
         super(PositionEmbedding, self).__init__()
-        self.position_embedding = nn.Sequential(
-            nn.Linear(in_features=in_features, out_features=out_features),
-            # nn.Linear(in_features=in_features, out_features=128),
-            # nn.Linear(in_features=128, out_features=512),
-            # nn.Linear(in_features=512, out_features=out_features),
-            # nn.Linear(in_features=1024, out_features=out_features)
-        )
-        
-        
+
+        num_layers = BASIC_CONFIG.NUM_REFINE_LAYERS
+        if num_layers == 1:
+            self.position_embedding = nn.Sequential(
+                nn.Linear(in_features=in_features, out_features=n_hidden),
+            )
+        elif num_layers == 2: 
+            self.position_embedding = nn.Sequential(
+                nn.Linear(in_features=in_features, out_features=128),
+                nn.LeakyReLU(),
+                nn.Linear(in_features=128, out_features=n_hidden),
+                nn.LeakyReLU(),
+            )
+        elif num_layers == 3: 
+            self.position_embedding = nn.Sequential(
+                nn.Linear(in_features=in_features, out_features=128),
+                nn.LeakyReLU(),
+                nn.Linear(in_features=128, out_features=512),
+                nn.LeakyReLU(),
+                nn.Linear(in_features=512, out_features=n_hidden),
+                nn.LeakyReLU(),
+            )
 
     def forward(self, pose: Tensor) -> Tensor:
         x = self.position_embedding(pose)
@@ -46,16 +59,14 @@ class PositionEmbedding(nn.Module):
 
 class RefineNetwork(nn.Module):
 
-    def __init__(self, pose_n_features: int, n_hidden: int,
-                 out_features: int) -> None:
+    def __init__(self, pose_n_features: int, n_hidden: int, out_features: int) -> None:
         super(RefineNetwork, self).__init__()
         self.position_embedding = PositionEmbedding(
-            in_features=pose_n_features, out_features=n_hidden)
+            in_features=pose_n_features, n_hidden=n_hidden)
         self.fc = nn.Linear(in_features=n_hidden, out_features=out_features)
 
     def forward(self, p: Tensor):
         x = self.position_embedding(p)
-        x = F.leaky_relu(x)
         y = self.fc(x)
         return y
 
@@ -65,11 +76,19 @@ class RelationNetwork(nn.Module):
     def __init__(self, layers: List[int]) -> None:
         super(RelationNetwork, self).__init__()
         self.__num_modules = len(layers)
-        for i, (in_channel, out_channel) in enumerate(layers):
-            setattr(
-                self, f"gcn_{i+1}",
-                gnn.GCNConv(in_channels=in_channel, out_channels=out_channel)
-            )
+        self.gcn_layer_type = BASIC_CONFIG.GCN_LAYER_TYPE
+        if self.gcn_layer_type == "GCNConv":
+            for i, (in_channel, out_channel) in enumerate(layers):
+                setattr(
+                    self, f"gcn_{i+1}",
+                    gnn.GCNConv(in_channels=in_channel, out_channels=out_channel)
+                )
+        if self.gcn_layer_type == "ResGCN":
+            for i, (in_channel, out_channel) in enumerate(layers):
+                setattr(
+                    self, f"gcn_{i+1}",
+                    gnn.ResGatedGraphConv(in_channels=in_channel, out_channels=out_channel)
+                )
 
     def forward(self, x: Tensor, a: Tensor):
         """
@@ -105,7 +124,10 @@ class ShapeEmbedding(nn.Module):
                                         n_hidden=n_hidden,
                                         out_features=out_features)
         self.relation_net = RelationNetwork(layers=relation_layers)
-        self.graph_pooling = gnn.MeanAggregation()
+        if BASIC_CONFIG.AGGREGATION_TYPE == 'mean':
+            self.graph_pooling = gnn.MeanAggregation()
+        elif BASIC_CONFIG.AGGREGATION_TYPE == 'max':
+            self.graph_pooling = gnn.MaxAggregation()
 
     def forward(self, pose: Tensor, edge_index: Tensor) -> Tensor:
         pose_features = self.refine_net(p=pose)

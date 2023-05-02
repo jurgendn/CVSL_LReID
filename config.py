@@ -24,11 +24,24 @@ SHAPE_EMBEDDING_CFG = Dynaconf(envar_prefix="DYNACONF",
 
 @dataclass
 class BASIC_CONFIG:
-    INPUT_SIZE = (256, 128)
+    USE_RESTNET = True
+    USE_HRNET = False
+    USE_SWIN = False
+
+    if USE_SWIN:
+        INPUT_SIZE = (224, 224)
+    else:
+        INPUT_SIZE = (256, 128)
+
+    if USE_SWIN or USE_HRNET:
+        LR = 0.01
+    else:
+        LR = 0.05
+
     DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
     COLOR_JITTER = False
-    RANDOM_ERASING = False
+    RANDOM_ERASING = True  
 
     train_transform_list = [
         #T.RandomResizedCrop(size=128, scale=(0.75,1.0), ratio=(0.75,1.3333), interpolation=3), #Image.BICUBIC)
@@ -64,18 +77,27 @@ class BASIC_CONFIG:
     QUERY_JSON_PATH = osp.join(DATA_PATH, DATASET_NAME, "jsons/query.json")
     GALLERY_JSON_PATH = osp.join(DATA_PATH, DATASET_NAME, "jsons/gallery.json")
 
-    LR = 0.05
+    USE_REDUCE_LR = False
     WEIGHT_DECAY =  5e-4
 
-    USE_WARM_EPOCH = False
+    USE_WARM_EPOCH = True
     WARM_EPOCH = 5
     WARM_UP = 0.1
 
+    USE_TRIPLET_LOSS = False
+    USE_CIRCLE_TRIPLET_LOSS = True
     USE_CIRCLE_LOSS = False
-    USE_ARCFACE_LOSS = False
+    USE_CIRCLE_LOSS_APP = False 
 
     TRAIN_FROM_SCRATCH = True
-    TRAIN_SHAPE = True
+    TRAIN_FROM_CKPT = False
+    CKPT_PATH = "work_space/lightning_logs/version_3/checkpoints/epoch=49-step=28200.ckpt"
+
+    TRAIN_SHAPE = True 
+    NUM_REFINE_LAYERS = 3 # or 2 or 1
+    GCN_LAYER_TYPE = "GCNConv" # ResGCN or GCNConv
+    NUM_GCN_LAYERS = 2
+    AGGREGATION_TYPE = 'mean' # max
 
     EPOCHS = 60
     BATCH_SIZE = 16
@@ -85,8 +107,16 @@ class BASIC_CONFIG:
     TEST_WITH_POSE = False
 
     SAVE_PATH = "./work_space/save"
+    LOG_PATH = "./work_space/"
 
     NAME = f"model_{DATASET_NAME}_{EPOCHS}epochs_{LR}lr"
+
+    if USE_RESTNET:
+        NAME += "_resnet"
+    if USE_HRNET:
+        NAME += "_hrnet"
+    if USE_SWIN:
+        NAME += "_swin"
 
     if TRAIN_FROM_SCRATCH:
         NAME += "_fromscratch"
@@ -101,14 +131,20 @@ class BASIC_CONFIG:
     
     if USE_CIRCLE_LOSS:
         NAME += "_circle"
-    
-    if USE_ARCFACE_LOSS:
-        NAME += "_arcface"
-    
+    if USE_CIRCLE_LOSS_APP:
+        NAME += "_circleApp"
+    if USE_CIRCLE_TRIPLET_LOSS:
+        NAME += "_circleTriplet"
+
     if COLOR_JITTER:
         NAME += "_colorjitter"
     if RANDOM_ERASING:
         NAME += "_randomerasing"
 
-    MODEL_NAME = NAME + ".pth"
+    NAME += f"_{NUM_REFINE_LAYERS}Refine"
+    NAME += f"_{GCN_LAYER_TYPE}"
+    NAME += f"_{NUM_GCN_LAYERS}GCN"
+    NAME += f"_{AGGREGATION_TYPE}Agg"
+
+    MODEL_NAME = NAME + "_modified.pth"
 

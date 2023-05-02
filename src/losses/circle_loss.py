@@ -1,6 +1,7 @@
 #from https://github.com/TinyZeaMays/CircleLoss/blob/master/circle_loss.py 
 
 from typing import Tuple
+import torch.nn.functional as F
 
 import torch
 from torch import nn, Tensor
@@ -39,6 +40,39 @@ class CircleLoss(nn.Module):
         loss = self.soft_plus(torch.logsumexp(logit_n, dim=0) + torch.logsumexp(logit_p, dim=0))
 
         return loss
+    
+class CircleLossTriplet(nn.Module):
+    def __init__(self, scale=32, margin=0.25, similarity='dot'):
+        super(CircleLossTriplet, self).__init__()
+        self.scale = scale
+        self.margin = margin
+        self.similarity = similarity
+        
+    def forward(self, p, n, q):
+        if self.similarity == 'dot':
+            sim_p = torch.matmul(q, p.t())
+            sim_n = torch.matmul(q, n.t())
+        elif self.similarity == 'cos':
+            sim_p = F.cosine_similarity(q, p)
+            sim_n = F.cosine_similarity(q, n)
+        else:
+            raise ValueError('This similarity is not implemented.')
+            
+        alpha_p = F.relu(-sim_p + 1 + self.margin)
+        alpha_n = F.relu(sim_n + self.margin)
+        margin_p = 1 - self.margin
+        margin_n = -self.margin
+        
+        logit_p = self.scale * alpha_p * (sim_p - margin_p)
+        logit_n = self.scale * alpha_n * (sim_n - margin_n)
+        
+        label_p = torch.ones_like(logit_p)
+        label_n = torch.zeros_like(logit_n)
+        
+        loss = F.binary_cross_entropy_with_logits(torch.cat([logit_p, logit_n]), 
+                                                  torch.cat([label_p, label_n]))
+        return loss.mean()
+
 
 
 if __name__ == "__main__":

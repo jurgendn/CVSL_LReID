@@ -7,6 +7,11 @@ from torch import Tensor, nn
 from torch.utils.data import Dataset
 import numpy as np
 
+cloth_change_ids = [0, 88, 2, 4, 89, 146, 136, 123, 93, 124, 122, 45,
+                    7, 10, 66, 81, 140, 13, 21, 30, 40, 53, 61, 71, 
+                    76, 111, 116, 128, 131, 132, 149, 151, 144, 27, 48, 115, 
+                    117, 86, 87, 36, 39, 43, 109, 75, 135, 130]
+
 class TrainDataset(Dataset):
 
     def __init__(self, json_path: str, transforms: nn.Module) -> None:
@@ -40,6 +45,7 @@ class TrainDataset(Dataset):
         a_id = a_img['p_id']
         a_orientation = a_img['orientation']
         a_pose = a_img['pose_landmarks']
+        a_cloth_id = a_img['cloth_id']
 
         same_id, diff_id = [], []
         for item in self.img_list:
@@ -54,8 +60,12 @@ class TrainDataset(Dataset):
             # anchor has back or front orientation
             for item in same_id:
                 if 45 <= item["orientation"] < 63 or 9 <= item["orientation"] < 27:
-                    # found positive sample of sideway orientation
-                    same_id_diff_ori.append(item)
+                    if a_id in cloth_change_ids:
+                        if item['cloth_id'] != a_cloth_id:
+                    # found positive sample of sideway orientation and different cloth
+                            same_id_diff_ori.append(item)
+                    else:
+                        same_id_diff_ori.append(item)
             for item in diff_id:
                 if 0 <= item["orientation"] <= 9 or 63 <= item["orientation"] <= 71 or 27 <= item["orientation"] <= 45:
                     diff_id_same_ori.append(item)
@@ -63,8 +73,12 @@ class TrainDataset(Dataset):
             # anchor has sideway orientation
             for item in same_id:
                 if 0 <= item["orientation"] <= 9 or 63 <= item["orientation"] <= 71 or 27 <= item["orientation"] <= 45:
-                    # found positive sample of back orientation
-                    same_id_diff_ori.append(item)
+                    if a_id in cloth_change_ids:
+                        if item['cloth_id'] != a_cloth_id:
+                    # found positive sample of sideway orientation and different cloth
+                            same_id_diff_ori.append(item)
+                    else:
+                        same_id_diff_ori.append(item)
             for item in diff_id:
                 if 45 <= item["orientation"] < 63 or 9 <= item["orientation"] < 27:
                     diff_id_same_ori.append(item)
@@ -83,13 +97,13 @@ class TrainDataset(Dataset):
         n_img_path = n_img['img_path']
         n_pose = n_img['pose_landmarks']
 
-        a_img_tensor = self.get_img_tensor(a_img_path)
-        p_img_tensor = self.get_img_tensor(p_img_path)
-        n_img_tensor = self.get_img_tensor(n_img_path)
+        a_img_tensor, a_size = self.get_img_tensor(a_img_path)
+        p_img_tensor, p_size = self.get_img_tensor(p_img_path)
+        n_img_tensor, n_size = self.get_img_tensor(n_img_path)
 
-        a_pose_tensor = self.get_pose_tensor(a_pose)
-        p_pose_tensor = self.get_pose_tensor(p_pose)
-        n_pose_tensor = self.get_pose_tensor(n_pose)
+        a_pose_tensor = self.get_pose_tensor(a_pose, a_size)
+        p_pose_tensor = self.get_pose_tensor(p_pose, p_size)
+        n_pose_tensor = self.get_pose_tensor(n_pose, n_size)
 
         a_id_index = self.id_to_idx[a_id]
         # a_target = torch.zeros(self.num_classes)
@@ -98,11 +112,16 @@ class TrainDataset(Dataset):
 
     def get_img_tensor(self, img_path):
         img = Image.open(img_path)
+        img_size = img.size
         img_tensor = self.transforms(img)
-        return img_tensor
+        return img_tensor, img_size
 
-    def get_pose_tensor(self, pose: List[List[float]]):
-        return Tensor(pose)
+    def get_pose_tensor(self, pose: List[List[float]], size):
+        width, height = size
+        processed_pose = [[item[0], item[1]] for item in pose]
+        for item in processed_pose:
+            item.append(width / height)
+        return Tensor(processed_pose)
 
 
 class TestDataset(Dataset):
