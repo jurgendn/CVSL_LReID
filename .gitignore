@@ -10,6 +10,8 @@ data/
 *.zip
 *.pt
 *.pth
+output/
+work_space/
 # Distribution / packaging
 .Python
 build/
