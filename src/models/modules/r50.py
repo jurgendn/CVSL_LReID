@@ -4,7 +4,7 @@ from torch.autograd import Variable
 from torch.nn import init
 from torchvision import models
 import pretrainedmodels, timm 
-
+from src.models.utils import pooling
 ######################################################################
 def weights_init_kaiming(m):
     classname = m.__class__.__name__
@@ -43,7 +43,7 @@ class ClassBlock(nn.Module):
                  input_dim,
                  class_num,
                  droprate,
-                 relu=False,
+                 relu=True,
                  bnorm=True,
                  linear=512,
                  return_f=False):
@@ -92,9 +92,10 @@ class FTNet(nn.Module):
         if stride == 1:
             model_ft.layer4[0].downsample[0].stride = (1, 1)
             model_ft.layer4[0].conv2.stride = (1, 1)
-        model_ft.avgpool = nn.AdaptiveAvgPool2d((1, 1))
+        # model_ft.avgpool = nn.AdaptiveAvgPool2d((1, 1))
+        model_ft.avgpool = pooling.MaxAvgPooling()
         self.model = model_ft
-        self.classifier = ClassBlock(2048, class_num, droprate, linear=linear_num, return_f=return_f)
+        # self.classifier = ClassBlock(2048, class_num, droprate, linear=linear_num, return_f=return_f)
 
     def forward(self, x):
         x = self.model.conv1(x)
@@ -107,7 +108,7 @@ class FTNet(nn.Module):
         x = self.model.layer4(x)
         x = self.model.avgpool(x)
         x = x.view(x.size(0), x.size(1))
-        x = self.classifier(x)
+        # x = self.classifier(x)
         return x
     
 
@@ -235,49 +236,38 @@ class PCBTest(nn.Module):
         y = x.view(x.size(0), x.size(1), x.size(2))
         return y
 
-# class ft_net_swinv2(nn.Module):
+class ResNet50(nn.Module):
+    def __init__(self, config, **kwargs):
+        super().__init__()
+        weights = models.ResNet50_Weights.DEFAULT
+        resnet50 = models.resnet50(weights=weights)
+        if config.MODEL.RES4_STRIDE == 1:
+            resnet50.layer4[0].conv2.stride=(1, 1)
+            resnet50.layer4[0].downsample[0].stride=(1, 1) 
+        self.base = nn.Sequential(*list(resnet50.children())[:-2])
 
-#     def __init__(self, class_num, input_size=(256, 128), droprate=0.5, stride=2, circle=False, linear_num=512):
-#         super(ft_net_swinv2, self).__init__()
-#         model_ft = timm.create_model('swinv2_base_window8_256', pretrained=False, img_size = input_size, drop_path_rate = 0.2)
-#         model_full = timm.create_model('swinv2_base_window8_256', pretrained=True)
-#         load_state_dict_mute(model_ft, model_full.state_dict(), strict=False)
-#         #model_ft = timm.create_model('swinv2_cr_small_224', pretrained=True, img_size = input_size, drop_path_rate = 0.2)
-#         # avg pooling to global pooling
-#         model_ft.head = nn.Sequential() # save memory
-#         self.model = model_ft
-#         self.circle = circle
-#         self.avgpool = nn.AdaptiveAvgPool1d(1)
-#         self.classifier = ClassBlock(1024, class_num, droprate, linear=linear_num, return_f = circle)
-#         print('Make sure timm > 0.6.0 and you can install latest timm version by pip install git+https://github.com/rwightman/pytorch-image-models.git')
-#     def forward(self, x):
-#         x = self.model.forward_features(x)
-#         x = self.avgpool(x.permute((0,2,1))) # B * 1024 * WinNum
-#         x = x.view(x.size(0), x.size(1))
-#         x = self.classifier(x)
-#         return x
+        if config.MODEL.POOLING.NAME == 'avg':
+            self.globalpooling = nn.AdaptiveAvgPool2d(1)
+        elif config.MODEL.POOLING.NAME == 'max':
+            self.globalpooling = nn.AdaptiveMaxPool2d(1)
+        elif config.MODEL.POOLING.NAME == 'gem':
+            self.globalpooling = pooling.GeMPooling(p=config.MODEL.POOLING.P)
+        elif config.MODEL.POOLING.NAME == 'maxavg':
+            self.globalpooling = pooling.MaxAvgPooling()
+        else:
+            raise KeyError("Invalid pooling: '{}'".format(config.MODEL.POOLING.NAME))
 
-# class ft_net_convnext(nn.Module):
+        self.bn = nn.BatchNorm1d(config.MODEL.FEATURE_DIM)
+        init.normal_(self.bn.weight.data, 1.0, 0.02)
+        init.constant_(self.bn.bias.data, 0.0)
+        
+    def forward(self, x):
+        x = self.base(x)
+        x = self.globalpooling(x)
+        x = x.view(x.size(0), -1)
+        f = self.bn(x)
 
-#     def __init__(self, class_num, droprate=0.5, stride=2, circle=False, linear_num=512):
-#         super(ft_net_convnext, self).__init__()
-#         model_ft = timm.create_model('convnext_base', pretrained=True, drop_path_rate = 0.2)
-#         # avg pooling to global pooling
-#         #model_ft.avgpool = nn.AdaptiveAvgPool2d((1,1))
-#         model_ft.head = nn.Sequential() # save memory
-#         self.model = model_ft
-#         #self.model.apply(activate_drop)
-#         self.circle = circle
-#         self.avgpool = nn.AdaptiveAvgPool2d((1,1))
-#         self.classifier = ClassBlock(1024, class_num, droprate, linear=linear_num, return_f = circle)
-
-#     def forward(self, x):
-#         x = self.model.forward_features(x)
-#         x = self.avgpool(x)
-#         x = x.view(x.size(0), x.size(1))
-#         x = self.classifier(x)
-#         return x
-
+        return f
 '''
 # debug model structure
 # Run this code with:

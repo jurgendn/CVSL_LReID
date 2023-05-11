@@ -12,6 +12,9 @@ data/
 *.pth
 output/
 work_space/
+lightning_logs/
+pretrained/
+ww-img/
 # Distribution / packaging
 .Python
 build/

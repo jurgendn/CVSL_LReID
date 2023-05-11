@@ -73,13 +73,13 @@ print("==============================")
 print()
 print(f"Results on {BASIC_CONFIG.DATASET_NAME}")
 
-standard_results = f"Standard | R-1 Acc: {standard_CMC[0]:.2f} | mAP: {standard_mAP:.2f}"
+standard_results = f"Standard | R-1: {standard_CMC[0]:.2f} R-4: {standard_CMC[4]:.2f} R-10: {standard_CMC[9]:.2f} | mAP: {standard_mAP:.2f}"
 print(standard_results)
 
 if cloth_changing:
     cc_CMC, cc_mAP = evaluate2(gallery_cc, query_cc)
     cc_CMC = cc_CMC.numpy()
-    cc_results = f"Cloth-Changing | R-1 Acc: {cc_CMC[0]:.2f} | mAP: {cc_mAP:.2f}"
+    cc_results = f"Cloth-Changing | R-1: {cc_CMC[0]:.2f} R-5: {cc_CMC[4]:.2f} R-10: {cc_CMC[9]:.2f} | mAP: {cc_mAP:.2f}"
     print(cc_results)
 
 print()

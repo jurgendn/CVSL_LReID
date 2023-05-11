@@ -1,5 +1,4 @@
 from typing import Dict, List, Tuple
-
 import torch
 from pytorch_lightning import LightningModule
 from torch import nn, optim
@@ -9,13 +8,17 @@ from src.models.modules.fusion_net import FusionNet
 from src.models.modules.r50 import FTNet, FTNet_HR, FTNet_Swin, weights_init_classifier
 from src.models.modules.shape_embedding import ShapeEmbedding
 from config import BASIC_CONFIG
-from src.losses.circle_loss import CircleLoss, CircleLossTriplet, convert_label_to_similarity
+from src.losses.triplet_loss import TripletLoss
+from src.losses.cross_entropy_loss_with_label_smooth import CrossEntropyWithLabelSmooth
+from src.losses.circle_loss import CircleLoss, PairwiseCircleLoss
 from pytorch_metric_learning import losses
 from utils.misc import normalize_feature
+from torch.nn import init
 
 class Baseline(LightningModule):
 
     def __init__(self,
+                 orientation_guided: bool,
                  class_num: int,
                  r50_stride: int,
                  r50_pretrained_weight: str,
@@ -23,11 +26,11 @@ class Baseline(LightningModule):
                  train_shape: bool, 
                  dataset_size: int,
                  shape_edge_index: torch.LongTensor,
-                 shape_pose_n_features: int = 4,
-                 shape_n_hidden: int = 1024,
-                 shape_out_features: int = 512,
-                 shape_relation_layers: List[Tuple[int]] = [(512, 256),
-                                                            (256, 128)]) -> None:
+                 shape_pose_n_features: int,
+                 shape_n_hidden: int,
+                 shape_out_features: int,
+                 shape_relation_layers: List[Tuple[int]],
+                 out_features: int) -> None:
         
         super(Baseline, self).__init__()
 
@@ -38,6 +41,7 @@ class Baseline(LightningModule):
         self.dataset_size = dataset_size
         self.train_shape = train_shape
 
+        self.orientation_guided = orientation_guided
         if self.train_shape: 
             self.return_f = True 
         else: self.return_f = False 
@@ -61,9 +65,14 @@ class Baseline(LightningModule):
             need to change the input shape of appearance net and shape net 
             if change the relation layers
             """
-            self.fusion = FusionNet(out_features=512)
+            self.fusion = FusionNet(out_features=out_features)
 
-            self.id_classification = nn.Linear(in_features=512, out_features=self.class_num)
+            self.bn = nn.BatchNorm1d(out_features)
+            init.normal_(self.bn.weight.data, 1.0, 0.02)
+            init.constant_(self.bn.bias.data, 0.0),
+
+            self.id_classification = nn.Linear(in_features=out_features, out_features=self.class_num)
+        
             self.id_classification.apply(weights_init_classifier)
         
         if not BASIC_CONFIG.TRAIN_FROM_SCRATCH:
@@ -73,9 +82,6 @@ class Baseline(LightningModule):
         self.use_warm_epoch = BASIC_CONFIG.USE_WARM_EPOCH
         self.warm_epoch = BASIC_CONFIG.WARM_EPOCH
         self.warm_up = BASIC_CONFIG.WARM_UP
-
-        self.use_circle = BASIC_CONFIG.USE_CIRCLE_LOSS
-        self.use_circle_appearance = BASIC_CONFIG.USE_CIRCLE_LOSS_APP
 
         self.training_step_outputs = []
         # self.validation_batch_outputs: List = []
@@ -96,32 +102,37 @@ class Baseline(LightningModule):
 
             fusion_feature = self.fusion(appearance_features=appearance_feature,
                                         shape_features=pose_feature)
+            fusion_feature = self.bn(fusion_feature)
             return fusion_feature
         else:            
             return appearance_feature
     def configure_optimizers(self):
+        if BASIC_CONFIG.OPTIMIZER == 'adam':
+            optim_name = optim.Adam
+            optimizer = optim_name(params=self.parameters(), lr=self.hparams.lr, weight_decay=BASIC_CONFIG.WEIGHT_DECAY)
+        elif BASIC_CONFIG.OPTIMIZER == 'sgd':
+            optim_name = optim.SGD
+            optimizer = optim_name(params=self.parameters(), lr=self.hparams.lr, weight_decay=BASIC_CONFIG.WEIGHT_DECAY, momentum=0.9, nesterov=True)
         
-        optim_name = optim.SGD
-        
-        ignored_params = list(map(id, self.ft_net.classifier.parameters()))
-        classifier_ft_net_params = self.ft_net.classifier.parameters()
-        if self.train_shape:
-            ignored_params += list(map(id, self.id_classification.parameters()))
-            classifier_params = self.id_classification.parameters()
+        # ignored_params = list(map(id, self.ft_net.classifier.parameters()))
+        # classifier_ft_net_params = self.ft_net.classifier.parameters()
+        # if self.train_shape:
+        #     ignored_params += list(map(id, self.id_classification.parameters()))
+        #     classifier_params = self.id_classification.parameters()
 
-        base_params = filter(lambda p: id(p) not in ignored_params, self.parameters())
+        # base_params = filter(lambda p: id(p) not in ignored_params, self.parameters())
         
-        if self.train_shape:
-            optimizer = optim_name([
-                        {'params': base_params, 'lr': 0.1*self.hparams.lr},
-                        {'params': classifier_ft_net_params, 'lr': self.hparams.lr},
-                        {'params': classifier_params, 'lr': self.hparams.lr}
-                    ], weight_decay=BASIC_CONFIG.WEIGHT_DECAY, momentum=0.9, nesterov=True)
-        else:
-            optimizer = optim_name([
-                        {'params': base_params, 'lr': 0.1*self.hparams.lr},
-                        {'params': classifier_ft_net_params, 'lr': self.hparams.lr},
-                    ], weight_decay=BASIC_CONFIG.WEIGHT_DECAY, momentum=0.9, nesterov=True)
+        # if self.train_shape:
+        #     optimizer = optim_name([
+        #                 {'params': base_params, 'lr': 0.1*self.hparams.lr},
+        #                 {'params': classifier_ft_net_params, 'lr': self.hparams.lr},
+        #                 {'params': classifier_params, 'lr': self.hparams.lr}
+        #             ], weight_decay=BASIC_CONFIG.WEIGHT_DECAY, momentum=0.9, nesterov=True)
+        # else:
+        #     optimizer = optim_name([
+        #                 {'params': base_params, 'lr': 0.1*self.hparams.lr},
+        #                 {'params': classifier_ft_net_params, 'lr': self.hparams.lr},
+        #             ], weight_decay=BASIC_CONFIG.WEIGHT_DECAY, momentum=0.9, nesterov=True)
         # optimizer = FusedSGD(self.parameters(), lr=self.hparams.lr)
         if BASIC_CONFIG.USE_REDUCE_LR:
             lr_scheduler = optim.lr_scheduler.ReduceLROnPlateau(
@@ -131,57 +142,72 @@ class Baseline(LightningModule):
                 "lr_scheduler": {"scheduler": lr_scheduler, "monitor": "epoch_loss"}}
         else:
             lr_scheduler = optim.lr_scheduler.StepLR(optimizer=optimizer,
-                                                 #step_size=BASIC_CONFIG.EPOCHS * 2 // 3,
-                                                 step_size=23,
-                                                 gamma=0.1,)
+                                                    step_size=20,
+                                                    gamma=0.1)
             return {"optimizer": optimizer, "lr_scheduler": lr_scheduler}
         
 
     def training_step(self, batch, batch_idx) -> Dict:
-        (a_img, p_img, n_img), (a_pose, p_pose, n_pose), a_id = batch
+        if self.orientation_guided:
+            (a_img, p_img, n_img), (a_pose, p_pose, n_pose), a_id = batch
+            p_feature = self.forward(x_image=p_img,
+                                    x_pose_features=p_pose,
+                                    edge_index=self.shape_edge_index)
+            n_feature = self.forward(x_image=n_img,
+                                    x_pose_features=n_pose,
+                                    edge_index=self.shape_edge_index)
+            if BASIC_CONFIG.NORM_FEATURE:
+                p_feature = normalize_feature(p_feature)
+                n_feature = normalize_feature(n_feature)
+        
+        else:
+            a_img, a_pose, a_cloth_id, a_id = batch
+
         now_batch_size, _, _, _ = a_img.shape
 
         a_feature = self.forward(x_image=a_img,
-                                  x_pose_features=a_pose,
-                                  edge_index=self.shape_edge_index)
-        p_feature = self.forward(x_image=p_img,
-                                  x_pose_features=p_pose,
-                                  edge_index=self.shape_edge_index)
-        n_feature = self.forward(x_image=n_img,
-                                  x_pose_features=n_pose,
-                                  edge_index=self.shape_edge_index)
+                                 x_pose_features=a_pose,
+                                 edge_index=self.shape_edge_index)
+            
+            
         
+        if BASIC_CONFIG.USE_CE_LOSS:
+            id_loss_func = nn.CrossEntropyLoss()
+        if BASIC_CONFIG.USE_CELABELSMOOTH_LOSS:
+            id_loss_func = CrossEntropyWithLabelSmooth()
+
         if self.train_shape:
             logits = self.id_classification(a_feature)
-            id_loss = F.cross_entropy(logits, a_id)
+            id_loss = id_loss_func(logits, a_id)
         else:
-            id_loss = F.cross_entropy(a_feature, a_id)  
+            id_loss = id_loss_func(a_feature, a_id)  
 
         # Normalize features
-        a_features = normalize_feature(a_feature)
-        p_features = normalize_feature(p_feature)
-        n_features = normalize_feature(n_feature)
-        
-        if BASIC_CONFIG.USE_TRIPLET_LOSS:
-            triplet_margin_loss = nn.TripletMarginLoss(margin=0.5)
-            triplet_loss = triplet_margin_loss(a_features, p_features, n_features)
+        if BASIC_CONFIG.NORM_FEATURE:
+            a_feature = normalize_feature(a_feature)
 
-        if BASIC_CONFIG.USE_CIRCLE_TRIPLET_LOSS:
-            circle_loss_triplet = CircleLossTriplet(scale=64, margin=0.25)
-            triplet_loss = circle_loss_triplet(p_features, n_features, a_features)
+        if BASIC_CONFIG.USE_TRIPLET_LOSS:
+            triplet_margin_loss = nn.TripletMarginLoss(margin=0.3,)
+            triplet_loss = triplet_margin_loss(a_feature, p_feature, n_feature)
+        
+        if BASIC_CONFIG.USE_TRIPLETPAIRWISE_LOSS:
+            triplet_margin_loss = TripletLoss(margin=0.3, distance='cosine')
+            triplet_loss = triplet_margin_loss(a_feature, a_id)
+
+        # if BASIC_CONFIG.USE_CIRCLE_TRIPLET_LOSS:
+        #     circle_loss_triplet = PairwiseCircleLoss(scale=16, margin=0.3)
+        #     triplet_loss = circle_loss_triplet(p_feature, n_feature, a_feature)
+
 
         loss = id_loss + triplet_loss
 
-        if self.use_circle:
-            # normalize feature
-            if self.use_circle_appearance: 
-                feature = self.ft_net(a_img)
-            else:
-                feature = a_feature
-            circle_loss = CircleLoss(m=0.25, gamma=64)
+        if BASIC_CONFIG.USE_CIRCLE_LOSS:
+            feature = a_feature
+            circle_loss = CircleLoss(scale=16, margin=0.3)
             a_fnorm = torch.norm(feature, p=2, dim=1, keepdim=True)
             feature = feature.div(a_fnorm.expand_as(feature))
-            loss += circle_loss(*convert_label_to_similarity(feature, a_id))/now_batch_size
+            # loss += circle_loss(*convert_label_to_similarity(feature, a_id))/now_batch_size
+            loss += circle_loss(feature, a_id)
         
         if self.use_warm_epoch:
             #Warm Up
