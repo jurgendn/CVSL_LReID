@@ -90,14 +90,34 @@ class BASIC_CONFIG:
     WARM_EPOCH = 5
     WARM_UP = 0.1
 
-    USE_CE_LOSS = False
-    USE_CELABELSMOOTH_LOSS = True
-    USE_TRIPLET_LOSS = False
-    USE_TRIPLETPAIRWISE_LOSS = True
-    USE_CIRCLE_TRIPLET_LOSS = False
-    USE_CIRCLE_LOSS = False 
 
+    """
+    Loss functions
+    """
+
+    CLA_LOSS = 'crossentropylabelsmooth' # crossentropy, arcface, cosface, circle
+    CLA_S = 16.
+    CLA_M = 0.
+
+    USE_TRIPLET_LOSS = False
+    if USE_TRIPLET_LOSS:
+        TRIPLET_LOSS = 'triplet' # circle
+        TRIP_M = 0.3
+
+    USE_PAIRWISE_LOSS = True
+    if USE_PAIRWISE_LOSS:
+        PAIR_LOSS = 'triplet' # contrastive, cosface, circle
+        PAIR_M = 0.3
+        PAIR_S = 16.
+    
+    # use clothes loss
     USE_CLOTHES_LOSS = True
+    if USE_CLOTHES_LOSS:
+        CLOTHES_CLA_LOSS = 'cosface'
+        CAL = 'cal'
+        EPSILON = 0.1
+        START_EPOCH_CC = 25
+        START_EPOCH_ADV = 25
 
     TRAIN_FROM_SCRATCH = True
     TRAIN_FROM_CKPT = False
@@ -150,29 +170,24 @@ class BASIC_CONFIG:
     if NORM_FEATURE:
         NAME += "_norm"
 
-    if USE_CE_LOSS:
-        NAME += "_ce"
-    if USE_CELABELSMOOTH_LOSS:
-        NAME += "_ceLS"
+    
+    NAME += f"_{CLA_LOSS}"
+
     if USE_TRIPLET_LOSS:
-        NAME += "_triplet"
-    if USE_TRIPLETPAIRWISE_LOSS:
-        NAME += "_tripletPairwise"
-    if USE_CIRCLE_LOSS:
-        NAME += "_circlePairwise"
-    if USE_CIRCLE_TRIPLET_LOSS:
-        NAME += "_circleTriplet"
+        NAME += f"_{TRIPLET_LOSS}"
+
+    if USE_PAIRWISE_LOSS:
+        NAME += f"_{PAIR_LOSS}"
+    
     if USE_CLOTHES_LOSS:
         NAME += "_clothesLoss"
 
-    if COLOR_JITTER:
-        NAME += "_colorjitter"
-    if RANDOM_ERASING:
-        NAME += "_randomerasing"
+    # if RANDOM_ERASING:
+    #     NAME += "_randomErasing"
 
     NAME += f"_{NUM_REFINE_LAYERS}Refine"
     NAME += f"_{GCN_LAYER_TYPE}"
     NAME += f"_{NUM_GCN_LAYERS}GCN"
     NAME += f"_{AGGREGATION_TYPE}Agg"
 
-    MODEL_NAME = NAME + "_modified.pth"
+    # MODEL_NAME = NAME + "_modified.pth"

@@ -12,6 +12,7 @@ import torch_geometric.nn as gnn
 from torch import Tensor, nn
 from torch.nn import functional as F
 from config import BASIC_CONFIG
+from torch.nn import init
 
 class PositionEmbedding(nn.Module):
 
@@ -133,7 +134,12 @@ class ShapeEmbedding(nn.Module):
         pose_features = self.refine_net(p=pose)
         relation_features = self.relation_net(x=pose_features, a=edge_index)
         graph_representation = self.graph_pooling(x=relation_features)
-        return graph_representation.reshape(-1, self.n_dim)
+
+        self.bn = nn.BatchNorm1d(self.n_dim)
+        init.normal_(self.bn.weight.data, 1.0, 0.02)
+        init.constant_(self.bn.bias.data, 0.0)
+
+        return self.bn(graph_representation.reshape(-1, self.n_dim))
 
 
 if __name__ == "__main__":

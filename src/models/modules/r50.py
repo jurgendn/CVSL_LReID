@@ -95,6 +95,9 @@ class FTNet(nn.Module):
         # model_ft.avgpool = nn.AdaptiveAvgPool2d((1, 1))
         model_ft.avgpool = pooling.MaxAvgPooling()
         self.model = model_ft
+        self.bn = nn.BatchNorm1d(4096)
+        init.normal_(self.bn.weight.data, 1.0, 0.02)
+        init.constant_(self.bn.bias.data, 0.0),
         # self.classifier = ClassBlock(2048, class_num, droprate, linear=linear_num, return_f=return_f)
 
     def forward(self, x):
@@ -108,7 +111,7 @@ class FTNet(nn.Module):
         x = self.model.layer4(x)
         x = self.model.avgpool(x)
         x = x.view(x.size(0), x.size(1))
-        # x = self.classifier(x)
+        x = self.bn(x)
         return x
     
 

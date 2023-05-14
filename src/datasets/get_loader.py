@@ -14,15 +14,13 @@ def get_query_gallery_loader():
     gallery_loader = DataLoader(gallery_data, batch_size=conf.BATCH_SIZE, shuffle=False, num_workers=conf.NUM_WORKER, pin_memory=conf.PIN_MEMORY)
     return query_loader, gallery_loader
 
-def get_train_loader():
-    if conf.ORIENTATION_GUIDED:
+def get_train_data(orientation_guided):
+    if orientation_guided:
         train_data = TrainDatasetOrientation(conf.TRAIN_JSON_PATH, conf.TRAIN_TRANSFORM)
     else:
         train_data = TrainDataset(conf.TRAIN_JSON_PATH, conf.TRAIN_TRANSFORM)
-    num_classes = train_data.num_classes
-    if conf.SAMPLER:
-        sampler = RandomIdentitySampler(train_data, num_instances=8)
-        train_loader = DataLoader(train_data, batch_size=conf.BATCH_SIZE, shuffle=False, num_workers=conf.NUM_WORKER, pin_memory=conf.PIN_MEMORY, sampler=sampler)
-    else:
-        train_loader = DataLoader(train_data, batch_size=conf.BATCH_SIZE, shuffle=True, num_workers=conf.NUM_WORKER, pin_memory=conf.PIN_MEMORY)
-    return train_loader, num_classes, len(train_data)
+        
+    class_num = train_data.num_classes
+    dataset_size = len(train_data)
+    sampler = RandomIdentitySampler(train_data, num_instances=8)
+    return train_data, class_num, dataset_size, sampler

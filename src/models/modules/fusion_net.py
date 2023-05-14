@@ -1,6 +1,6 @@
 import torch
 from torch import nn
-
+from torch.nn import init
 
 class AggregationNet(nn.Module):
 
@@ -27,6 +27,9 @@ class FusionNet(nn.Module):
                                        nn.LeakyReLU())
 
         self.theta = AggregationNet()
+        self.bn = nn.BatchNorm1d(out_features)
+        init.normal_(self.bn.weight.data, 1.0, 0.02)
+        init.constant_(self.bn.bias.data, 0.0),
         
 
     def forward(self, appearance_features: torch.Tensor,
@@ -34,4 +37,5 @@ class FusionNet(nn.Module):
         appearance = self.appearance_net(appearance_features)
         shape = self.shape_net(shape_features)
         agg_features = self.theta(x=appearance, y=shape)
+        agg_features = self.bn(agg_features)
         return agg_features
