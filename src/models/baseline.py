@@ -1,4 +1,5 @@
 from typing import Dict, List, Tuple
+from pytorch_lightning.utilities.types import TRAIN_DATALOADERS
 import torch
 from pytorch_lightning import LightningModule
 from torch import nn, optim
@@ -7,24 +8,28 @@ import numpy as np
 from src.models.modules.fusion_net import FusionNet
 from src.models.modules.r50 import FTNet, FTNet_HR, FTNet_Swin, weights_init_classifier
 from src.models.modules.shape_embedding import ShapeEmbedding
-from config import BASIC_CONFIG
 from src.losses.triplet_loss import TripletLoss
 from src.losses.cross_entropy_loss_with_label_smooth import CrossEntropyWithLabelSmooth
 from src.losses.circle_loss import CircleLoss, PairwiseCircleLoss
 from pytorch_metric_learning import losses
 from utils.misc import normalize_feature
 from torch.nn import init
+from config import BASIC_CONFIG
+from src.datasets.base_dataset import TestDataset, TrainDataset, TrainDatasetOrientation
+from torch.utils.data import DataLoader
+from src.datasets.samplers import RandomIdentitySampler
+
+
+conf = BASIC_CONFIG
 
 class Baseline(LightningModule):
 
     def __init__(self,
                  orientation_guided: bool,
-                 class_num: int,
                  r50_stride: int,
                  r50_pretrained_weight: str,
                  lr: float,
                  train_shape: bool, 
-                 dataset_size: int,
                  shape_edge_index: torch.LongTensor,
                  shape_pose_n_features: int,
                  shape_n_hidden: int,
@@ -37,20 +42,27 @@ class Baseline(LightningModule):
         shape_edge_index = torch.LongTensor(shape_edge_index)
         self.register_buffer("shape_edge_index", shape_edge_index)
 
-        self.class_num = class_num
-        self.dataset_size = dataset_size
         self.train_shape = train_shape
 
         self.orientation_guided = orientation_guided
+
+        if self.orientation_guided:
+            self.train_data = TrainDatasetOrientation(conf.TRAIN_JSON_PATH, conf.TRAIN_TRANSFORM)
+        else:
+            self.train_data = TrainDataset(conf.TRAIN_JSON_PATH, conf.TRAIN_TRANSFORM)
+        self.class_num = self.train_data.num_classes
+        self.dataset_size = len(self.train_data)
+        self.sampler = RandomIdentitySampler(self.train_data, num_instances=8)
+
         if self.train_shape: 
             self.return_f = True 
         else: self.return_f = False 
 
-        if BASIC_CONFIG.USE_RESTNET:
+        if conf.USE_RESTNET:
             self.ft_net = FTNet(stride=r50_stride, class_num=self.class_num, return_f=self.return_f)
-        elif BASIC_CONFIG.USE_HRNET:
+        elif conf.USE_HRNET:
             self.ft_net = FTNet_HR(class_num=self.class_num, return_f=self.return_f)
-        elif BASIC_CONFIG.USE_SWIN:
+        elif conf.USE_SWIN:
             self.ft_net = FTNet_Swin(class_num=self.class_num, return_f=self.return_f)
 
         # can try ClassBlock for id_classification
@@ -75,13 +87,13 @@ class Baseline(LightningModule):
         
             self.id_classification.apply(weights_init_classifier)
         
-        if not BASIC_CONFIG.TRAIN_FROM_SCRATCH:
+        if not conf.TRAIN_FROM_SCRATCH:
             self.load_pretrained_r50(r50_weight_path=r50_pretrained_weight)
 
         # self.ft_net.requires_grad_(False)
-        self.use_warm_epoch = BASIC_CONFIG.USE_WARM_EPOCH
-        self.warm_epoch = BASIC_CONFIG.WARM_EPOCH
-        self.warm_up = BASIC_CONFIG.WARM_UP
+        self.use_warm_epoch = conf.USE_WARM_EPOCH
+        self.warm_epoch = conf.WARM_EPOCH
+        self.warm_up = conf.WARM_UP
 
         self.training_step_outputs = []
         # self.validation_batch_outputs: List = []
@@ -89,6 +101,16 @@ class Baseline(LightningModule):
 
     def load_pretrained_r50(self, r50_weight_path: str):
         self.ft_net.load_state_dict(torch.load(f=r50_weight_path), strict=True)
+    
+    def train_dataloader(self) -> TRAIN_DATALOADERS:
+        if conf.SAMPLER:
+            train_loader = DataLoader(self.train_data, batch_size=conf.BATCH_SIZE, shuffle=False, num_workers=conf.NUM_WORKER, pin_memory=conf.PIN_MEMORY, sampler=self.sampler)
+        else:
+            train_loader = DataLoader(self.train_data, batch_size=conf.BATCH_SIZE, shuffle=True, num_workers=conf.NUM_WORKER, pin_memory=conf.PIN_MEMORY)
+        return train_loader
+    
+    def on_epoch_start(self):
+        self.sampler.set_epoch(self.current_epoch)
 
     def forward(self, x_image: torch.Tensor,
                 x_pose_features: torch.FloatTensor,
@@ -107,12 +129,12 @@ class Baseline(LightningModule):
         else:            
             return appearance_feature
     def configure_optimizers(self):
-        if BASIC_CONFIG.OPTIMIZER == 'adam':
+        if conf.OPTIMIZER == 'adam':
             optim_name = optim.Adam
-            optimizer = optim_name(params=self.parameters(), lr=self.hparams.lr, weight_decay=BASIC_CONFIG.WEIGHT_DECAY)
-        elif BASIC_CONFIG.OPTIMIZER == 'sgd':
+            optimizer = optim_name(params=self.parameters(), lr=self.hparams.lr, weight_decay=conf.WEIGHT_DECAY)
+        elif conf.OPTIMIZER == 'sgd':
             optim_name = optim.SGD
-            optimizer = optim_name(params=self.parameters(), lr=self.hparams.lr, weight_decay=BASIC_CONFIG.WEIGHT_DECAY, momentum=0.9, nesterov=True)
+            optimizer = optim_name(params=self.parameters(), lr=self.hparams.lr, weight_decay=conf.WEIGHT_DECAY, momentum=0.9, nesterov=True)
         
         # ignored_params = list(map(id, self.ft_net.classifier.parameters()))
         # classifier_ft_net_params = self.ft_net.classifier.parameters()
@@ -127,14 +149,14 @@ class Baseline(LightningModule):
         #                 {'params': base_params, 'lr': 0.1*self.hparams.lr},
         #                 {'params': classifier_ft_net_params, 'lr': self.hparams.lr},
         #                 {'params': classifier_params, 'lr': self.hparams.lr}
-        #             ], weight_decay=BASIC_CONFIG.WEIGHT_DECAY, momentum=0.9, nesterov=True)
+        #             ], weight_decay=conf.WEIGHT_DECAY, momentum=0.9, nesterov=True)
         # else:
         #     optimizer = optim_name([
         #                 {'params': base_params, 'lr': 0.1*self.hparams.lr},
         #                 {'params': classifier_ft_net_params, 'lr': self.hparams.lr},
-        #             ], weight_decay=BASIC_CONFIG.WEIGHT_DECAY, momentum=0.9, nesterov=True)
+        #             ], weight_decay=conf.WEIGHT_DECAY, momentum=0.9, nesterov=True)
         # optimizer = FusedSGD(self.parameters(), lr=self.hparams.lr)
-        if BASIC_CONFIG.USE_REDUCE_LR:
+        if conf.USE_REDUCE_LR:
             lr_scheduler = optim.lr_scheduler.ReduceLROnPlateau(
                 optimizer=optimizer, mode='min', patience=10,  
             )
@@ -156,7 +178,7 @@ class Baseline(LightningModule):
             n_feature = self.forward(x_image=n_img,
                                     x_pose_features=n_pose,
                                     edge_index=self.shape_edge_index)
-            if BASIC_CONFIG.NORM_FEATURE:
+            if conf.NORM_FEATURE:
                 p_feature = normalize_feature(p_feature)
                 n_feature = normalize_feature(n_feature)
         
@@ -171,9 +193,9 @@ class Baseline(LightningModule):
             
             
         
-        if BASIC_CONFIG.USE_CE_LOSS:
+        if conf.USE_CE_LOSS:
             id_loss_func = nn.CrossEntropyLoss()
-        if BASIC_CONFIG.USE_CELABELSMOOTH_LOSS:
+        if conf.USE_CELABELSMOOTH_LOSS:
             id_loss_func = CrossEntropyWithLabelSmooth()
 
         if self.train_shape:
@@ -183,25 +205,25 @@ class Baseline(LightningModule):
             id_loss = id_loss_func(a_feature, a_id)  
 
         # Normalize features
-        if BASIC_CONFIG.NORM_FEATURE:
+        if conf.NORM_FEATURE:
             a_feature = normalize_feature(a_feature)
 
-        if BASIC_CONFIG.USE_TRIPLET_LOSS:
+        if conf.USE_TRIPLET_LOSS:
             triplet_margin_loss = nn.TripletMarginLoss(margin=0.3,)
             triplet_loss = triplet_margin_loss(a_feature, p_feature, n_feature)
         
-        if BASIC_CONFIG.USE_TRIPLETPAIRWISE_LOSS:
+        if conf.USE_TRIPLETPAIRWISE_LOSS:
             triplet_margin_loss = TripletLoss(margin=0.3, distance='cosine')
             triplet_loss = triplet_margin_loss(a_feature, a_id)
 
-        # if BASIC_CONFIG.USE_CIRCLE_TRIPLET_LOSS:
+        # if conf.USE_CIRCLE_TRIPLET_LOSS:
         #     circle_loss_triplet = PairwiseCircleLoss(scale=16, margin=0.3)
         #     triplet_loss = circle_loss_triplet(p_feature, n_feature, a_feature)
 
 
         loss = id_loss + triplet_loss
 
-        if BASIC_CONFIG.USE_CIRCLE_LOSS:
+        if conf.USE_CIRCLE_LOSS:
             feature = a_feature
             circle_loss = CircleLoss(scale=16, margin=0.3)
             a_fnorm = torch.norm(feature, p=2, dim=1, keepdim=True)
@@ -211,7 +233,7 @@ class Baseline(LightningModule):
         
         if self.use_warm_epoch:
             #Warm Up
-            warm_iteration = round(self.dataset_size/BASIC_CONFIG.BATCH_SIZE)*self.warm_epoch # first 5 epoch
+            warm_iteration = round(self.dataset_size/conf.BATCH_SIZE)*self.warm_epoch # first 5 epoch
             if self.current_epoch < self.warm_epoch:
                 warm_up = min(1.0, self.warm_up + 0.9 / warm_iteration)
                 loss = loss * warm_up
@@ -243,11 +265,11 @@ class InferenceBaseline(LightningModule):
         super(InferenceBaseline, self).__init__()
         shape_edge_index = torch.LongTensor(shape_edge_index)
         self.register_buffer("shape_edge_index", shape_edge_index)
-        if BASIC_CONFIG.USE_RESTNET:
+        if conf.USE_RESTNET:
             self.ft_net = FTNet(stride=r50_stride, return_f=True)
-        elif BASIC_CONFIG.USE_HRNET:
+        elif conf.USE_HRNET:
             self.ft_net = FTNet_HR(return_f=True)
-        elif BASIC_CONFIG.USE_SWIN:
+        elif conf.USE_SWIN:
             self.ft_net = FTNet_Swin(return_f=True)
 
         self.test_with_pose = with_pose

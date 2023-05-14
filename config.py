@@ -38,7 +38,7 @@ class BASIC_CONFIG:
     if USE_SWIN or USE_HRNET:
         LR = 0.02
     else:
-        LR = 0.05
+        LR = 0.00035
 
     DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -106,7 +106,7 @@ class BASIC_CONFIG:
     TRAIN_SHAPE = True 
     NUM_REFINE_LAYERS = 3 # or 2 or 1
     GCN_LAYER_TYPE = "GCNConv" # ResGCN or GCNConv
-    NUM_GCN_LAYERS = 2
+    NUM_GCN_LAYERS = 3
     AGGREGATION_TYPE = 'max' # max
 
     EPOCHS = 80
@@ -176,4 +176,3 @@ class BASIC_CONFIG:
     NAME += f"_{AGGREGATION_TYPE}Agg"
 
     MODEL_NAME = NAME + "_modified.pth"
-

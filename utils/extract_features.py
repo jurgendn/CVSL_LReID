@@ -24,7 +24,6 @@ def extract_feature_standard(model, dataloader, type):
         cameras += cam_ids
         paths += img_paths
 
-        n, c, h, w = imgs.size()
         input_imgs = imgs.to(BASIC_CONFIG.DEVICE)
         input_poses = poses.to(BASIC_CONFIG.DEVICE)
             
@@ -62,8 +61,7 @@ def extract_feature_cc(model, dataloader, type):
         cameras += cam_ids
         clothes += cloth_ids
         paths += img_paths
-
-        n, c, h, w = imgs.size()
+        
         input_imgs = imgs.to(BASIC_CONFIG.DEVICE)
         input_poses = poses.to(BASIC_CONFIG.DEVICE)
 

@@ -181,7 +181,7 @@ class TestDataset(Dataset):
         p_id = sample['p_id']
         cam_id = sample['cam_id']
         pose = sample['pose_landmarks']
-        img_tensor = get_img_tensor(img_path, self.transforms)
+        img_tensor,_ = get_img_tensor(img_path, self.transforms)
         pose_tensor = Tensor(pose)
 
         if self.cloth_changing_mode:
