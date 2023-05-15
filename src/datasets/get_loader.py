@@ -19,8 +19,5 @@ def get_train_data(orientation_guided):
         train_data = TrainDatasetOrientation(conf.TRAIN_JSON_PATH, conf.TRAIN_TRANSFORM)
     else:
         train_data = TrainDataset(conf.TRAIN_JSON_PATH, conf.TRAIN_TRANSFORM)
-        
-    class_num = train_data.num_classes
-    dataset_size = len(train_data)
     sampler = RandomIdentitySampler(train_data, num_instances=8)
-    return train_data, class_num, dataset_size, sampler
+    return train_data, sampler

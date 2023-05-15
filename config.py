@@ -109,6 +109,7 @@ class BASIC_CONFIG:
         PAIR_LOSS = 'triplet' # contrastive, cosface, circle
         PAIR_M = 0.3
         PAIR_S = 16.
+        WEIGHT_PAIR = 0.5
     
     # use clothes loss
     USE_CLOTHES_LOSS = True
@@ -133,7 +134,8 @@ class BASIC_CONFIG:
     BATCH_SIZE = 64
     PIN_MEMORY = True
     NUM_WORKER = 4
-    
+
+    OUT_FEATURES
     NORM_FEATURE = False
 
     TEST_WITH_POSE = False
@@ -190,4 +192,4 @@ class BASIC_CONFIG:
     NAME += f"_{NUM_GCN_LAYERS}GCN"
     NAME += f"_{AGGREGATION_TYPE}Agg"
 
-    # MODEL_NAME = NAME + "_modified.pth"
+    MODEL_NAME = NAME + ".pth"

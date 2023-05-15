@@ -13,15 +13,9 @@ logger = TensorBoardLogger(save_dir=BASIC_CONFIG.LOG_PATH)
 # train_loader, num_classes, dataset_size = get_train_loader()
 
 net = Baseline(orientation_guided=BASIC_CONFIG.ORIENTATION_GUIDED,
-                shape_edge_index=SHAPE_EMBEDDING_CFG.EDGE_INDEX,
-                shape_pose_n_features=SHAPE_EMBEDDING_CFG.POSE_N_FEATURES,
-                shape_n_hidden=SHAPE_EMBEDDING_CFG.N_HIDDEN,
-                shape_out_features=SHAPE_EMBEDDING_CFG.OUT_FEATURES,
-                shape_relation_layers=SHAPE_EMBEDDING_CFG.RELATION_LAYERS,
-                train_shape=BASIC_CONFIG.TRAIN_SHAPE,
-                r50_stride=FT_NET_CFG.R50_STRIDE,
-                r50_pretrained_weight=FT_NET_CFG.PRETRAINED, lr=BASIC_CONFIG.LR,
-                out_features=BASIC_CONFIG.OUT_FEATURES)
+                lr=BASIC_CONFIG.LR, train_shape=BASIC_CONFIG.TRAIN_SHAPE,
+                out_features=BASIC_CONFIG.OUT_FEATURES,
+                shape_edge_index=SHAPE_EMBEDDING_CFG.EDGE_INDEX)
 
 model_name = BASIC_CONFIG.MODEL_NAME
 print(model_name)

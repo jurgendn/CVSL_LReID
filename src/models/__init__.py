@@ -5,10 +5,14 @@ from src.models.modules.shape_embedding import ShapeEmbedding
 from src.models.modules.classifier import Classifier, NormalizedClassifier
 from config import BASIC_CONFIG, FT_NET_CFG, SHAPE_EMBEDDING_CFG
 
-def build_models(train_shape, conf, class_num, out_features):
+conf = BASIC_CONFIG
+
+def build_models(train_shape, class_num, num_clothes, out_features):
     if train_shape: 
             return_f = True 
     else: return_f = False 
+
+    models = {}
 
     if conf.USE_RESTNET:
         ft_net = FTNet(stride=FT_NET_CFG.R50_STRIDE, class_num=class_num, return_f=return_f)
@@ -16,8 +20,12 @@ def build_models(train_shape, conf, class_num, out_features):
         ft_net = FTNet_HR(class_num=class_num, return_f=return_f)
     elif conf.USE_SWIN:
         ft_net = FTNet_Swin(class_num=class_num, return_f=return_f)
+    
+    def load_pretrained_r50(r50_weight_path: str):
+        ft_net.load_state_dict(torch.load(f=r50_weight_path), strict=True)
 
-    # can try ClassBlock for id_classifier
+    models['cnn'] = ft_net
+    
     if train_shape:
         shape_embedding = ShapeEmbedding(
             pose_n_features=SHAPE_EMBEDDING_CFG.POSE_N_FEATURES,
@@ -30,14 +38,23 @@ def build_models(train_shape, conf, class_num, out_features):
         if change the relation layers
         """
         fusion = FusionNet(out_features=out_features)
+        models['shape'] = shape_embedding
+        models['fusion'] = fusion
 
-        id_classifier = Classifier(out_features, class_num)
+    # Build classifier
+    if conf.CLA_LOSS in ['crossentropy', 'crossentropylabelsmooth']:
+        id_classifier = Classifier(feature_dim=out_features, num_classes=class_num)
+    else:
+        id_classifier = NormalizedClassifier(feature_dim=out_features, num_classes=class_num)
+
+    models['id_clf'] = id_classifier
 
     if conf.USE_CLOTHES_LOSS:
-        pass
-    
+        clothes_classifier = NormalizedClassifier(feature_dim=out_features, num_classes=num_clothes)
+        models['clothes_clf'] = clothes_classifier
     if not conf.TRAIN_FROM_SCRATCH:
         load_pretrained_r50(r50_weight_path=FT_NET_CFG.PRETRAINED)
+    
+    return models
 
-def load_pretrained_r50(self, r50_weight_path: str):
-    self.ft_net.load_state_dict(torch.load(f=r50_weight_path), strict=True)
+    

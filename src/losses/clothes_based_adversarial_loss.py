@@ -1,7 +1,7 @@
 import torch
 import torch.nn.functional as F
 from torch import nn
-from losses.gather import GatherLayer
+from src.losses.gather import GatherLayer
 
 
 class ClothesBasedAdversarialLoss(nn.Module):

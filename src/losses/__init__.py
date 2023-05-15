@@ -1,16 +1,16 @@
 from torch import nn
-from losses.cross_entropy_loss_with_label_smooth import CrossEntropyWithLabelSmooth
-from losses.triplet_loss import TripletLoss
-from losses.contrastive_loss import ContrastiveLoss
-from losses.arcface_loss import ArcFaceLoss
-from losses.cosface_loss import CosFaceLoss, PairwiseCosFaceLoss
-from losses.circle_loss import CircleLoss, PairwiseCircleLoss
-from losses.clothes_based_adversarial_loss import ClothesBasedAdversarialLoss, ClothesBasedAdversarialLossWithMemoryBank
+from src.losses.cross_entropy_loss_with_label_smooth import CrossEntropyWithLabelSmooth
+from src.losses.triplet_loss import TripletLoss
+from src.losses.contrastive_loss import ContrastiveLoss
+from src.losses.arcface_loss import ArcFaceLoss
+from src.losses.cosface_loss import CosFaceLoss, PairwiseCosFaceLoss
+from src.losses.circle_loss import CircleLoss, PairwiseCircleLoss
+from src.losses.clothes_based_adversarial_loss import ClothesBasedAdversarialLoss, ClothesBasedAdversarialLossWithMemoryBank
 from config import BASIC_CONFIG
 
 config = BASIC_CONFIG
 
-def build_losses(config):
+def build_losses():
     losses = {}
     # Build identity classification loss
     if config.CLA_LOSS == 'crossentropy':

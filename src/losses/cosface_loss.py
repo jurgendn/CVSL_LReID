@@ -2,7 +2,7 @@ import torch
 import torch.nn.functional as F
 from torch import nn
 from torch import distributed as dist
-from losses.gather import GatherLayer
+from src.losses.gather import GatherLayer
 
 
 class CosFaceLoss(nn.Module):
