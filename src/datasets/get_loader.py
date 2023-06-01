@@ -18,6 +18,6 @@ def get_train_data(orientation_guided):
     if orientation_guided:
         train_data = TrainDatasetOrientation(conf.TRAIN_JSON_PATH, conf.TRAIN_TRANSFORM)
     else:
-        train_data = TrainDataset(conf.TRAIN_JSON_PATH, conf.TRAIN_TRANSFORM)
+        train_data = TrainDataset(conf.TRAIN_PATH, conf.TRAIN_JSON_PATH, conf.TRAIN_TRANSFORM)
     sampler = RandomIdentitySampler(train_data, num_instances=8)
     return train_data, sampler

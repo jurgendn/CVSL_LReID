@@ -50,7 +50,7 @@ model = InferenceBaseline(shape_edge_index=SHAPE_EMBEDDING_CFG.EDGE_INDEX,
 
 # model = FTNet().to(device=BASIC_CONFIG.DEVICE)
 save_path = os.path.join(BASIC_CONFIG.SAVE_PATH, BASIC_CONFIG.MODEL_NAME)
-
+# save_path = "work_space/save/model_ltcc_80epochs_0.00035lr_64bs_resnet_fromscratch_withshape_sampler_ceLS_tripletPairwise_clothesLoss_randomerasing_3Refine_GCNConv_3GCN_maxAgg_modified.pth"
 model.load_state_dict(torch.load(save_path), strict=False)
 # model.load_state_dict(torch.load("work_space/save/net_last_shape_ltcc_numepochs_60.pth"), strict=True)
 

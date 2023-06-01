@@ -6,6 +6,8 @@ from PIL import Image
 from torch import Tensor, nn
 from torch.utils.data import Dataset
 import numpy as np
+import glob, re
+import os.path as osp
 
 cloth_change_ids = [0, 88, 2, 4, 89, 146, 136, 123, 93, 124, 122, 45,
                     7, 10, 66, 81, 140, 13, 21, 30, 40, 53, 61, 71, 
@@ -18,15 +20,15 @@ class TrainDatasetOrientation(Dataset):
     def __init__(self, json_path: str, transforms: nn.Module) -> None:
         super(TrainDatasetOrientation, self).__init__()
         self.json_path = json_path
-        self.img_list = get_img_list(self.json_path)
+        self.train_dir = get_img_list(self.json_path)
         self.transforms = transforms
-        self.id_to_idx, self.num_classes = classes_to_idx(self.img_list)
+        self.id_to_idx, self.num_classes = classes_to_idx(self.train_dir)
 
     def __len__(self):
-        return len(self.img_list)
+        return len(self.train_dir)
 
     def __getitem__(self, index):
-        img = self.img_list[index]
+        img = self.train_dir[index]
         a_img_path = img['img_path']
         a_id = img['p_id']
         a_orientation = img['orientation']
@@ -38,7 +40,7 @@ class TrainDatasetOrientation(Dataset):
         a_id_index = self.id_to_idx[a_id]
         
         same_id, diff_id = [], []
-        for item in self.img_list:
+        for item in self.train_dir:
             if item['p_id'] == a_id:
                 same_id.append(item)
             else:
@@ -104,64 +106,72 @@ class TrainDatasetOrientation(Dataset):
     
         
 class TrainDataset(Dataset):
-    def __init__(self, json_path: str, transforms: nn.Module) -> None:
+    def __init__(self, train_dir, json_path: str, transforms: nn.Module) -> None:
         super(TrainDataset, self).__init__()
-        self.json_path = json_path
-        self.img_list = get_img_list(self.json_path)
+        self.img_list = get_img_list(json_path)
         self.transforms = transforms
-        self.num_classes, self.num_clothes, self.pid2clothes, self.pid2label, self.clothes2label = process_train_data(self.img_list)
+        self.dataset, self.num_classes, self.num_imgs, self.num_clothes, self.pid2clothes = process_train_data(train_dir, self.img_list)
 
     def __len__(self):
-        return len(self.img_list)
+        return self.num_imgs
 
     def __getitem__(self, index):
-        img = self.img_list[index]
-        img_path = img['img_path']
-        pid = img['p_id']
-        pose = img['pose_landmarks']
-        cloth_id = img['cloth_id']
-
+        img_path, pose, pid, camid, clothes_id = self.dataset[index]
+    
         img_tensor, size = get_img_tensor(img_path, self.transforms)
         pose_tensor = get_pose_tensor(pose, size)
-        pid_index = self.pid2label[pid]
-        cloth_id_index = self.clothes2label[cloth_id]
 
-        return img_tensor, pose_tensor, pid_index, cloth_id_index
+        return img_tensor, pose_tensor, pid, clothes_id
     
     
-def process_train_data(img_list):
+def process_train_data(train_dir, img_list):
+
+    img_paths = glob.glob(osp.join(train_dir, '*.png'))
+    img_paths.sort()
+    pattern1 = re.compile(r'(\d+)_(\d+)_c(\d+)')
+    pattern2 = re.compile(r'(\w+)_c')
+
     pid_container = set()
     clothes_container = set()
-    for img in img_list:
-        pid = img['p_id']
-        cloth_id = img['cloth_id']
+    for img_path in img_paths:
+        pid, _, _ = map(int, pattern1.search(img_path).groups())
+        clothes_id = pattern2.search(img_path).group(1)
         pid_container.add(pid)
-        clothes_container.add(cloth_id)
-
+        clothes_container.add(clothes_id)
     pid_container = sorted(pid_container)
     clothes_container = sorted(clothes_container)
     pid2label = {pid:label for label, pid in enumerate(pid_container)}
-    clothes2label = {cloth_id:label for label, cloth_id in enumerate(clothes_container)}
+    clothes2label = {clothes_id:label for label, clothes_id in enumerate(clothes_container)}
 
     num_pids = len(pid_container)
     num_clothes = len(clothes_container)
 
+    dataset = []
     pid2clothes = np.zeros((num_pids, num_clothes))
-    for img in img_list:
-        pid = img['p_id']
-        clothes = img['cloth_id']
+    for img_path in img_paths:
+        key = 'img_path'
+        val = img_path 
+        pid, _, camid = map(int, pattern1.search(img_path).groups())
+        clothes = pattern2.search(img_path).group(1)
+        camid -= 1 # index starts from 0
         pid = pid2label[pid]
-        cloth_id = clothes2label[clothes]
-        pid2clothes[pid, cloth_id] = 1
+        clothes_id = clothes2label[clothes]
+        for item in img_list:
+            if key in item and item[key] == val:
+                found_item = item
+        pose = found_item['pose_landmarks']
+        dataset.append((img_path, pose, pid, camid, clothes_id))
+        pid2clothes[pid, clothes_id] = 1
+    
+    num_imgs = len(dataset)
 
-    return num_pids, num_clothes, pid2clothes, pid2label, clothes2label
+    return dataset, num_pids, num_imgs, num_clothes, pid2clothes
 
 class TestDataset(Dataset):
 
     def __init__(self, json_path: str, transforms: nn.Module = None, cloth_changing: bool = False) -> None:
         super(TestDataset, self).__init__()
-        self.json_path = json_path
-        self.img_list = get_img_list(self.json_path)
+        self.img_list = get_img_list(json_path)
         self.transforms = transforms
         self.cloth_changing_mode = cloth_changing
         self.num_classes = self.get_num_classes()
@@ -208,10 +218,10 @@ def get_pose_tensor(pose: List[List[float]], size):
         item.append(width / height)
     return Tensor(processed_pose)
 
-def classes_to_idx(img_list):
+def classes_to_idx(train_dir):
     id_to_index = {}
     index = 0
-    for item in img_list:
+    for item in train_dir:
         a_id = item['p_id']
         if a_id not in id_to_index:
             id_to_index[a_id] = index

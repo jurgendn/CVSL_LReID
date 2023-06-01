@@ -1,10 +1,9 @@
 from typing import Dict, List, Tuple
-from pytorch_lightning.utilities.types import TRAIN_DATALOADERS
 import torch
 from pytorch_lightning import LightningModule
 from torch import nn, optim
 from src.models.modules.fusion_net import FusionNet
-from src.models.modules.r50 import FTNet, FTNet_HR, FTNet_Swin
+from src.models.modules.r50 import FTNet
 from src.models.modules.shape_embedding import ShapeEmbedding
 from src.losses import build_losses
 from src.models import build_models
@@ -12,6 +11,7 @@ from utils.misc import normalize_feature
 from config import BASIC_CONFIG
 from torch.utils.data import DataLoader
 from src.datasets.get_loader import get_train_data
+from torchmetrics import functional as FM
 
 conf = BASIC_CONFIG
 
@@ -27,7 +27,7 @@ class Baseline(LightningModule):
         super(Baseline, self).__init__()
 
         self.shape_edge_index = torch.LongTensor(shape_edge_index)
-        # self.register_buffer("shape_edge_index", self.shape_edge_index)
+        # self.register_buffer("shape_edge_index", shape_edge_index)
 
         self.train_shape = train_shape
 
@@ -64,6 +64,7 @@ class Baseline(LightningModule):
         self.automatic_optimization = False
         
         self.training_step_outputs = []
+        self.training_acc_outputs = []
         # self.validation_batch_outputs: List = []
         self.save_hyperparameters()
     
@@ -81,21 +82,25 @@ class Baseline(LightningModule):
                 x_pose_features: torch.FloatTensor,
                 edge_index: torch.LongTensor) -> torch.Tensor:
         
+        x_pose_features = x_pose_features.cuda()
+        edge_index = edge_index.cuda()
+        
         appearance_feature = self.ft_net(x=x_image)
 
         if self.train_shape:
-            pose_feature = self.shape_embedding(pose=x_pose_features,
+            shape_feature = self.shape_embedding(pose=x_pose_features,
                                                 edge_index=edge_index)
 
             fusion_feature = self.fusion(appearance_features=appearance_feature,
-                                        shape_features=pose_feature)
+                                        shape_features=shape_feature)
             return fusion_feature
         else:            
             return appearance_feature
         
     def configure_optimizers(self):
-        parameters_cc = list(map(id, self.clothes_classifier.parameters()))
-        parameters = filter(lambda p: id(p) not in parameters_cc, self.parameters())
+        
+        parameters = list(self.ft_net.parameters()) + list(self.shape_embedding.parameters()) \
+                    + list(self.fusion.parameters()) + list(self.id_classifier.parameters())
         
         if conf.OPTIMIZER == 'adam':
             optim_name = optim.Adam
@@ -109,13 +114,6 @@ class Baseline(LightningModule):
             optimizer_cc = optim_name(params=self.clothes_classifier.parameters(), lr=self.hparams.lr, \
                         weight_decay=conf.WEIGHT_DECAY, momentum=0.9, nesterov=True)
             
-        # if conf.USE_REDUCE_LR:
-        #     lr_scheduler = optim.lr_scheduler.ReduceLROnPlateau(
-        #         optimizer=self.optimizer, mode='min', patience=10,  
-        #     )
-        #     return {"optimizer": [self.optimizer, self.optimizer_cc], 
-        #         "lr_scheduler": {"scheduler": lr_scheduler, "monitor": "epoch_loss"}}
-        # else:
         lr_scheduler = optim.lr_scheduler.StepLR(optimizer=optimizer,
                                                 step_size=20,
                                                 gamma=0.1)
@@ -124,8 +122,9 @@ class Baseline(LightningModule):
     
 
     def training_step(self, batch, batch_idx) -> Dict:
-        optimizer, optimizer_cc = self.optimizers()
-
+        
+        self.optimizer, self.optimizer_cc = self.optimizers()
+        
         if self.orientation_guided:
             (a_img, p_img, n_img), (a_pose, p_pose, n_pose), a_id = batch
             p_feature = self.forward(x_image=p_img,
@@ -145,7 +144,7 @@ class Baseline(LightningModule):
                                  x_pose_features=a_pose,
                                  edge_index=self.shape_edge_index)
             
-        pos_mask = self.pid2clothes[a_id].float()
+        pos_mask = self.pid2clothes[a_id].float().cuda()
 
         # Normalize features
         if conf.NORM_FEATURE:
@@ -153,14 +152,14 @@ class Baseline(LightningModule):
 
         loss = 0.
         if conf.USE_CLOTHES_LOSS:
-            pred_clothes = self.clothes_classifier(a_feature)
+            pred_clothes = self.clothes_classifier(a_feature.detach())
             clothes_loss = self.clothes_loss(pred_clothes, a_cloth_id)
             if self.current_epoch >= conf.START_EPOCH_CC:
-                optimizer_cc.zero_grad()
-                self.manual_backward(clothes_loss)
-                optimizer_cc.step()
+                self.optimizer_cc.zero_grad()
+                self.manual_backward(clothes_loss)#, retain_graph=True)
+                self.optimizer_cc.step()
 
-        new_pred_clothes = self.clothes_classifier(a_feature)
+        new_pred_clothes = self.clothes_classifier(a_feature.detach())
 
         if self.train_shape:
             logits = self.id_classifier(a_feature)
@@ -169,6 +168,7 @@ class Baseline(LightningModule):
             id_loss = self.id_loss(a_feature, a_id)  
 
         loss += id_loss
+
         if conf.USE_TRIPLET_LOSS:
             triplet_loss = self.triplet_loss(a_feature, p_feature, n_feature)
             loss += triplet_loss
@@ -189,16 +189,20 @@ class Baseline(LightningModule):
                 warm_up = min(1.0, self.warm_up + 0.9 / warm_iteration)
                 loss = loss * warm_up
         
-        optimizer.zero_grad()
+        self.optimizer.zero_grad()
         self.manual_backward(loss)
-        optimizer.step()
+        self.optimizer.step()
 
+        """
+        Compute Accuracy
+        """
+
+        acc = FM.accuracy(preds=logits, target=a_id, task='multiclass', average='macro', num_classes=self.class_num)
+        
         self.training_step_outputs.append(loss)
+        self.log('train_acc', acc, on_step=True, on_epoch=True, prog_bar=True, logger=True)
         self.log('train_loss', loss, on_step=True, on_epoch=True, prog_bar=True, logger=True)
         return loss 
-
-    # def on_fit_start(self) -> None:
-    #     self.has_warmed_up = False
     
     def on_train_epoch_end(self):
         epoch_loss = sum(self.training_step_outputs) / len(self.training_step_outputs)
@@ -219,13 +223,8 @@ class InferenceBaseline(LightningModule):
         super(InferenceBaseline, self).__init__()
         shape_edge_index = torch.LongTensor(shape_edge_index)
         self.register_buffer("shape_edge_index", shape_edge_index)
-        if conf.USE_RESTNET:
-            self.ft_net = FTNet(stride=r50_stride, return_f=True)
-        elif conf.USE_HRNET:
-            self.ft_net = FTNet_HR(return_f=True)
-        elif conf.USE_SWIN:
-            self.ft_net = FTNet_Swin(return_f=True)
-
+        self.ft_net = FTNet(stride=r50_stride, return_f=True)
+        
         self.test_with_pose = with_pose
 
         self.shape_embedding = ShapeEmbedding(
@@ -241,16 +240,13 @@ class InferenceBaseline(LightningModule):
         
         appearance_feature = self.ft_net(x=x_image)
         if self.test_with_pose:
-            pose_feature = self.shape_embedding(pose=x_pose_features,
+            shape_feature = self.shape_embedding(pose=x_pose_features,
                                                 edge_index=edge_index)
 
             fusion_feature = self.fusion(appearance_features=appearance_feature,
-                                        shape_features=pose_feature)
+                                        shape_features=shape_feature)
         
             return fusion_feature
         else:
             return appearance_feature
-
-
-# def contrastive_orientation_guided_loss(anchor, positive, negative):
     

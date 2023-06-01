@@ -20,7 +20,7 @@ net = Baseline(orientation_guided=BASIC_CONFIG.ORIENTATION_GUIDED,
 model_name = BASIC_CONFIG.MODEL_NAME
 print(model_name)
 
-model_checkpoint = ModelCheckpoint(every_n_epochs=10)
+model_checkpoint = ModelCheckpoint(every_n_epochs=5)
 early_stopping = EarlyStopping(monitor='epoch_loss', patience=20, mode='min')
 
 epochs = BASIC_CONFIG.EPOCHS
@@ -28,7 +28,7 @@ epochs = BASIC_CONFIG.EPOCHS
 trainer = Trainer(accelerator='gpu', 
                   max_epochs=epochs, 
                   callbacks=[model_checkpoint, early_stopping], 
-                  logger=logger,)
+                  logger=logger)
 
 if BASIC_CONFIG.TRAIN_FROM_CKPT:
     ckpt_path = BASIC_CONFIG.CKPT_PATH

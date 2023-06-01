@@ -86,8 +86,8 @@ class FTNet(nn.Module):
 
     def __init__(self, class_num = 77, stride=2, droprate = 0.5, linear_num=512, return_f=True):
         super(FTNet, self).__init__()
-        resnet_weights = models.ResNet50_Weights.DEFAULT
-        model_ft = models.resnet50(resnet_weights)
+        # resnet_weights = models.ResNet50_Weights.DEFAULT
+        model_ft = models.resnet50(pretrained=True)
         # avg pooling to global pooling
         if stride == 1:
             model_ft.layer4[0].downsample[0].stride = (1, 1)

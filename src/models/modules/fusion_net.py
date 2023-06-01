@@ -1,6 +1,7 @@
 import torch
 from torch import nn
 from torch.nn import init
+from config import BASIC_CONFIG
 
 class AggregationNet(nn.Module):
 
@@ -36,6 +37,9 @@ class FusionNet(nn.Module):
                 shape_features: torch.Tensor) -> torch.Tensor:
         appearance = self.appearance_net(appearance_features)
         shape = self.shape_net(shape_features)
-        agg_features = self.theta(x=appearance, y=shape)
+        if BASIC_CONFIG.AGG == 'sum':
+            agg_features = self.theta(x=appearance, y=shape)
+        else: 
+            agg_features = torch.cat((appearance, shape),dim=0)
         agg_features = self.bn(agg_features)
         return agg_features

@@ -14,12 +14,7 @@ def build_models(train_shape, class_num, num_clothes, out_features):
 
     models = {}
 
-    if conf.USE_RESTNET:
-        ft_net = FTNet(stride=FT_NET_CFG.R50_STRIDE, class_num=class_num, return_f=return_f)
-    elif conf.USE_HRNET:
-        ft_net = FTNet_HR(class_num=class_num, return_f=return_f)
-    elif conf.USE_SWIN:
-        ft_net = FTNet_Swin(class_num=class_num, return_f=return_f)
+    ft_net = FTNet(stride=FT_NET_CFG.R50_STRIDE, class_num=class_num, return_f=return_f)
     
     def load_pretrained_r50(r50_weight_path: str):
         ft_net.load_state_dict(torch.load(f=r50_weight_path), strict=True)

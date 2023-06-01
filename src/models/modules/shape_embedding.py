@@ -130,16 +130,17 @@ class ShapeEmbedding(nn.Module):
         elif BASIC_CONFIG.AGGREGATION_TYPE == 'max':
             self.graph_pooling = gnn.MaxAggregation()
 
+        self.bn = nn.BatchNorm1d(self.n_dim)
+        init.normal_(self.bn.weight.data, 1.0, 0.02)
+        init.constant_(self.bn.bias.data, 0.0)
+
     def forward(self, pose: Tensor, edge_index: Tensor) -> Tensor:
         pose_features = self.refine_net(p=pose)
         relation_features = self.relation_net(x=pose_features, a=edge_index)
         graph_representation = self.graph_pooling(x=relation_features)
 
-        self.bn = nn.BatchNorm1d(self.n_dim)
-        init.normal_(self.bn.weight.data, 1.0, 0.02)
-        init.constant_(self.bn.bias.data, 0.0)
-
         return self.bn(graph_representation.reshape(-1, self.n_dim))
+        # return graph_representation.reshape(-1, self.n_dim)
 
 
 if __name__ == "__main__":
