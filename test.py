@@ -4,9 +4,6 @@ import time, os, scipy.io, yaml, math
 import numpy as np
 import matplotlib.pyplot as plt
 
-from src.models.modules.r50 import FTNet
-from src.models.modules.shape_embedding import ShapeEmbedding
-from src.models.modules.fusion_net import FusionNet
 from src.models.baseline import InferenceBaseline
 
 from src.datasets.get_loader import get_query_gallery_loader
@@ -14,7 +11,7 @@ from src.datasets.get_loader import get_query_gallery_loader
 from utils.extract_features import extract_feature_cc, extract_feature_standard
 from utils.evaluate import evaluate, evaluate2
 
-from config import BASIC_CONFIG, FT_NET_CFG, SHAPE_EMBEDDING_CFG
+from config import BASIC_CONFIG, FT_NET_CFG
 
 
 # parser = argparse.ArgumentParser(description='test')
@@ -37,23 +34,11 @@ from config import BASIC_CONFIG, FT_NET_CFG, SHAPE_EMBEDDING_CFG
 
 query_loader, gallery_loader = get_query_gallery_loader()
 
-"""
-need to fix
-"""
-model = InferenceBaseline(shape_edge_index=SHAPE_EMBEDDING_CFG.EDGE_INDEX,
-                shape_pose_n_features=SHAPE_EMBEDDING_CFG.POSE_N_FEATURES,
-                shape_n_hidden=SHAPE_EMBEDDING_CFG.N_HIDDEN,
-                shape_out_features=SHAPE_EMBEDDING_CFG.OUT_FEATURES,
-                shape_relation_layers=SHAPE_EMBEDDING_CFG.RELATION_LAYERS,
-                r50_stride=FT_NET_CFG.R50_STRIDE,
-                with_pose=BASIC_CONFIG.TEST_WITH_POSE).to(BASIC_CONFIG.DEVICE)
+model = InferenceBaseline(r50_stride=FT_NET_CFG.R50_STRIDE).to(BASIC_CONFIG.DEVICE)
 
-# model = FTNet().to(device=BASIC_CONFIG.DEVICE)
+save_path = "work_space/save/model_ltcc_60epochs_0.0035lr_64bs_fromscratch_sampler_crossentropylabelsmooth_triplet_clothesLoss_3Refine_GCNConv_3GCN_maxAgg.pth"
 save_path = os.path.join(BASIC_CONFIG.SAVE_PATH, BASIC_CONFIG.MODEL_NAME)
-# save_path = "work_space/save/model_ltcc_80epochs_0.00035lr_64bs_resnet_fromscratch_withshape_sampler_ceLS_tripletPairwise_clothesLoss_randomerasing_3Refine_GCNConv_3GCN_maxAgg_modified.pth"
 model.load_state_dict(torch.load(save_path), strict=False)
-# model.load_state_dict(torch.load("work_space/save/net_last_shape_ltcc_numepochs_60.pth"), strict=True)
-
 
 cloth_changing = BASIC_CONFIG.CLOTH_CHANGING_MODE
 

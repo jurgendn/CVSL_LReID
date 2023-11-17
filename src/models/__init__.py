@@ -1,7 +1,7 @@
 import torch 
 from src.models.modules.fusion_net import FusionNet
 from src.models.modules.r50 import FTNet, FTNet_HR, FTNet_Swin, weights_init_classifier
-from src.models.modules.shape_embedding import ShapeEmbedding
+# from src.models.modules.shape_embedding import ShapeEmbedding
 from src.models.modules.classifier import Classifier, NormalizedClassifier
 from config import BASIC_CONFIG, FT_NET_CFG, SHAPE_EMBEDDING_CFG
 
@@ -21,20 +21,20 @@ def build_models(train_shape, class_num, num_clothes, out_features):
 
     models['cnn'] = ft_net
     
-    if train_shape:
-        shape_embedding = ShapeEmbedding(
-            pose_n_features=SHAPE_EMBEDDING_CFG.POSE_N_FEATURES,
-            n_hidden=SHAPE_EMBEDDING_CFG.N_HIDDEN,
-            out_features=SHAPE_EMBEDDING_CFG.OUT_FEATURES,
-            relation_layers=SHAPE_EMBEDDING_CFG.RELATION_LAYERS)
+    # if train_shape:
+    #     shape_embedding = ShapeEmbedding(
+    #         pose_n_features=SHAPE_EMBEDDING_CFG.POSE_N_FEATURES,
+    #         n_hidden=SHAPE_EMBEDDING_CFG.N_HIDDEN,
+    #         out_features=SHAPE_EMBEDDING_CFG.OUT_FEATURES,
+    #         relation_layers=SHAPE_EMBEDDING_CFG.RELATION_LAYERS)
         
-        """
-        need to change the input shape of appearance net and shape net 
-        if change the relation layers
-        """
-        fusion = FusionNet(out_features=out_features)
-        models['shape'] = shape_embedding
-        models['fusion'] = fusion
+    #     """
+    #     need to change the input shape of appearance net and shape net 
+    #     if change the relation layers
+    #     """
+    #     fusion = FusionNet(out_features=out_features)
+    #     models['shape'] = shape_embedding
+    #     models['fusion'] = fusion
 
     # Build classifier
     if conf.CLA_LOSS in ['crossentropy', 'crossentropylabelsmooth']:

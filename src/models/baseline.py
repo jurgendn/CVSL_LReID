@@ -2,9 +2,7 @@ from typing import Dict, List, Tuple
 import torch
 from pytorch_lightning import LightningModule
 from torch import nn, optim
-from src.models.modules.fusion_net import FusionNet
 from src.models.modules.r50 import FTNet
-from src.models.modules.shape_embedding import ShapeEmbedding
 from src.losses import build_losses
 from src.models import build_models
 from utils.misc import normalize_feature
@@ -212,41 +210,14 @@ class Baseline(LightningModule):
 class InferenceBaseline(LightningModule):
 
     def __init__(self,
-                 shape_edge_index: torch.LongTensor,
-                 shape_pose_n_features: int,
-                 shape_n_hidden: int,
-                 shape_out_features: int ,
-                 shape_relation_layers: List,
-                 r50_stride: int, 
-                 with_pose: bool) -> None:
+                 r50_stride: int) -> None:
         
         super(InferenceBaseline, self).__init__()
-        shape_edge_index = torch.LongTensor(shape_edge_index)
-        self.register_buffer("shape_edge_index", shape_edge_index)
         self.ft_net = FTNet(stride=r50_stride, return_f=True)
-        
-        self.test_with_pose = with_pose
 
-        self.shape_embedding = ShapeEmbedding(
-            pose_n_features=shape_pose_n_features,
-            n_hidden=shape_n_hidden,
-            out_features=shape_out_features,
-            relation_layers=shape_relation_layers)
-        self.fusion = FusionNet(out_features=512)
-
-    def forward(self, x_image: torch.Tensor,
-                x_pose_features: torch.FloatTensor,
-                edge_index: torch.LongTensor) -> torch.Tensor:
+    def forward(self, x_image: torch.Tensor) -> torch.Tensor:
         
         appearance_feature = self.ft_net(x=x_image)
-        if self.test_with_pose:
-            shape_feature = self.shape_embedding(pose=x_pose_features,
-                                                edge_index=edge_index)
-
-            fusion_feature = self.fusion(appearance_features=appearance_feature,
-                                        shape_features=shape_feature)
         
-            return fusion_feature
-        else:
-            return appearance_feature
+        return appearance_feature
     

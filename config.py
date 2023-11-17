@@ -28,7 +28,7 @@ class BASIC_CONFIG:
 
     INPUT_SIZE = (384, 192)
 
-    LR = 0.00035
+    LR = 0.0035
 
     DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -70,7 +70,7 @@ class BASIC_CONFIG:
     GALLERY_JSON_PATH = osp.join(DATA_PATH, DATASET_NAME, "jsons/gallery.json")
 
     ORIENTATION_GUIDED = False
-    SAMPLER = False 
+    SAMPLER = True 
 
     OPTIMIZER = 'adam' # or 'sgd'
     WEIGHT_DECAY =  5e-4
