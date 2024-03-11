@@ -1,0 +1,97 @@
+trainer:
+  epochs: 20
+
+main:
+  out_features: 512
+  agg: "concat"
+  input_size: [384, 192]
+  lr: 0.0035
+
+  color_jitter: False
+  random_erasing: True
+
+  data_path: "./data"
+  dataset_path: "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/"
+  dataset_name: "ltcc"
+  train_path: "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/train"
+
+  train_json_path: "./data/ltcc/jsons/train.json"
+  query_json_path: "./data/ltcc/jsons/query.json"
+  gallery_json_path: "./data/ltcc/jsons/gallery.json"
+
+  orientation_guided: False
+  sampler: True
+
+  optimizer: "adam"
+  weight_decay: 5e-4
+
+  use_warm_epoch: False
+  warm_epoch: 5
+  warm_up: 0.1
+
+  cla_loss: cross_entropy
+  cla_s: 16.0
+  cla_m: 0.0
+
+  use_triplet_loss: False
+  triplet_loss: "triplet"
+  triplet_m: 0.3
+
+  use_pairwise_loss: True
+  pair_loss: "triplet"
+  pair_m: 0.3
+  pair_s: 16.0
+  weight_pair: 0.2
+
+  use_clothes_loss: True
+  clothes_cla_loss: "cosface"
+  cal: "cal"
+  epsilon: 0.1
+  start_epoch_cc: 25
+  start_epoch_adv: 25
+
+  train_from_scratch: True
+  train_from_ckpt: False
+  ckpt_path: "work_space/lightning_logs/version_7/checkpoints/epoch=14-step=17955.ckpt"
+
+  train_shape: True
+  num_refine_layers: 3
+  gcn_layer_type: "GCNConv"
+  num_gcn_layers: 3
+  aggregation_type: "max"
+
+  epochs: 60
+  batch_size: 64
+  pin_memory: True
+  num_worker: 4
+
+  output_features: 512
+  norm_feature: True
+
+  test_with_pose: False
+  save_path: "work_space/save"
+  log_path: "work_space/"
+
+shape_embedding:
+  pose_n_features: 3
+  n_hidden: 1024
+  out_features: 2048
+  relation_layers:
+    - [2048, 1024]
+    - [1024, 1024]
+    - [1024, 512]
+  edge_index:
+    - [1, 1, 2, 3, 5, 6, 1, 8, 9, 1, 11, 12, 1, 0, 14, 0, 15, 2, 5]
+    - [2, 5, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 0, 14, 16, 15, 17, 16, 17]
+
+ftnet:
+  target_layer: layer4
+  output_layer_name: out
+  weights: IMAGENET1K_V1
+
+miscellaneous:
+  fusion_net_apprearance_dim: 4096
+  fusion_net_shape_dim: 512
+  fusion_net_output_dim: 512
+  classifier_num_classes: 77
+  classifier_num_clothes: 751

@@ -1,4 +1,0 @@
-R50_STRIDE: 1
-DROP_RATE: 0.5
-LINEAR_NUM: 512
-PRETRAINED: "pretrained/net_pretrained_market.pth"

@@ -1,18 +1,14 @@
-import argparse
-import torch
-import time, os, scipy.io, yaml, math
-import numpy as np
+import os
+
 import matplotlib.pyplot as plt
-
-from src.models.baseline import InferenceBaseline
-
-from src.datasets.get_loader import get_query_gallery_loader
-
-from utils.extract_features import extract_feature_cc, extract_feature_standard
-from utils.evaluate import evaluate, evaluate2
+import numpy as np
+import torch
 
 from config import BASIC_CONFIG, FT_NET_CFG
-
+from src.datasets.get_loader import get_query_gallery_loader
+from src.models.baseline import InferenceBaseline
+from utils.evaluate import evaluate, evaluate2
+from utils.extract_features import extract_feature_cc, extract_feature_standard
 
 # parser = argparse.ArgumentParser(description='test')
 
@@ -28,7 +24,7 @@ from config import BASIC_CONFIG, FT_NET_CFG
 
 # opt = parser.parse_args()
 
-### Load config ### 
+### Load config ###
 
 ### Load data
 
@@ -45,12 +41,12 @@ cloth_changing = BASIC_CONFIG.CLOTH_CHANGING_MODE
 model.eval()
 
 with torch.inference_mode():
-    query_standard = extract_feature_standard(model, query_loader, type='query')
-    gallery_standard = extract_feature_standard(model, gallery_loader, type='gallery')
+    query_standard = extract_feature_standard(model, query_loader, type="query")
+    gallery_standard = extract_feature_standard(model, gallery_loader, type="gallery")
     if cloth_changing:
-        query_cc = extract_feature_cc(model, query_loader, type='query')
-        gallery_cc = extract_feature_cc(model, gallery_loader, type='gallery')
-    
+        query_cc = extract_feature_cc(model, query_loader, type="query")
+        gallery_cc = extract_feature_cc(model, gallery_loader, type="gallery")
+
 
 standard_CMC, standard_mAP = evaluate(gallery_standard, query_standard)
 standard_CMC = standard_CMC.numpy()
@@ -71,15 +67,15 @@ print()
 print("==============================")
 
 # Calculate the rank values for the x-axis
-ranks = np.arange(1, len(standard_CMC)+1)
+ranks = np.arange(1, len(standard_CMC) + 1)
 ranks = np.arange(1, 41)
 
-# # Plot the CMC curve 
-plt.plot(ranks, standard_CMC[:40], '-o', label=standard_results)
-plt.plot(ranks, cc_CMC[:40], '-x', label=cc_results)
+# # Plot the CMC curve
+plt.plot(ranks, standard_CMC[:40], "-o", label=standard_results)
+plt.plot(ranks, cc_CMC[:40], "-x", label=cc_results)
 
-plt.xlabel('Rank')
-plt.ylabel('Identification Rate')
+plt.xlabel("Rank")
+plt.ylabel("Identification Rate")
 plt.title(BASIC_CONFIG.MODEL_NAME)
 plt.grid(False)
 # Save the plot to an output folder

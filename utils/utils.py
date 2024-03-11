@@ -1,20 +1,24 @@
-import os
-import sys
-import shutil
 import errno
 import json
-import os.path as osp
-import torch
-import random
 import logging
+import os
+import os.path as osp
+import random
+import shutil
+import sys
+from typing import Dict, List, Optional, TypeAlias
+
 import numpy as np
+import torch
+
+JSON: TypeAlias = Dict[str, "JSON"] | List["JSON"] | str | int | float | bool | None
 
 
-def set_seed(seed=None):
+def set_seed(seed: Optional[int] = None):
     if seed is None:
         return
     random.seed(seed)
-    os.environ['PYTHONHASHSEED'] = ("%s" % seed)
+    os.environ["PYTHONHASHSEED"] = "%s" % seed
     np.random.seed(seed)
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
@@ -23,7 +27,7 @@ def set_seed(seed=None):
     torch.backends.cudnn.deterministic = True
 
 
-def mkdir_if_missing(directory):
+def mkdir_if_missing(directory: str):
     if not osp.exists(directory):
         try:
             os.makedirs(directory)
@@ -32,23 +36,24 @@ def mkdir_if_missing(directory):
                 raise
 
 
-def read_json(fpath):
-    with open(fpath, 'r') as f:
+def read_json(fpath: str):
+    with open(fpath, "r") as f:
         obj = json.load(f)
     return obj
 
 
-def write_json(obj, fpath):
+def write_json(obj: JSON, fpath: str):
     mkdir_if_missing(osp.dirname(fpath))
-    with open(fpath, 'w') as f:
-        json.dump(obj, f, indent=4, separators=(',', ': '))
+    with open(fpath, "w") as f:
+        json.dump(obj, f, indent=4, separators=(",", ": "))
 
 
-class AverageMeter(object):
+class AverageMeter:
     """Computes and stores the average and current value.
-       
-       Code imported from https://github.com/pytorch/examples/blob/master/imagenet/main.py#L247-L262
+
+    Code imported from https://github.com/pytorch/examples/blob/master/imagenet/main.py#L247-L262
     """
+
     def __init__(self):
         self.reset()
 
@@ -65,14 +70,15 @@ class AverageMeter(object):
         self.avg = self.sum / self.count
 
 
-def save_checkpoint(state, is_best, fpath='checkpoint.pth.tar'):
+def save_checkpoint(state: torch.nn.ParameterDict, is_best, fpath="checkpoint.pth.tar"):
     mkdir_if_missing(osp.dirname(fpath))
     torch.save(state, fpath)
     if is_best:
-        shutil.copy(fpath, osp.join(osp.dirname(fpath), 'best_model.pth.tar'))
+        shutil.copy(fpath, osp.join(osp.dirname(fpath), "best_model.pth.tar"))
+
 
 '''
-class Logger(object):
+class Logger:
     """
     Write console output to external text file.
     Code imported from https://github.com/Cysu/open-reid/blob/master/reid/utils/logging.py.
@@ -111,7 +117,7 @@ class Logger(object):
 '''
 
 
-def get_logger(fpath, local_rank=0, name=''):
+def get_logger(fpath: str, local_rank: int = 0, name: str = ""):
     # Creat logger
     logger = logging.getLogger(name)
     level = logging.INFO if local_rank in [-1, 0] else logging.WARN
@@ -119,16 +125,22 @@ def get_logger(fpath, local_rank=0, name=''):
 
     # Output to console
     console_handler = logging.StreamHandler(sys.stdout)
-    console_handler.setLevel(level=level) 
-    console_handler.setFormatter(logging.Formatter('%(message)s'))
+    console_handler.setLevel(level=level)
+    console_handler.setFormatter(logging.Formatter("%(message)s"))
     logger.addHandler(console_handler)
 
     # Output to file
     if fpath is not None:
-            mkdir_if_missing(os.path.dirname(fpath))
-    file_handler = logging.FileHandler(fpath, mode='w')
+        mkdir_if_missing(os.path.dirname(fpath))
+    file_handler = logging.FileHandler(fpath, mode="w")
     file_handler.setLevel(level=level)
-    file_handler.setFormatter(logging.Formatter('%(message)s'))
+    file_handler.setFormatter(logging.Formatter("%(message)s"))
     logger.addHandler(file_handler)
 
     return logger
+
+
+def normalize_feature(feature: torch.Tensor) -> torch.Tensor:
+    fnorm = torch.norm(feature, p=2, dim=1, keepdim=True)
+    normed_feature = feature.div(fnorm.expand_as(feature))
+    return normed_feature

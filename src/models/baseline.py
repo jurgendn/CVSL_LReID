@@ -1,160 +1,205 @@
-from typing import Dict, List, Tuple
+from typing import Dict
+
 import torch
 from pytorch_lightning import LightningModule
-from torch import nn, optim
-from src.models.modules.r50 import FTNet
-from src.losses import build_losses
-from src.models import build_models
-from utils.misc import normalize_feature
-from config import BASIC_CONFIG
+from torch import optim
 from torch.utils.data import DataLoader
-from src.datasets.get_loader import get_train_data
 from torchmetrics import functional as FM
 
-conf = BASIC_CONFIG
+from configs.factory import (
+    MainConfig,
+    FTNetConfig,
+    ShapeEmbeddingConfig,
+    MiscellaneusConfig,
+)
+from src.datasets.get_loader import get_train_data
+from src.losses import build_losses
+from src.models import build_models
+from src.models.modules.r50 import FTNet
+from utils.utils import normalize_feature
+
 
 class Baseline(LightningModule):
-
-    def __init__(self,
-                 orientation_guided: bool,
-                 lr: float,
-                 train_shape: bool, 
-                 out_features: int,
-                 shape_edge_index) -> None:
-        
+    def __init__(
+        self,
+        main_config: MainConfig,
+        ftnet_config: FTNetConfig,
+        shape_embedding_config: ShapeEmbeddingConfig,
+        miscs_config: MiscellaneusConfig,
+    ) -> None:
         super(Baseline, self).__init__()
-
-        self.shape_edge_index = torch.LongTensor(shape_edge_index)
+        self.config = main_config
+        self.shape_edge_index = torch.LongTensor(shape_embedding_config.edge_index)
         # self.register_buffer("shape_edge_index", shape_edge_index)
 
-        self.train_shape = train_shape
+        self.train_shape = main_config.train_shape
 
-        self.orientation_guided = orientation_guided
-
-        self.train_data, self.sampler = get_train_data(self.orientation_guided)
+        self.orientation_guided = main_config.orientation_guided
+        self.lr = main_config.lr
+        self.train_data, self.sampler = get_train_data(config=main_config)
         self.class_num = self.train_data.num_classes
         self.num_clothes = self.train_data.num_clothes
         self.pid2clothes = torch.from_numpy(self.train_data.pid2clothes)
         self.dataset_size = len(self.train_data)
 
         self.losses = build_losses()
-        self.id_loss = self.losses['cla']
-        if conf.USE_TRIPLET_LOSS:
-            self.triplet_loss = self.losses['triplet']
-        if conf.USE_PAIRWISE_LOSS:
-            self.pair_loss = self.losses['pair']
+        self.id_loss = self.losses["cla"]
+        if self.config.use_triplet_loss is True:
+            self.triplet_loss = self.losses["triplet"]
+        if self.config.use_pairwise_loss is True:
+            self.pair_loss = self.losses["pair"]
 
-        self.models = build_models(self.train_shape, self.class_num, self.num_clothes, out_features)
-        self.ft_net = self.models['cnn']
-        self.shape_embedding = self.models['shape']
-        self.fusion = self.models['fusion']
-        self.id_classifier = self.models['id_clf']
+        self.models = build_models(
+            main_config=main_config,
+            ftnet_config=ftnet_config,
+            shape_embedding_config=shape_embedding_config,
+            miscs_config=miscs_config,
+        )
+        self.ft_net = self.models["cnn"]
+        self.shape_embedding = self.models["shape"]
+        self.fusion = self.models["fusion"]
+        self.id_classifier = self.models["id_clf"]
 
-        if conf.USE_CLOTHES_LOSS:
-            self.clothes_loss = self.losses['clothes']
-            self.cal = self.losses['cal']
-            self.clothes_classifier = self.models['clothes_clf']
+        if self.config.use_clothes_loss is True:
+            self.clothes_loss = self.losses["clothes"]
+            self.cal = self.losses["cal"]
+            self.clothes_classifier = self.models["clothes_clf"]
 
-        self.use_warm_epoch = conf.USE_WARM_EPOCH
-        self.warm_epoch = conf.WARM_EPOCH
-        self.warm_up = conf.WARM_UP
+        self.use_warm_epoch = self.config.use_warm_epoch
+        self.warm_epoch = self.config.warm_epoch
+        self.warm_up = self.config.warm_up
 
         self.automatic_optimization = False
-        
+
         self.training_step_outputs = []
         self.training_acc_outputs = []
         # self.validation_batch_outputs: List = []
         self.save_hyperparameters()
-    
+
     def train_dataloader(self):
-        if conf.SAMPLER:
-            train_loader = DataLoader(self.train_data, batch_size=conf.BATCH_SIZE, shuffle=False, num_workers=conf.NUM_WORKER, pin_memory=conf.PIN_MEMORY, sampler=self.sampler)
+        if self.config.sampler is True:
+            train_loader = DataLoader(
+                self.train_data,
+                batch_size=self.config.batch_size,
+                shuffle=False,
+                num_workers=self.config.num_workers,
+                pin_memory=self.config.pin_memory,
+                sampler=self.sampler,
+            )
         else:
-            train_loader = DataLoader(self.train_data, batch_size=conf.BATCH_SIZE, shuffle=True, num_workers=conf.NUM_WORKER, pin_memory=conf.PIN_MEMORY)
+            train_loader = DataLoader(
+                self.train_data,
+                batch_size=self.config.batch_size,
+                shuffle=True,
+                num_workers=self.config.num_workers,
+                pin_memory=self.config.pin_memory,
+            )
         return train_loader
-    
+
     def on_epoch_start(self):
         self.sampler.set_epoch(self.current_epoch)
 
-    def forward(self, x_image: torch.Tensor,
-                x_pose_features: torch.FloatTensor,
-                edge_index: torch.LongTensor) -> torch.Tensor:
-        
-        x_pose_features = x_pose_features.cuda()
-        edge_index = edge_index.cuda()
-        
+    def forward(
+        self,
+        x_image: torch.Tensor,
+        x_pose_features: torch.Tensor,
+        edge_index: torch.Tensor,
+    ) -> torch.Tensor:
+        x_pose_features = x_pose_features.to(self.device)
+        edge_index = edge_index.to(self.device)
+
         appearance_feature = self.ft_net(x=x_image)
 
         if self.train_shape:
-            shape_feature = self.shape_embedding(pose=x_pose_features,
-                                                edge_index=edge_index)
+            shape_feature = self.shape_embedding(
+                pose=x_pose_features, edge_index=edge_index
+            )
 
-            fusion_feature = self.fusion(appearance_features=appearance_feature,
-                                        shape_features=shape_feature)
+            fusion_feature = self.fusion(
+                appearance_features=appearance_feature, shape_features=shape_feature
+            )
             return fusion_feature
-        else:            
+        else:
             return appearance_feature
-        
+
     def configure_optimizers(self):
-        
-        parameters = list(self.ft_net.parameters()) + list(self.shape_embedding.parameters()) \
-                    + list(self.fusion.parameters()) + list(self.id_classifier.parameters())
-        
-        if conf.OPTIMIZER == 'adam':
+        parameters = (
+            list(self.ft_net.parameters())
+            + list(self.shape_embedding.parameters())
+            + list(self.fusion.parameters())
+            + list(self.id_classifier.parameters())
+        )
+
+        if self.config.optimizer == "adam":
             optim_name = optim.Adam
-            optimizer = optim_name(params=parameters, lr=self.hparams.lr, weight_decay=conf.WEIGHT_DECAY)
-            optimizer_cc = optim_name(params=self.clothes_classifier.parameters(),\
-                        lr=self.hparams.lr, weight_decay=conf.WEIGHT_DECAY)
-        elif conf.OPTIMIZER == 'sgd':
+            optimizer = optim_name(
+                params=parameters,
+                lr=self.lr,
+                weight_decay=self.config.weight_decay,
+            )
+            optimizer_cc = optim_name(
+                params=self.clothes_classifier.parameters(),
+                lr=self.lr,
+                weight_decay=self.config.weight_decay,
+            )
+        elif self.config.optimizer == "sgd":
             optim_name = optim.SGD
-            optimizer = optim_name(params=parameters, lr=self.hparams.lr, \
-                        weight_decay=conf.WEIGHT_DECAY, momentum=0.9, nesterov=True)
-            optimizer_cc = optim_name(params=self.clothes_classifier.parameters(), lr=self.hparams.lr, \
-                        weight_decay=conf.WEIGHT_DECAY, momentum=0.9, nesterov=True)
-            
-        lr_scheduler = optim.lr_scheduler.StepLR(optimizer=optimizer,
-                                                step_size=20,
-                                                gamma=0.1)
+            optimizer = optim_name(
+                params=parameters,
+                lr=self.lr,
+                weight_decay=self.config.weight_decay,
+                momentum=0.9,
+                nesterov=True,
+            )
+            optimizer_cc = optim_name(
+                params=self.clothes_classifier.parameters(),
+                lr=self.lr,
+                weight_decay=self.config.weight_decay,
+                momentum=0.9,
+                nesterov=True,
+            )
+
+        lr_scheduler = optim.lr_scheduler.StepLR(
+            optimizer=optimizer, step_size=20, gamma=0.1
+        )
         # return {"optimizer": [self.optimizer, self.optimizer_cc], "lr_scheduler": lr_scheduler}
         return [optimizer, optimizer_cc], [lr_scheduler]
-    
 
     def training_step(self, batch, batch_idx) -> Dict:
-        
         self.optimizer, self.optimizer_cc = self.optimizers()
-        
+
         if self.orientation_guided:
             (a_img, p_img, n_img), (a_pose, p_pose, n_pose), a_id = batch
-            p_feature = self.forward(x_image=p_img,
-                                    x_pose_features=p_pose,
-                                    edge_index=self.shape_edge_index)
-            n_feature = self.forward(x_image=n_img,
-                                    x_pose_features=n_pose,
-                                    edge_index=self.shape_edge_index)
-            if conf.NORM_FEATURE:
+            p_feature = self.forward(
+                x_image=p_img, x_pose_features=p_pose, edge_index=self.shape_edge_index
+            )
+            n_feature = self.forward(
+                x_image=n_img, x_pose_features=n_pose, edge_index=self.shape_edge_index
+            )
+            if self.config.norm_feature:
                 p_feature = normalize_feature(p_feature)
                 n_feature = normalize_feature(n_feature)
-        
+
         else:
             a_img, a_pose, a_id, a_cloth_id = batch
 
-        a_feature = self.forward(x_image=a_img,
-                                 x_pose_features=a_pose,
-                                 edge_index=self.shape_edge_index)
-            
-        pos_mask = self.pid2clothes[a_id].float().cuda()
+        a_feature = self.forward(
+            x_image=a_img, x_pose_features=a_pose, edge_index=self.shape_edge_index
+        )
+
+        pos_mask = self.pid2clothes[a_id].float().to(self.device)
 
         # Normalize features
-        if conf.NORM_FEATURE:
+        if self.config.norm_feature:
             a_feature = normalize_feature(a_feature)
 
-        loss = 0.
-        if conf.USE_CLOTHES_LOSS:
+        loss = 0.0
+        if self.config.use_clothes_loss:
             pred_clothes = self.clothes_classifier(a_feature.detach())
             clothes_loss = self.clothes_loss(pred_clothes, a_cloth_id)
-            if self.current_epoch >= conf.START_EPOCH_CC:
+            if self.current_epoch >= self.config.start_epoch_cc:
                 self.optimizer_cc.zero_grad()
-                self.manual_backward(clothes_loss)#, retain_graph=True)
+                self.manual_backward(clothes_loss)  # , retain_graph=True)
                 self.optimizer_cc.step()
 
         new_pred_clothes = self.clothes_classifier(a_feature.detach())
@@ -163,61 +208,71 @@ class Baseline(LightningModule):
             logits = self.id_classifier(a_feature)
             id_loss = self.id_loss(logits, a_id)
         else:
-            id_loss = self.id_loss(a_feature, a_id)  
+            id_loss = self.id_loss(a_feature, a_id)
 
         loss += id_loss
 
-        if conf.USE_TRIPLET_LOSS:
+        if self.config.use_triplet_loss:
             triplet_loss = self.triplet_loss(a_feature, p_feature, n_feature)
             loss += triplet_loss
-        
-        if conf.USE_PAIRWISE_LOSS:
+
+        if self.config.use_pairwise_loss:
             pair_loss = self.pair_loss(a_feature, a_id)
-            loss += pair_loss * conf.WEIGHT_PAIR
-        
-        if conf.USE_CLOTHES_LOSS:
+            loss += pair_loss * self.config.weight_pair
+
+        if self.config.use_clothes_loss:
             clothes_adv_loss = self.cal(new_pred_clothes, a_cloth_id, pos_mask)
-            if self.current_epoch >= conf.START_EPOCH_ADV:
+            if self.current_epoch >= self.config.start_epoch_adv:
                 loss += clothes_adv_loss
 
         if self.use_warm_epoch:
-            #Warm Up
-            warm_iteration = round(self.dataset_size/conf.BATCH_SIZE)*self.warm_epoch # first 5 epoch
+            # Warm Up
+            warm_iteration = (
+                round(self.dataset_size / self.config.batch_size) * self.warm_epoch
+            )  # first 5 epoch
             if self.current_epoch < self.warm_epoch:
                 warm_up = min(1.0, self.warm_up + 0.9 / warm_iteration)
                 loss = loss * warm_up
-        
+
         self.optimizer.zero_grad()
         self.manual_backward(loss)
         self.optimizer.step()
 
-        """
-        Compute Accuracy
-        """
+        acc = FM.accuracy(
+            preds=logits,
+            target=a_id,
+            task="multiclass",
+            average="macro",
+            num_classes=self.class_num,
+        )
 
-        acc = FM.accuracy(preds=logits, target=a_id, task='multiclass', average='macro', num_classes=self.class_num)
-        
         self.training_step_outputs.append(loss)
-        self.log('train_acc', acc, on_step=True, on_epoch=True, prog_bar=True, logger=True)
-        self.log('train_loss', loss, on_step=True, on_epoch=True, prog_bar=True, logger=True)
-        return loss 
-    
+        self.log(
+            "train_acc", acc, on_step=True, on_epoch=True, prog_bar=True, logger=True
+        )
+        self.log(
+            "train_loss", loss, on_step=True, on_epoch=True, prog_bar=True, logger=True
+        )
+        return loss
+
     def on_train_epoch_end(self):
         epoch_loss = sum(self.training_step_outputs) / len(self.training_step_outputs)
-        self.log('epoch_loss', epoch_loss)
+        self.log("epoch_loss", epoch_loss)
         self.training_step_outputs.clear()
 
-class InferenceBaseline(LightningModule):
 
-    def __init__(self,
-                 r50_stride: int) -> None:
-        
+class InferenceBaseline(LightningModule):
+    def __init__(self, r50_stride: int) -> None:
         super(InferenceBaseline, self).__init__()
-        self.ft_net = FTNet(stride=r50_stride, return_f=True)
+        self.ft_net = FTNet(
+            config=FTNetConfig(
+                class_num=751,
+                target_layers="layer4",
+                output_layers_name="out",
+                pretrained="IMAGENET1K_V2",
+            )
+        )
 
     def forward(self, x_image: torch.Tensor) -> torch.Tensor:
-        
         appearance_feature = self.ft_net(x=x_image)
-        
         return appearance_feature
-    
