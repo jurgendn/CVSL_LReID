@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  dev:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    container_name: "CVSL_ReID"
+    working_dir: /home/working
+    tty: true
+    stdin_open: true
+    volumes:
+      - .:/home/working
+
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
