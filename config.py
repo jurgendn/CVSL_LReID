@@ -24,7 +24,7 @@ SHAPE_EMBEDDING_CFG = Dynaconf(envar_prefix="DYNACONF",
 class BASIC_CONFIG:
 
     OUT_FEATURES = 512
-    AGG = 'concat' #'sum
+    AGG='concat' #'sum
 
     INPUT_SIZE = (384, 192)
 
@@ -33,7 +33,7 @@ class BASIC_CONFIG:
     DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
     COLOR_JITTER = False
-    RANDOM_ERASING = True  
+    RANDOM_ERASING = True
 
     train_transform_list = [
         T.Resize(INPUT_SIZE),
@@ -64,15 +64,15 @@ class BASIC_CONFIG:
         CLOTH_CHANGING_MODE = False
     else:
         CLOTH_CHANGING_MODE = True
-        
+
     TRAIN_JSON_PATH = osp.join(DATA_PATH, DATASET_NAME, "jsons/train.json")
     QUERY_JSON_PATH = osp.join(DATA_PATH, DATASET_NAME, "jsons/query.json")
     GALLERY_JSON_PATH = osp.join(DATA_PATH, DATASET_NAME, "jsons/gallery.json")
 
     ORIENTATION_GUIDED = False
-    SAMPLER = True 
+    SAMPLER = True
 
-    OPTIMIZER = 'adam' # or 'sgd'
+    OPTIMIZER='adam' # or 'sgd'
     WEIGHT_DECAY =  5e-4
 
     USE_WARM_EPOCH = False
@@ -99,7 +99,7 @@ class BASIC_CONFIG:
         PAIR_M = 0.3
         PAIR_S = 16.
         WEIGHT_PAIR = 0.2
-    
+
     # use clothes loss
     USE_CLOTHES_LOSS = True
     if USE_CLOTHES_LOSS:
@@ -113,7 +113,7 @@ class BASIC_CONFIG:
     TRAIN_FROM_CKPT = False
     CKPT_PATH = "work_space/lightning_logs/version_7/checkpoints/epoch=14-step=17955.ckpt"
 
-    TRAIN_SHAPE = True 
+    TRAIN_SHAPE = True
     NUM_REFINE_LAYERS = 3 # or 2 or 1
     GCN_LAYER_TYPE = "GCNConv" # ResGCN or GCNConv
     NUM_GCN_LAYERS = 3
@@ -147,10 +147,10 @@ class BASIC_CONFIG:
 
     if USE_WARM_EPOCH:
         NAME += f"_{WARM_EPOCH}warmepoch"
-    
+
     if NORM_FEATURE:
         NAME += "_norm"
-    
+
     NAME += f"_{CLA_LOSS}"
 
     if USE_TRIPLET_LOSS:
@@ -158,10 +158,10 @@ class BASIC_CONFIG:
 
     if USE_PAIRWISE_LOSS:
         NAME += f"_{PAIR_LOSS}"
-    
+
     if USE_CLOTHES_LOSS:
         NAME += "_clothesLoss"
-    
+
     if TRAIN_SHAPE:
         NAME += f"_{NUM_REFINE_LAYERS}Refine"
         NAME += f"_{GCN_LAYER_TYPE}"
