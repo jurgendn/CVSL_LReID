@@ -5,7 +5,7 @@ from src.losses.gather import GatherLayer
 
 
 class ClothesBasedAdversarialLoss(nn.Module):
-    """ Clothes-based Adversarial Loss.
+    """Clothes-based Adversarial Loss.
 
     Reference:
         Gu et al. Clothes-Changing Person Re-identification with RGB Modality Only. In CVPR, 2022.
@@ -14,37 +14,48 @@ class ClothesBasedAdversarialLoss(nn.Module):
         scale (float): scaling factor.
         epsilon (float): a trade-off hyper-parameter.
     """
+
     def __init__(self, scale=16, epsilon=0.1):
         super().__init__()
         self.scale = scale
         self.epsilon = epsilon
 
-    def forward(self, inputs, targets, positive_mask):
+    def forward(
+        self, inputs: torch.Tensor, targets: torch.Tensor, positive_mask: torch.Tensor
+    ):
         """
         Args:
             inputs: prediction matrix (before softmax) with shape (batch_size, num_classes)
             targets: ground truth labels with shape (batch_size)
-            positive_mask: positive mask matrix with shape (batch_size, num_classes). The clothes classes with 
-                the same identity as the anchor sample are defined as positive clothes classes and their mask 
-                values are 1. The clothes classes with different identities from the anchor sample are defined 
+            positive_mask: positive mask matrix with shape (batch_size, num_classes). The clothes classes with
+                the same identity as the anchor sample are defined as positive clothes classes and their mask
+                values are 1. The clothes classes with different identities from the anchor sample are defined
                 as negative clothes classes and their mask values in positive_mask are 0.
         """
         inputs = self.scale * inputs
         negtive_mask = 1 - positive_mask
-        identity_mask = torch.zeros(inputs.size()).scatter_(1, targets.unsqueeze(1).data.cpu(), 1).cuda()
+        identity_mask = (
+            torch.zeros(inputs.size())
+            .scatter_(1, targets.unsqueeze(1).data.cpu(), 1)
+            .to(self.parameters.device)
+        )
 
         exp_logits = torch.exp(inputs)
-        log_sum_exp_pos_and_all_neg = torch.log((exp_logits * negtive_mask).sum(1, keepdim=True) + exp_logits)
+        log_sum_exp_pos_and_all_neg = torch.log(
+            (exp_logits * negtive_mask).sum(1, keepdim=True) + exp_logits
+        )
         log_prob = inputs - log_sum_exp_pos_and_all_neg
 
-        mask = (1 - self.epsilon) * identity_mask + self.epsilon / positive_mask.sum(1, keepdim=True) * positive_mask
-        loss = (- mask * log_prob).sum(1).mean()
+        mask = (1 - self.epsilon) * identity_mask + self.epsilon / positive_mask.sum(
+            1, keepdim=True
+        ) * positive_mask
+        loss = (-mask * log_prob).sum(1).mean()
 
         return loss
 
 
 class ClothesBasedAdversarialLossWithMemoryBank(nn.Module):
-    """ Clothes-based Adversarial Loss between mini batch and the samples in memory.
+    """Clothes-based Adversarial Loss between mini batch and the samples in memory.
 
     Reference:
         Gu et al. Clothes-Changing Person Re-identification with RGB Modality Only. In CVPR, 2022.
@@ -56,7 +67,8 @@ class ClothesBasedAdversarialLossWithMemoryBank(nn.Module):
         scale (float): scaling factor.
         epsilon (float): a trade-off hyper-parameter.
     """
-    def __init__(self, num_clothes, feat_dim, momentum=0., scale=16, epsilon=0.1):
+
+    def __init__(self, num_clothes, feat_dim, momentum=0.0, scale=16, epsilon=0.1):
         super().__init__()
         self.num_clothes = num_clothes
         self.feat_dim = feat_dim
@@ -64,8 +76,10 @@ class ClothesBasedAdversarialLossWithMemoryBank(nn.Module):
         self.epsilon = epsilon
         self.scale = scale
 
-        self.register_buffer('feature_memory', torch.zeros((num_clothes, feat_dim)))
-        self.register_buffer('label_memory', torch.zeros(num_clothes, dtype=torch.int64) - 1)
+        self.register_buffer("feature_memory", torch.zeros((num_clothes, feat_dim)))
+        self.register_buffer(
+            "label_memory", torch.zeros(num_clothes, dtype=torch.int64) - 1
+        )
         self.has_been_filled = False
 
     def forward(self, inputs, targets, positive_mask):
@@ -73,7 +87,7 @@ class ClothesBasedAdversarialLossWithMemoryBank(nn.Module):
         Args:
             inputs: sample features (before classifier) with shape (batch_size, feat_dim)
             targets: ground truth labels with shape (batch_size)
-            positive_mask: positive mask matrix with shape (batch_size, num_classes). 
+            positive_mask: positive mask matrix with shape (batch_size, num_classes).
         """
         # gather all samples from different GPUs to update memory.
         gathered_inputs = torch.cat(GatherLayer.apply(inputs), dim=0)
@@ -85,7 +99,11 @@ class ClothesBasedAdversarialLossWithMemoryBank(nn.Module):
         similarities = torch.matmul(inputs_norm, memory_norm.t()) * self.scale
 
         negtive_mask = 1 - positive_mask
-        mask_identity = torch.zeros(positive_mask.size()).scatter_(1, targets.unsqueeze(1).data.cpu(), 1).cuda()
+        mask_identity = (
+            torch.zeros(positive_mask.size())
+            .scatter_(1, targets.unsqueeze(1).data.cpu(), 1)
+            .cuda()
+        )
 
         if not self.has_been_filled:
             invalid_index = self.label_memory == -1
@@ -93,17 +111,21 @@ class ClothesBasedAdversarialLossWithMemoryBank(nn.Module):
             negtive_mask[:, invalid_index] = 0
             if sum(invalid_index.type(torch.int)) == 0:
                 self.has_been_filled = True
-                print('Memory bank is full')
+                print("Memory bank is full")
 
         # compute log_prob
         exp_logits = torch.exp(similarities)
-        log_sum_exp_pos_and_all_neg = torch.log((exp_logits * negtive_mask).sum(1, keepdim=True) + exp_logits)
+        log_sum_exp_pos_and_all_neg = torch.log(
+            (exp_logits * negtive_mask).sum(1, keepdim=True) + exp_logits
+        )
         log_prob = similarities - log_sum_exp_pos_and_all_neg
 
         # compute mean of log-likelihood over positive
-        mask = (1 - self.epsilon) * mask_identity + self.epsilon / positive_mask.sum(1, keepdim=True) * positive_mask
-        loss = (- mask * log_prob).sum(1).mean()
-        
+        mask = (1 - self.epsilon) * mask_identity + self.epsilon / positive_mask.sum(
+            1, keepdim=True
+        ) * positive_mask
+        loss = (-mask * log_prob).sum(1).mean()
+
         return loss
 
     def _update_memory(self, features, labels):
@@ -121,5 +143,8 @@ class ClothesBasedAdversarialLossWithMemoryBank(nn.Module):
         else:
             for y in label_to_feat:
                 feat = torch.mean(torch.cat(label_to_feat[y], dim=0), dim=0)
-                self.feature_memory[y] = self.momentum * self.feature_memory[y] + (1. - self.momentum) * feat
+                self.feature_memory[y] = (
+                    self.momentum * self.feature_memory[y]
+                    + (1.0 - self.momentum) * feat
+                )
                 # self.embedding_memory[y] /= self.embedding_memory[y].norm()

@@ -1,4 +1,0 @@
-MARKET1501:
-  IMAGE_EXTENSIONS: [".jpg", ".jpeg", ".png"]
-DATAPATH: "/media/jurgen/personal/personal_research/person-reid/reid/datasets/Market-1501-v15.09.15/bounding_box_test/"
-BATCH_SIZE: 32

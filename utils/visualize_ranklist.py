@@ -1,116 +1,124 @@
 import os
 
-import cv2
 import numpy as np
 import torch
-from extract_features import extract_feature
-from PIL import Image
-from torchvision import transforms
+from PIL import Image, ImageDraw
+from torch import nn
+from torchvision import transforms as T
 from torchvision.utils import make_grid, save_image
 
-from config import get_config
+from config import BASIC_CONFIG
 from src.datasets.get_loader import get_query_gallery_loader
+from utils.extract_features import extract_feature_cc, extract_feature_standard
 
-conf = get_config(training=False)
 
+@torch.inference_mode()
+def visualize_ranklist(
+    model: nn.Module,
+    model_path: str,
+    topk: int,
+    is_clothes_change: bool = False,
+):
+    """
+    Visualize the rank list for person re-identification problem.
 
-def visualize_ranklist(model, model_path, query_json_path, gallery_json_path,
-                       topk):
+    Args:
+        model (nn.Module): The neural network model used for feature extraction.
+        model_path (str): The path to the saved model weights.
+        topk (int): The number of top-ranked images to visualize.
+        is_clothes_change (bool, optional): Flag indicating whether the person in the query image may have changed clothes.
+            Defaults to False.
+
+    Returns:
+        None
+
+    Raises:
+        FileNotFoundError: If the model weights file is not found.
+    """
     model.eval()
     query_loader, gallery_loader = get_query_gallery_loader()
-    with torch.inference_mode():
-        model.load_state_dict(
-            torch.load(model_path, map_location=conf.device)['state_dict'])
+    model.load_state_dict(
+        torch.load(model_path, map_location=BASIC_CONFIG.DEVICE)["state_dict"]
+    )
+    extract_fn = (
+        extract_feature_standard if not is_clothes_change else extract_feature_cc
+    )
+    gallery_info = extract_fn(
+        model=model, dataloader=gallery_loader, extracted_type="gallery"
+    )
+    query_info = extract_fn(
+        model=model, dataloader=query_loader, extracted_type="query"
+    )
 
-        gallery_info = extract_feature(gallery_loader, 'gallery')
-        query_info = extract_feature(query_loader, 'query')
+    query_feature = query_info["feature"]
+    query_cam = np.array(query_info["camera"])
+    query_label = np.array(query_info["label"])
+    query_cloth = np.array(query_info["cloth"])
+    query_path = query_info["path"]
+    gallery_feature = gallery_info["feature"]
+    gallery_cam = np.array(gallery_info["camera"])
+    gallery_label = np.array(gallery_info["label"])
+    gallery_cloth = np.array(gallery_info["cloth"])
+    gallery_path = gallery_info["path"]
 
-        query_feature = query_info['feature']
-        query_cam = np.array(query_info['camera'])
-        query_label = np.array(query_info['label'])
-        query_cloth = np.array(query_info['cloth'])
-        query_path = query_info['path']
-        gallery_feature = gallery_info['feature']
-        gallery_cam = np.array(gallery_info['camera'])
-        gallery_label = np.array(gallery_info['label'])
-        gallery_cloth = np.array(gallery_info['cloth'])
-        gallery_path = gallery_info['path']
+    for i, _ in enumerate(query_label):
+        # -----   modify this part of codes for different metrci learning  ------
+        # -----   This part also can be replaced by _evaluate_  ------
+        qf = query_feature[i]
+        ql = query_label[i]
+        qc = query_cam[i]
+        qcl = query_cloth[i]
+        gf = gallery_feature
+        gl = gallery_label
+        gc = gallery_cam
+        gcl = gallery_cloth
 
-        for i in range(len(query_label)):
-            # -----   modify this part of codes for different metrci learning  ------
-            # -----   This part also can be replaced by _evalute_  ------
-            qf = query_feature[i]
-            ql = query_label[i]
-            qc = query_cam[i]
-            qcl = query_cloth[i]
-            gf = gallery_feature
-            gl = gallery_label
-            gc = gallery_cam
-            gcl = gallery_cloth
+        qff = qf.view(-1, 1)
+        score = torch.mm(gf, qff)
+        score = score.squeeze(1).cpu()
+        score = score.numpy()
+        index = np.argsort(score)  # from small to large
+        index = index[::-1]
+        # good index
+        query_index = np.argwhere(gl == ql)  # same id
+        camera_index = np.argwhere(gc == qc)  # same cam
+        cloth_index = np.argwhere(gcl == qcl)  # same id same cloth
 
-            qff = qf.view(-1, 1)
-            score = torch.mm(gf, qff)
-            score = score.squeeze(1).cpu()
-            score = score.numpy()
-            index = np.argsort(score)  #from small to large
-            index = index[::-1]
-            # good index
-            query_index = np.argwhere(gl == ql)  # same id
-            camera_index = np.argwhere(gc == qc)  # same cam
-            cloth_index = np.argwhere(gcl == qcl)  # same id same cloth
+        good_index = np.setdiff1d(
+            query_index, camera_index, assume_unique=True
+        )  # same id different cam
+        good_index = np.setdiff1d(
+            good_index, cloth_index, assume_unique=True
+        )  # same id different cloth
+        junk_index1 = np.argwhere(gl == -1)  # id == -1
+        junk_index2 = np.intersect1d(query_index, camera_index)  # same id same cam
+        junk_index2 = np.union1d(junk_index2, cloth_index)
+        junk_index = np.append(junk_index2, junk_index1)  # .flatten())
 
-            good_index = np.setdiff1d(
-                query_index, camera_index,
-                assume_unique=True)  # same id different cam
-            good_index = np.setdiff1d(
-                good_index, cloth_index,
-                assume_unique=True)  # same id different cloth
-            junk_index1 = np.argwhere(gl == -1)  # id == -1
-            junk_index2 = np.intersect1d(query_index,
-                                         camera_index)  # same id same cam
-            junk_index2 = np.union1d(junk_index2, cloth_index)
-            junk_index = np.append(junk_index2, junk_index1)  #.flatten())
+        mask = np.in1d(index, junk_index, invert=True)
+        index = index[mask]
+        index = index[:topk]
 
-            # # good index
-            # query_index = np.argwhere(gl==ql)   # same id
-            # camera_index = np.argwhere(gc==qc)  # same cam
-            #
-            # good_index = np.setdiff1d(query_index, camera_index, assume_unique=True)  # same id different cam
-            # junk_index1 = np.argwhere(gl==-1)    # label == -1, i.e., junk images
-            # junk_index2 = np.intersect1d(query_index, camera_index)   #
-            # junk_index = np.append(junk_index2, junk_index1) #.flatten())
-            # -------------------------------------------------------------------
+        def read_image(path: str, good=False):
+            image = Image.open(fp=path)
+            image = image.resize(size=(192, 384))
+            draw = ImageDraw.Draw(im=image)
+            if good:
+                draw.rectangle(xy=((2, 2), (192, 384)), fill=(0, 0, 255), width=5)
+            return T.ToTensor()(image)
 
-            mask = np.in1d(index, junk_index, invert=True)
-            index = index[mask]
-            index = index[:topk]
+        samples = torch.Tensor(topk + 1, 3, 384, 192).fill_(255.0)
+        samples[0] = read_image(query_path[i], good=False)
+        for k, v in enumerate(index):
+            samples[k + 1] = read_image(
+                path=os.path.join(gallery_path[v]), good=v in good_index
+            )
+        grid = make_grid(samples, nrow=11, padding=30, normalize=True)
 
-            def read_image(path, good=False):
-                image = cv2.imread(path)
-                image = cv2.resize(image, (192, 384))
-                if good:
-                    cv2.rectangle(image, (2, 2), (192, 384),
-                                  color=(0, 0, 255),
-                                  thickness=5)
-                B, G, R = cv2.split(image)
-                image = cv2.merge([R, G, B])
-                return transforms.ToTensor()(transforms.ToPILImage()(image))
-
-            samples = torch.FloatTensor(topk + 1, 3, 384, 192).fill_(255.)
-            samples[0] = read_image(query_path[i], good=False)
-            for k, v in enumerate(index):
-                samples[k + 1] = read_image(path=os.path.join(gallery_path[v]),
-                                            good=v in good_index)
-            grid = make_grid(samples, nrow=11, padding=30, normalize=True)
-            ndarr = grid.mul(255).add_(0.5).clamp_(0, 255).permute(1, 2, 0).to(
-                'cpu', torch.uint8).numpy()
-            im = Image.fromarray(ndarr)
-
-            # plt.imshow(im)
-            # plt.show()
-            save_image(samples,
-                       '/home/qxl/ranklist/%s.png' %
-                       (query_path[i].split('/')[-1]),
-                       nrow=9,
-                       padding=30,
-                       normalize=True)
+        save_image(
+            samples,
+            "/home/qxl/ranklist/%s.png" % (query_path[i].split("/")[-1]),
+            nrow=9,
+            padding=30,
+            normalize=True,
+        )

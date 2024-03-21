@@ -153,4 +153,3 @@ class LTCC(object):
         num_imgs_gallery = len(gallery_dataset)
 
         return query_dataset, gallery_dataset, num_pids, num_imgs_query, num_imgs_gallery, num_clothes
-

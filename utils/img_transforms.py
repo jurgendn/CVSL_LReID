@@ -1,10 +1,12 @@
-from torchvision.transforms import *
-from PIL import Image
-import random
 import math
+import random
+from typing import Tuple
+
+import torch
+from PIL import Image
 
 
-class ResizeWithEqualScale(object):
+class ResizeWithEqualScale:
     """
     Resize an image with equal scale as the original image.
 
@@ -14,40 +16,57 @@ class ResizeWithEqualScale(object):
         interpolation: interpolation manner.
         fill_color (tuple): color for padding.
     """
-    def __init__(self, height, width, interpolation=Image.BILINEAR, fill_color=(0,0,0)):
+
+    def __init__(
+        self,
+        height: int,
+        width: int,
+        interpolation: Image.Resampling = Image.Resampling.BILINEAR,
+        fill_color: Tuple[int, int, int] = (0, 0, 0),
+    ):
         self.height = height
         self.width = width
         self.interpolation = interpolation
         self.fill_color = fill_color
 
-    def __call__(self, img):
+    def __call__(self, img: Image.Image):
         width, height = img.size
         if self.height / self.width >= height / width:
             height = int(self.width * (height / width))
             width = self.width
         else:
             width = int(self.height * (width / height))
-            height = self.height 
+            height = self.height
 
-        resized_img = img.resize((width, height), self.interpolation)
-        new_img = Image.new('RGB', (self.width, self.height), self.fill_color)
-        new_img.paste(resized_img, (int((self.width - width) / 2), int((self.height - height) / 2)))
+        resized_img = img.resize(size=(width, height), resample=self.interpolation)
+        new_img = Image.new(
+            mode="RGB", size=(self.width, self.height), color=self.fill_color
+        )
+        new_img.paste(
+            im=resized_img,
+            box=(int((self.width - width) / 2), int((self.height - height) / 2)),
+        )
 
         return new_img
 
 
-class RandomCroping(object):
+class RandomCroping:
     """
     With a probability, first increase image size to (1 + 1/8), and then perform random crop.
 
     Args:
         p (float): probability of performing this transformation. Default: 0.5.
     """
-    def __init__(self, p=0.5, interpolation=Image.BILINEAR):
-        self.p = p
-        self.interpolation = interpolation
 
-    def __call__(self, img):
+    def __init__(
+        self,
+        p: float = 0.5,
+        interpolation: Image.Resampling = Image.Resampling.BILINEAR,
+    ):
+        self.p: float = p
+        self.interpolation: Image.Resampling = interpolation
+
+    def __call__(self, img: Image.Image):
         """
         Args:
             img (PIL Image): Image to be cropped.
@@ -58,7 +77,7 @@ class RandomCroping(object):
         width, height = img.size
         if random.uniform(0, 1) >= self.p:
             return img
-        
+
         new_width, new_height = int(round(width * 1.125)), int(round(height * 1.125))
         resized_img = img.resize((new_width, new_height), self.interpolation)
         x_maxrange = new_width - width
@@ -70,8 +89,8 @@ class RandomCroping(object):
         return croped_img
 
 
-class RandomErasing(object):
-    """ 
+class RandomErasing:
+    """
     Randomly selects a rectangle region in an image and erases its pixels.
 
     Reference:
@@ -82,26 +101,32 @@ class RandomErasing(object):
         sl: Minimum proportion of erased area against input image.
         sh: Maximum proportion of erased area against input image.
         r1: Minimum aspect ratio of erased area.
-        mean: Erasing value. 
+        mean: Erasing value.
     """
-    
-    def __init__(self, probability = 0.5, sl = 0.02, sh = 0.4, r1 = 0.3, mean=[0.4914, 0.4822, 0.4465]):
-        self.probability = probability
-        self.mean = mean
-        self.sl = sl
-        self.sh = sh
-        self.r1 = r1
-       
-    def __call__(self, img):
 
+    def __init__(
+        self,
+        probability: float = 0.5,
+        sl: float = 0.02,
+        sh: float = 0.4,
+        r1: float = 0.3,
+        mean: Tuple[float, float, float] = (0.4914, 0.4822, 0.4465),
+    ):
+        self.probability: float = probability
+        self.mean: Tuple[float, float, float] = mean
+        self.sl: float = sl
+        self.sh: float = sh
+        self.r1: float = r1
+
+    def __call__(self, img: torch.Tensor) -> torch.Tensor:
         if random.uniform(0, 1) >= self.probability:
             return img
 
-        for attempt in range(100):
+        for _ in range(100):
             area = img.size()[1] * img.size()[2]
-       
+
             target_area = random.uniform(self.sl, self.sh) * area
-            aspect_ratio = random.uniform(self.r1, 1/self.r1)
+            aspect_ratio = random.uniform(self.r1, 1 / self.r1)
 
             h = int(round(math.sqrt(target_area * aspect_ratio)))
             w = int(round(math.sqrt(target_area / aspect_ratio)))
@@ -110,11 +135,11 @@ class RandomErasing(object):
                 x1 = random.randint(0, img.size()[1] - h)
                 y1 = random.randint(0, img.size()[2] - w)
                 if img.size()[0] == 3:
-                    img[0, x1:x1+h, y1:y1+w] = self.mean[0]
-                    img[1, x1:x1+h, y1:y1+w] = self.mean[1]
-                    img[2, x1:x1+h, y1:y1+w] = self.mean[2]
+                    img[0, x1 : x1 + h, y1 : y1 + w] = self.mean[0]
+                    img[1, x1 : x1 + h, y1 : y1 + w] = self.mean[1]
+                    img[2, x1 : x1 + h, y1 : y1 + w] = self.mean[2]
                 else:
-                    img[0, x1:x1+h, y1:y1+w] = self.mean[0]
+                    img[0, x1 : x1 + h, y1 : y1 + w] = self.mean[0]
                 return img
 
         return img

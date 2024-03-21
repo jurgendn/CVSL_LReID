@@ -9,8 +9,11 @@ class GeMPooling(nn.Module):
         self.p = nn.Parameter(torch.ones(1) * p)
         self.eps = eps
 
-    def forward(self, x):
-        return F.avg_pool2d(x.clamp(min=self.eps).pow(self.p), x.size()[2:]).pow(1./self.p)
+    def forward(self, x: torch.Tensor):
+        x = x.clamp(min=self.eps).pow(exponent=self.p)
+        kernel_size = x.size()[2:]
+        y = F.avg_pool2d(input=x, kernel_size=kernel_size).pow(exponent=1.0 / self.p)
+        return y
 
 
 class MaxAvgPooling(nn.Module):
@@ -24,4 +27,3 @@ class MaxAvgPooling(nn.Module):
         avg_f = self.avgpooling(x)
 
         return torch.cat((max_f, avg_f), 1)
-        

@@ -7,14 +7,14 @@ from pytorch_lightning.loggers import TensorBoardLogger
 
 from config import BASIC_CONFIG, SHAPE_EMBEDDING_CFG
 
-# from src.datasets.get_loader import get_train_loader
+from src.datasets.get_loader import get_train_loader
 from src.models.baseline import Baseline
 
 logger = TensorBoardLogger(save_dir=BASIC_CONFIG.LOG_PATH)
 
 
 def train():
-    # train_loader, num_classes, dataset_size = get_train_loader()
+    train_loader, num_classes, dataset_size = get_train_loader()
 
     net = Baseline(
         orientation_guided=BASIC_CONFIG.ORIENTATION_GUIDED,
