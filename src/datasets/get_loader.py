@@ -1,23 +1,60 @@
-from src.datasets.base_dataset import TestDataset, TrainDataset, TrainDatasetOrientation
+from typing import Tuple, Union
+
 from torch.utils.data import DataLoader
+
+from configs.factory import MainConfig
+from src.datasets.base_dataset import TestDataset, TrainDataset, TrainDatasetOrientation
 from src.datasets.samplers import RandomIdentitySampler
-from config import BASIC_CONFIG
-
-conf = BASIC_CONFIG
 
 
-
-def get_query_gallery_loader():
-    query_data = TestDataset(conf.QUERY_JSON_PATH, conf.TEST_TRANSFORM, conf.CLOTH_CHANGING_MODE)
-    gallery_data = TestDataset(conf.GALLERY_JSON_PATH, conf.TEST_TRANSFORM, conf.CLOTH_CHANGING_MODE)
-    query_loader = DataLoader(query_data, batch_size=conf.BATCH_SIZE, shuffle=False, num_workers=conf.NUM_WORKER, pin_memory=conf.PIN_MEMORY)
-    gallery_loader = DataLoader(gallery_data, batch_size=conf.BATCH_SIZE, shuffle=False, num_workers=conf.NUM_WORKER, pin_memory=conf.PIN_MEMORY)
+def get_query_gallery_loader(config: MainConfig):
+    query_data = TestDataset(
+        json_path=config.query_json_path,
+        transforms=config.test_transform,
+        cloth_changing=config.cloth_changing_mode,
+    )
+    gallery_data = TestDataset(
+        json_path=config.gallery_json_path,
+        transforms=config.test_transform,
+        cloth_changing=config.cloth_changing_mode,
+    )
+    query_loader = DataLoader(
+        dataset=query_data,
+        batch_size=config.batch_size,
+        shuffle=False,
+        num_workers=config.num_workers,
+        pin_memory=config.pin_memory,
+    )
+    gallery_loader = DataLoader(
+        dataset=gallery_data,
+        batch_size=config.batch_size,
+        shuffle=False,
+        num_workers=config.num_workers,
+        pin_memory=config.pin_memory,
+    )
     return query_loader, gallery_loader
 
-def get_train_data(orientation_guided):
-    if orientation_guided:
-        train_data = TrainDatasetOrientation(conf.TRAIN_JSON_PATH, conf.TRAIN_TRANSFORM)
+
+def get_train_data(
+    config: MainConfig,
+) -> Tuple[Union[TrainDatasetOrientation, TrainDataset], RandomIdentitySampler]:
+    """
+    Get train data and sampler
+    Args:
+        config: MainConfig
+
+    Returns:
+        Tuple[Union[TrainDatasetOrientation, TrainDataset], RandomIdentitySampler]: Train data and sampler
+    """
+    if config.orientation_guided:
+        train_data = TrainDatasetOrientation(
+            json_path=config.train_json_path, transforms=config.train_transform
+        )
     else:
-        train_data = TrainDataset(conf.TRAIN_PATH, conf.TRAIN_JSON_PATH, conf.TRAIN_TRANSFORM)
+        train_data = TrainDataset(
+            config.train_path,
+            config.train_json_path,
+            config.train_transform,
+        )
     sampler = RandomIdentitySampler(train_data, num_instances=8)
     return train_data, sampler

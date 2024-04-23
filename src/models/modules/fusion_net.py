@@ -1,10 +1,11 @@
 import torch
 from torch import nn
 from torch.nn import init
+from configs.factory import MiscellaneusConfig
 from config import BASIC_CONFIG
 
-class AggregationNet(nn.Module):
 
+class AggregationNet(nn.Module):
     def __init__(self) -> None:
         super(AggregationNet, self).__init__()
         self.theta = nn.parameter.Parameter(torch.randn(1, 2))
@@ -17,29 +18,38 @@ class AggregationNet(nn.Module):
 
 
 class FusionNet(nn.Module):
-
-    def __init__(self, out_features: int = 1024) -> None:
+    def __init__(self, config: MiscellaneusConfig) -> None:
         super(FusionNet, self).__init__()
-        self.out_features = out_features
+        self.out_features = config.fusion_net_output_dim
 
-        self.appearance_net = nn.Sequential(nn.Linear(in_features=4096, out_features=out_features),
-                                            nn.LeakyReLU())
-        self.shape_net = nn.Sequential(nn.Linear(in_features=512, out_features=out_features),
-                                       nn.LeakyReLU())
+        self.appearance_net = nn.Sequential(
+            nn.Linear(
+                in_features=config.fusion_net_apprearance_dim,
+                out_features=config.fusion_net_output_dim,
+            ),
+            nn.LeakyReLU(),
+        )
+        self.shape_net = nn.Sequential(
+            nn.Linear(
+                in_features=config.fusion_net_shape_dim,
+                out_features=config.fusion_net_output_dim,
+            ),
+            nn.LeakyReLU(),
+        )
 
         self.theta = AggregationNet()
-        self.bn = nn.BatchNorm1d(out_features)
+        self.bn = nn.BatchNorm1d(num_features=config.fusion_net_output_dim)
         init.normal_(self.bn.weight.data, 1.0, 0.02)
-        init.constant_(self.bn.bias.data, 0.0),
-        
+        (init.constant_(self.bn.bias.data, 0.0),)
 
-    def forward(self, appearance_features: torch.Tensor,
-                shape_features: torch.Tensor) -> torch.Tensor:
+    def forward(
+        self, appearance_features: torch.Tensor, shape_features: torch.Tensor
+    ) -> torch.Tensor:
         appearance = self.appearance_net(appearance_features)
         shape = self.shape_net(shape_features)
-        if BASIC_CONFIG.AGG == 'sum':
+        if BASIC_CONFIG.AGG == "sum":
             agg_features = self.theta(x=appearance, y=shape)
-        else: 
-            agg_features = torch.cat((appearance, shape),dim=0)
+        else:
+            agg_features = torch.cat((appearance, shape), dim=0)
         agg_features = self.bn(agg_features)
         return agg_features
