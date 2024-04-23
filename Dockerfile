@@ -10,6 +10,6 @@ RUN apt-get install -y cmake build-essential
 
 COPY requirements.txt /tmp/requirements.txt
 
-# RUN pip install torch==2.2.1 torchvision==0.17.1 --index-url https://download.pytorch.org/whl/cu121
+
 RUN pip install torch==2.2.1 torchvision==0.17.1 --index-url https://download.pytorch.org/whl/cpu
 RUN pip install -r /tmp/requirements.txt

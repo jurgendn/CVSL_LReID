@@ -11,6 +11,7 @@ from utils.img_transforms import RandomCroping, RandomErasing
 class BASIC_CONFIG:
     OUT_FEATURES = 512
     AGG = "concat"  #'sum
+
     INPUT_SIZE = (384, 192)
     LR = 0.0035
     DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
@@ -107,6 +108,7 @@ class BASIC_CONFIG:
     TRAIN_SHAPE = True
     NUM_REFINE_LAYERS = 3  # or 2 or 1
     GCN_LAYER_TYPE = "GCNConv"  # ResGCN or GCNConv
+
     NUM_GCN_LAYERS = 3
     AGGREGATION_TYPE = "max"  # max
 
