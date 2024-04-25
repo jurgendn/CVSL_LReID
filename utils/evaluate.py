@@ -42,12 +42,10 @@ def evaluate(gallery: dict, query: dict) -> Tuple[torch.Tensor, float]:
             continue
         cmc += cmc_tmp
         ap += ap_tmp
-        # print(i, cmc_tmp[0])
 
     cmc = cmc.float()
     cmc /= len(query_label)  # average CMC
 
-    # print(len(cmc))
     # print('-- Rank@1: %f, Rank@5: %f, Rank@10: %f, mAP: %f'%(CMC[0], CMC[4], CMC[9], ap/len(query_label)))
     return cmc, ap / len(query_label)
 
@@ -83,13 +81,13 @@ def _evaluate(
     sorted_indices = np.argsort(similarity_score)[::-1]
 
     # Identify relevant and irrelevant gallery images
-    same_label_indices = np.where(gallery_label == query_label)[0]
-    same_camera_indices = np.where(gallery_camera == query_camera)[0]
+    same_label_indices = np.nonzero(gallery_label == query_label)[0]
+    same_camera_indices = np.nonzero(gallery_camera == query_camera)[0]
     relevant_indices = np.setdiff1d(
         same_label_indices, same_camera_indices, assume_unique=True
     )
     irrelevant_indices = np.concatenate(
-        [np.where(gallery_label == -1)[0], same_camera_indices]
+        [np.nonzero(gallery_label == -1)[0], same_camera_indices]
     )
 
     ap, cmc = compute_map(sorted_indices, relevant_indices, irrelevant_indices)
@@ -136,12 +134,10 @@ def evaluate2(gallery: dict, query: dict) -> tuple[torch.Tensor, float]:
             continue
         cmc += cmc_tmp
         ap += ap_tmp
-        # print(i, cmc_tmp[0])
 
     cmc = cmc.float()
     cmc /= len(query_label)  # average CMC
 
-    # print(len(cmc))
     # print('-- Rank@1: %f, Rank@5: %f, Rank@10: %f, mAP: %f'%(CMC[0], CMC[4], CMC[9], ap/len(query_label)))
     return cmc, ap / len(query_label)
 
@@ -182,16 +178,16 @@ def _evaluate2(
     sorted_indices = np.argsort(similarity_score)[::-1]
 
     # Identify relevant and irrelevant gallery images based on label, camera, and clothing
-    same_label_indices = np.where(gallery_label == query_label)[0]
-    same_camera_indices = np.where(gallery_camera == query_camera)[0]
-    same_cloth_indices = np.where(gallery_cloth == query_cloth)[0]
+    same_label_indices = np.nonzero(gallery_label == query_label)[0]
+    same_camera_indices = np.nonzero(gallery_camera == query_camera)[0]
+    same_cloth_indices = np.nonzero(gallery_cloth == query_cloth)[0]
     relevant_indices = np.setdiff1d(
         np.setdiff1d(same_label_indices, same_camera_indices, assume_unique=True),
         same_cloth_indices,
         assume_unique=True,
     )
     irrelevant_indices = np.concatenate(
-        [np.where(gallery_label == -1)[0], same_camera_indices, same_cloth_indices]
+        [np.nonzero(gallery_label == -1)[0], same_camera_indices, same_cloth_indices]
     )
 
     ap, cmc = compute_map(sorted_indices, relevant_indices, irrelevant_indices)

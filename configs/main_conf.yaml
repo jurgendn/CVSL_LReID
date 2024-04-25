@@ -1,6 +1,16 @@
 trainer:
   epochs: 20
 
+dataset:
+  name: "ltcc"
+  root: "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/"
+  train_path: "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/train"
+  query_path: "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/query"
+  gallery_path: "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/gallery"
+  train_json_path: "./data/ltcc/jsons/train.json"
+  query_json_path: "./data/ltcc/jsons/query.json"
+  gallery_json_path: "./data/ltcc/jsons/gallery.json"
+
 main:
   out_features: 512
   agg: "concat"
@@ -15,9 +25,9 @@ main:
   dataset_name: "ltcc"
   train_path: "/home/dustin/Documents/Research/P003 - 2D ReID/Datasets/ltcc/train"
 
-  train_json_path: "./data/ltcc/jsons/train.json"
-  query_json_path: "./data/ltcc/jsons/query.json"
-  gallery_json_path: "./data/ltcc/jsons/gallery.json"
+  train_json_path: ./data/ltcc/jsons/train_new_only_jurgendn.json
+  query_json_path: ./data/ltcc/jsons/train_new_only_jurgendn.json
+  gallery_json_path: ./data/ltcc/jsons/train_new_only_jurgendn.json
 
   orientation_guided: False
   sampler: True

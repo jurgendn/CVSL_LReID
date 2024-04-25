@@ -50,13 +50,13 @@ class PairwiseCircleLoss(nn.Module):
         ) * mask_pos
         scores = scores * scale_matrix
 
-        neg_scores_LSE = torch.logsumexp(
+        neg_scores_lse = torch.logsumexp(
             scores * mask_neg - 99999999 * (1 - mask_neg), dim=1
         )
-        pos_scores_LSE = torch.logsumexp(
+        pos_scores_lse = torch.logsumexp(
             scores * mask_pos - 99999999 * (1 - mask_pos), dim=1
         )
 
-        loss = F.softplus(neg_scores_LSE + pos_scores_LSE).mean()
+        loss = F.softplus(neg_scores_lse + pos_scores_lse).mean()
 
         return loss

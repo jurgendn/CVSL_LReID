@@ -328,10 +328,6 @@ class HRNET_CFG:
 
 @dataclass
 class SHAPE_EMBEDDING_CFG:
-    # NUM_REFINE_LAYERS = 3
-    # GCN_LAYER_TYPE = "GCNConv" # "ResGCN"
-    # AGGREGATION_TYPE = 'mean'
-    # RELATION_LAYERS = [[512, 512], [512, 256], [256, 256], [256, 128]]
     POSE_N_FEATURES = 3
     N_HIDDEN = 1024
     OUT_FEATURES = 2048

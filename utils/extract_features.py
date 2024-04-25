@@ -30,8 +30,8 @@ def extract_feature_standard(
 
         input_imgs = imgs.to(BASIC_CONFIG.DEVICE)
         input_poses = poses.to(BASIC_CONFIG.DEVICE)
-
-        output = model(input_imgs)
+        print(input_poses)
+        output = model(input_imgs, input_poses, edge_index=edge_index)
 
         feature = output.data.cpu()
         feature_norm = torch.norm(feature, p=2, dim=1, keepdim=True)
@@ -53,7 +53,7 @@ def extract_feature_cc(model: nn.Module, dataloader: DataLoader, extracted_type:
     for data in tqdm(
         dataloader, desc="-- Extract %s features | Cloth-changing: " % (extracted_type)
     ):
-        imgs, poses, p_ids, cam_ids, cloth_ids, img_paths = data
+        imgs, _, p_ids, cam_ids, cloth_ids, img_paths = data
 
         labels += p_ids
         cameras += cam_ids
@@ -61,7 +61,6 @@ def extract_feature_cc(model: nn.Module, dataloader: DataLoader, extracted_type:
         paths += img_paths
 
         input_imgs = imgs.to(BASIC_CONFIG.DEVICE)
-        input_poses = poses.to(BASIC_CONFIG.DEVICE)
 
         output = model(input_imgs)
 

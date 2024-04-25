@@ -7,7 +7,7 @@ from torch import nn
 from torchvision import transforms as T
 from torchvision.utils import make_grid, save_image
 
-from config import BASIC_CONFIG
+from configs.factory import MainConfig
 from src.datasets.get_loader import get_query_gallery_loader
 from utils.extract_features import extract_feature_cc, extract_feature_standard
 
@@ -17,6 +17,7 @@ def visualize_ranklist(
     model: nn.Module,
     model_path: str,
     topk: int,
+    config: MainConfig,
     is_clothes_change: bool = False,
 ):
     """
@@ -35,11 +36,9 @@ def visualize_ranklist(
     Raises:
         FileNotFoundError: If the model weights file is not found.
     """
+    query_loader, gallery_loader = get_query_gallery_loader(config=config)
+    # model.load_state_dict(torch.load(model_path, map_location="cpu")["state_dict"])
     model.eval()
-    query_loader, gallery_loader = get_query_gallery_loader()
-    model.load_state_dict(
-        torch.load(model_path, map_location=BASIC_CONFIG.DEVICE)["state_dict"]
-    )
     extract_fn = (
         extract_feature_standard if not is_clothes_change else extract_feature_cc
     )
@@ -113,7 +112,8 @@ def visualize_ranklist(
             samples[k + 1] = read_image(
                 path=os.path.join(gallery_path[v]), good=v in good_index
             )
-        grid = make_grid(samples, nrow=11, padding=30, normalize=True)
+        # Uncomment to log the grids
+        # grid = make_grid(samples, nrow=11, padding=30, normalize=True)
 
         save_image(
             samples,
