@@ -2,7 +2,7 @@
 
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](requirements.txt)
 [![Status](https://img.shields.io/badge/status-research%2Fexperimental-orange)](#status)
-[![Publication](https://img.shields.io/badge/PDF-view-orange)\](https://drive.google.com/file/d/1NAmaJF7buBkKZmAcY181DCdm3XpCNvRN/view?usp=sharing)
+[![Publication](https://img.shields.io/badge/PDF-view-orange)](https://openaccess.thecvf.com/content/WACV2024/html/Nguyen_Contrastive_Viewpoint-Aware_Shape_Learning_for_Long-Term_Person_Re-Identification_WACV_2024_paper.html)
 
 This repository contains research code for **CVSL (Contrastive Viewpoint-aware Shape Learning)**, a Long-term Person Re-Identification (LRe-ID) method that improves robustness to **clothing changes** and **viewpoint variations** by combining appearance cues with texture-invariant body shape cues.
 
